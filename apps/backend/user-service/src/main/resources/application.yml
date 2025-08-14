@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: grpc-server
+  lifecycle:
+    timeout-per-shutdown-phase: "2m"
+
+
+server:
+  port: 8081
+  http2:
+    enabled: true
+
+grpc:
+  server:
+    port: 5${server.port}
