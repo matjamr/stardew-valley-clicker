@@ -6,13 +6,13 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.5.4</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
     <groupId>com.mat.jamr</groupId>
-    <artifactId>user-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>user-service</name>
-    <description>user-service</description>
+    <artifactId>user-service-api</artifactId>
+    <version>0.0.1</version>
+    <name>user-service-api</name>
+    <description>user-service-api</description>
     <url/>
     <licenses>
         <license/>
@@ -51,17 +51,6 @@
             <groupId>org.springframework.grpc</groupId>
             <artifactId>spring-grpc-test</artifactId>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.mat.jamr</groupId>
-            <artifactId>user-service-api</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
     <dependencyManagement>
@@ -105,6 +94,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
         </plugins>
     </build>
