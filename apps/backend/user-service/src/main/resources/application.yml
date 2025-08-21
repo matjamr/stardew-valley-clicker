@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    aws:
+      dynamodb:
+        region: local
+      credentials:
+        access-key: fake
+        secret-key: fake
