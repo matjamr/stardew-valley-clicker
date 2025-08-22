@@ -4,8 +4,6 @@ option java_multiple_files = true;
 option java_package = "com.mat.jamr.userservice.api";
 option java_outer_classname = "UserGrpcService";
 
-import "buf/validate/validate.proto";
-
 service UserService {
   rpc SaveUser (SaveUserRequest) returns (SaveUserResponse) {}
   rpc RetrieveUser (RetrieveUserRequest) returns (RetrieveUserResponse) {}
@@ -25,7 +23,7 @@ message RetrieveUserResponse {
 message SaveUserRequest {
   string name = 1;
   string surname = 2;
-  string email = 3 [(buf.validate.field).string.min_len = 3];
+  string email = 3;
 }
 
 message SaveUserResponse {

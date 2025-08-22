@@ -2,13 +2,12 @@ package com.mat.jamr.userservice.service;
 
 import com.mat.jamr.userservice.api.*;
 import io.grpc.stub.StreamObserver;
-import net.devh.boot.grpc.server.service.GrpcService;
+import org.springframework.grpc.server.service.GrpcService;
 
 @GrpcService
-public class UserRetrieveService extends UserServiceGrpc.UserServiceImplBase {
+public class UserService extends UserServiceGrpc.UserServiceImplBase {
 
     @Override
-    @GrpcValidation
     public void saveUser(SaveUserRequest request, StreamObserver<SaveUserResponse> responseObserver) {
 
         responseObserver.onNext(SaveUserResponse.newBuilder()
