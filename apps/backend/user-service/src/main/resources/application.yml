@@ -6,3 +6,18 @@ spring:
       credentials:
         access-key: fake
         secret-key: fake
+  grpc:
+    server:
+      reflection:
+        enabled: true
+      ssl:
+        secure: false
+
+aws:
+  region: local
+  dynamodb:
+    endpoint: http://localhost:8000
+    accessKey: fake
+    secretKey: fake
+  dynamo:
+    sessionToken: fake-token

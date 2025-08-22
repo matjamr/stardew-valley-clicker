@@ -1,46 +1,37 @@
 package com.mat.jamr.userservice.service;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.mat.jamr.userservice.api.User;
-import io.awspring.cloud.dynamodb.DynamoDbTemplate;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
-import software.amazon.awssdk.enhanced.dynamodb.Key;
 
 import java.util.UUID;
 
 @Repository
 @AllArgsConstructor
 public class UserRepository {
-    final private DynamoDbTemplate dynamoDbTemplate;
+    final private DynamoDBMapper dynamoDBMapper;
 
     public String createCustomer(User user) {
-        var savedUser = dynamoDbTemplate.save(user);
-        return savedUser.getId().toString();
+        dynamoDBMapper.save(user);
+        return user.getId().toString();
     }
 
     public User getCustomerById(String id) {
-        Key partitionKey = Key.builder().partitionValue(id).build();
-
-        return dynamoDbTemplate.load(partitionKey, User.class);
+        return dynamoDBMapper.load(User.class, UUID.fromString(id));
     }
 
     public User updateCustomer(String id, User user) {
-        Key partitionKey = Key.builder().partitionValue(id).build();
-        User load = dynamoDbTemplate.load(partitionKey, User.class);
-
+        User load = dynamoDBMapper.load(User.class, UUID.fromString(id));
         load.setName(user.getName());
         load.setEmail(user.getEmail());
-        var returnedUser = dynamoDbTemplate.save(load);
-
-        return returnedUser;
+        dynamoDBMapper.save(load);
+        return load;
     }
 
     public String deleteCustomer(String id) {
-        Key partitionKey = Key.builder().partitionValue(id).build();
-        User load = dynamoDbTemplate.load(partitionKey, User.class);
-
-        dynamoDbTemplate.delete(load);
-
+        User load = dynamoDBMapper.load(User.class, UUID.fromString(id));
+        dynamoDBMapper.delete(load);
         return load.getId() + " get deleted !";
     }
 }
