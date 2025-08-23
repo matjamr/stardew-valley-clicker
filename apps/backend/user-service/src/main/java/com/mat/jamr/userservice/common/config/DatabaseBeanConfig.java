@@ -1,4 +1,4 @@
-package com.mat.jamr.userservice.config.common;
+package com.mat.jamr.userservice.common.config;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicSessionCredentials;
@@ -9,9 +9,12 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
-@Configuration("CommonBeanConfig")
-public class BeanConfig {
+@Configuration("DatabaseBeanConfig")
+public class DatabaseBeanConfig {
 
     @Value("${aws.dynamodb.endpoint}")
     private String dynamodbEndpoint;
@@ -52,5 +55,19 @@ public class BeanConfig {
                         )
                 )
                 .build();
+    }
+
+    @Bean
+    LettuceConnectionFactory connectionFactory() {
+        return new LettuceConnectionFactory();
+    }
+
+    @Bean
+    public RedisTemplate<String, Object> redisTemplate() {
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
+        template.setConnectionFactory(connectionFactory());
+        template.setDefaultSerializer(
+                new Jackson2JsonRedisSerializer<>(Object.class));
+        return template;
     }
 }

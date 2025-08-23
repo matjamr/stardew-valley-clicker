@@ -1,4 +1,4 @@
-package com.mat.jamr.userservice.service;
+package com.mat.jamr.userservice.user;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.mat.jamr.userservice.api.User;

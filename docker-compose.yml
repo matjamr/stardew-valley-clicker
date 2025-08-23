@@ -25,6 +25,15 @@ services:
     networks:
       - dynamo-local
 
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
 #  mongo:
 #    image: mongo:latest
 #    container_name: mongo
@@ -34,14 +43,6 @@ services:
 #    volumes:
 #      - mongo_data:/data/db
 #
-#  redis:
-#    image: redis:latest
-#    container_name: redis
-#    restart: unless-stopped
-#    ports:
-#      - "6379:6379"
-#    volumes:
-#      - redis_data:/data
 #
 #  minio:
 #    image: quay.io/minio/minio

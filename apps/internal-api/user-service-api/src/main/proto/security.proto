@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.mat.jamr.userservice.api";
+option java_outer_classname = "SecurityGrpcService";
+
+service SecurityService {
+  rpc Login (LoginUserRequest) returns (LoginUserResponse) {}
+  rpc Verify (VerifyUserRequest) returns (VerifyUserResponse) {}
+  rpc Refresh (RefreshTokenRequest) returns (RefreshTokenResponse) {}
+}
+
+message LoginUserRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginUserResponse {
+  string accessToken = 1;
+  string refreshToken = 2;
+}
+
+message VerifyUserRequest {
+  string accessToken = 1;
+}
+
+message VerifyUserResponse {
+  string name = 1;
+  string surname = 2;
+  string email = 3;
+}
+
+message RefreshTokenRequest {
+  string refreshToken = 1;
+}
+
+message RefreshTokenResponse {
+  string accessToken = 1;
+}
