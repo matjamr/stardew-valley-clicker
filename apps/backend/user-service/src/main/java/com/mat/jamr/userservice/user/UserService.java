@@ -4,7 +4,7 @@ import com.mat.jamr.userservice.api.*;
 import com.mat.jamr.userservice.user.retrieve.service.RetrieveUserContext;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
-import org.springframework.grpc.server.service.GrpcService;
+import net.devh.boot.grpc.server.service.GrpcService;
 
 import java.util.function.Function;
 

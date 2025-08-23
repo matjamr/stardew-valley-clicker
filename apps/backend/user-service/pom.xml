@@ -36,7 +36,7 @@
         <spring-redis.version>3.5.3</spring-redis.version>
         <jedis.version>6.1.0</jedis.version>
         <jwt.version>0.11.5</jwt.version>
-        <user-service-api.version>0.0.3</user-service-api.version>
+        <user-service-api.version>0.0.4</user-service-api.version>
         <common-utils.version>1.0</common-utils.version>
         <protobuf-maven-plugin.version>3.4.2</protobuf-maven-plugin.version>
     </properties>
@@ -44,12 +44,20 @@
     <dependencies>
         <!-- gRPC -->
         <dependency>
-            <groupId>io.grpc</groupId>
-            <artifactId>grpc-services</artifactId>
+            <groupId>net.devh</groupId>
+            <artifactId>grpc-spring-boot-starter</artifactId>
+            <version>3.1.0.RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.grpc</groupId>
-            <artifactId>spring-grpc-spring-boot-starter</artifactId>
+            <groupId>net.devh</groupId>
+            <artifactId>grpc-server-spring-boot-starter</artifactId>
+            <version>3.1.0.RELEASE</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.grpc</groupId>
+                    <artifactId>grpc-netty-shaded</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Spring Boot -->
@@ -124,13 +132,6 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.springframework.grpc</groupId>
-                <artifactId>spring-grpc-dependencies</artifactId>
-                <version>${spring-grpc.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
                 <groupId>io.awspring.cloud</groupId>
                 <artifactId>spring-cloud-aws</artifactId>
                 <version>${spring-cloud-aws.version}</version>
@@ -142,30 +143,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>io.github.ascopes</groupId>
-                <artifactId>protobuf-maven-plugin</artifactId>
-                <version>${protobuf-maven-plugin.version}</version>
-                <configuration>
-                    <protocVersion>${protobuf-java.version}</protocVersion>
-                    <binaryMavenPlugins>
-                        <binaryMavenPlugin>
-                            <groupId>io.grpc</groupId>
-                            <artifactId>protoc-gen-grpc-java</artifactId>
-                            <version>${grpc.version}</version>
-                            <options>@generated=omit</options>
-                        </binaryMavenPlugin>
-                    </binaryMavenPlugins>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>generate</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

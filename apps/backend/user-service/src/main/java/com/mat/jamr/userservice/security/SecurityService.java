@@ -2,7 +2,7 @@ package com.mat.jamr.userservice.security;
 
 import com.mat.jamr.userservice.api.*;
 import io.grpc.stub.StreamObserver;
-import org.springframework.grpc.server.service.GrpcService;
+import net.devh.boot.grpc.server.service.GrpcService;
 
 @GrpcService
 public class SecurityService extends SecurityServiceGrpc.SecurityServiceImplBase {
