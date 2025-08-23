@@ -1,6 +1,7 @@
 package com.mat.jamr.userservice.user;
 
 import com.mat.jamr.userservice.api.*;
+import com.mat.jamr.userservice.user.create.service.CreateUserContext;
 import com.mat.jamr.userservice.user.retrieve.service.RetrieveUserContext;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
@@ -12,17 +13,13 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class UserService extends UserServiceGrpc.UserServiceImplBase {
 
-    private final UserRepository userRepository;
     private final Function<RetrieveUserContext, RetrieveUserResponse> retrieveUserStrategyBasedFlow;
+    private final Function<CreateUserContext, SaveUserResponse> createUserStrategyBasedFlow;
 
     @Override
     public void saveUser(SaveUserRequest request, StreamObserver<SaveUserResponse> responseObserver) {
-        var user = userRepository.createCustomer(new User().setEmail("SAMPLE").setName("CZESC").setPassword("PASSWORD"));
-
-        responseObserver.onNext(SaveUserResponse.newBuilder()
-                .setId("asda")
-                .build());
-
+        var a = createUserStrategyBasedFlow.apply(CreateUserContext.from(request));
+        responseObserver.onNext(a);
         responseObserver.onCompleted();
     }
 

@@ -36,7 +36,7 @@
         <spring-redis.version>3.5.3</spring-redis.version>
         <jedis.version>6.1.0</jedis.version>
         <jwt.version>0.11.5</jwt.version>
-        <user-service-api.version>0.0.4</user-service-api.version>
+        <user-service-api.version>0.0.5</user-service-api.version>
         <common-utils.version>1.0</common-utils.version>
         <protobuf-maven-plugin.version>3.4.2</protobuf-maven-plugin.version>
     </properties>

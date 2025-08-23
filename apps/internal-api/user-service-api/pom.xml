@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.mat.jamr</groupId>
     <artifactId>user-service-api</artifactId>
-    <version>0.0.4</version>
+    <version>0.0.5</version>
     <name>user-service-api</name>
     <description>user-service-api</description>
     <url/>
@@ -30,7 +30,7 @@
         <java.version>21</java.version>
 
         <protobuf.version>3.24.4</protobuf.version>
-        <grpc.version>1.59.0</grpc.version>
+        <grpc.version>1.63.0</grpc.version>
         <protobuf.maven.plugin.version>0.6.1</protobuf.maven.plugin.version>
     </properties>
     <dependencies>
@@ -39,6 +39,11 @@
             <groupId>io.grpc</groupId>
             <artifactId>grpc-netty-shaded</artifactId>
             <version>${grpc.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-protobuf-lite</artifactId>
+            <version>1.75.0</version>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
