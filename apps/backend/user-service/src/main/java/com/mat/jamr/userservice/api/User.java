@@ -9,7 +9,7 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortK
 
 @Data
 @DynamoDbBean
-@Accessors(chain = true)
+@Accessors(chain = true, fluent = true)
 public class User {
 
     private String id;
@@ -27,6 +27,7 @@ public class User {
         return name;
     }
 
+    @DynamoDbSortKey
     @DynamoDbAttribute("email")
     public String getEmail() {
         return email;

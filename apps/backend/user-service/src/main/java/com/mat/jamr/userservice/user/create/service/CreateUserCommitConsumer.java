@@ -1,6 +1,7 @@
 package com.mat.jamr.userservice.user.create.service;
 
 
+import com.mat.jamr.userservice.api.Email;
 import com.mat.jamr.userservice.api.User;
 import com.mat.jamr.userservice.common.user.template.UserAware;
 import lombok.RequiredArgsConstructor;
@@ -17,16 +18,17 @@ import java.util.function.Consumer;
 public class CreateUserCommitConsumer<T extends UserAware> implements Consumer<T> {
 
     private final DynamoDbTable<User> userTable;
+    private final DynamoDbTable<Email> emailTable;
     private final DynamoDbEnhancedClient dynamoDbEnhancedClient;
 
     @Override
     public void accept(T context) {
         TransactWriteItemsEnhancedRequest transactWriteRequest = TransactWriteItemsEnhancedRequest.builder()
-                .addPutItem(userTable, TransactPutItemEnhancedRequest.builder(User.class)
+                .addPutItem(emailTable, TransactPutItemEnhancedRequest.builder(Email.class)
                         .conditionExpression(Expression.builder()
-                                .expression("attribute_not_exists(id)")
+                                .expression("attribute_not_exists(emailId)")
                                 .build())
-                        .item(buildUniqueEmail(context.getUser()))
+                        .item(buildEmail(context.getUser()))
                         .returnValuesOnConditionCheckFailure("Email exists")
                         .build())
                 .addPutItem(userTable, TransactPutItemEnhancedRequest.builder(User.class)
@@ -49,10 +51,11 @@ public class CreateUserCommitConsumer<T extends UserAware> implements Consumer<T
         }
     }
 
-    private User buildUniqueEmail(User user) {
-        var usr = new User();
-        usr.setId("email#" + user.getEmail());
+    private Email buildEmail(User user) {
+        var email = new Email();
+        email.setEmailId("email#" + user.getEmail());
+        email.setUserId(user.getId());
 
-        return usr;
+        return email;
     }
 }

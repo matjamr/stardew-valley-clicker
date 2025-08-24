@@ -1,14 +1,14 @@
 {
-  "TableName": "users",
+  "TableName": "emails",
   "KeySchema": [
     {
-      "AttributeName": "id",
+      "AttributeName": "emailId",
       "KeyType": "HASH"
     }
   ],
   "AttributeDefinitions": [
     {
-      "AttributeName": "id",
+      "AttributeName": "emailId",
       "AttributeType": "S"
     }
   ],

@@ -1,5 +1,6 @@
 package com.mat.jamr.userservice.user.create;
 
+import com.mat.jamr.userservice.api.Email;
 import com.mat.jamr.userservice.api.SaveUserResponse;
 import com.mat.jamr.userservice.api.User;
 import com.mat.jamr.userservice.user.create.service.CreateUserCommitConsumer;
@@ -30,8 +31,9 @@ public class CreateUserBeanConfig {
     @Bean
     public Consumer<CreateUserContext> userCommitConsumer(
             final DynamoDbTable<User> userTable,
+            final DynamoDbTable<Email> emailTable,
             final DynamoDbEnhancedClient dynamoDbEnhancedClient
     ) {
-        return new CreateUserCommitConsumer<>(userTable, dynamoDbEnhancedClient);
+        return new CreateUserCommitConsumer<>(userTable, emailTable, dynamoDbEnhancedClient);
     }
 }

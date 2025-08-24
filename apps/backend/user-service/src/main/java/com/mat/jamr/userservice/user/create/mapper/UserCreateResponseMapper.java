@@ -1,7 +1,8 @@
-package com.mat.jamr.userservice.user.create.service;
+package com.mat.jamr.userservice.user.create.mapper;
 
 import com.mat.jamr.userservice.api.SaveUserResponse;
 import com.mat.jamr.userservice.api.User;
+import com.mat.jamr.userservice.user.create.service.CreateUserContext;
 import org.mapstruct.Mapper;
 
 import java.util.function.Consumer;

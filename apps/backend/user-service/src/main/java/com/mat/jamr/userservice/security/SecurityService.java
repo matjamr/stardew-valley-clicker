@@ -2,6 +2,7 @@ package com.mat.jamr.userservice.security;
 
 import com.mat.jamr.userservice.api.*;
 import com.mat.jamr.userservice.security.service.JwtService;
+import com.mat.jamr.userservice.security.service.login.LoginSecurityContext;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,13 +14,12 @@ import net.devh.boot.grpc.server.service.GrpcService;
 public class SecurityService extends SecurityServiceGrpc.SecurityServiceImplBase {
 
     private final JwtService jwtService;
-//    private final DynamoDBMapper dynamoDBMapper;
 
     @Override
     public void login(LoginUserRequest request, StreamObserver<LoginUserResponse> responseObserver) {
 
-//        log.info(jwtService.generateToken(new SecuredUser(dynamoDBMapper.load(User.class, UUID.fromString("33c35f42-2d19-4501-8fb1-98b4981b5947")))));
-
+        log.info(jwtService.generateToken(new SecuredUser(new User().email("asdasda"))));
+        LoginSecurityContext.from(request);
         responseObserver.onNext(LoginUserResponse.newBuilder().build());
         responseObserver.onCompleted();
     }

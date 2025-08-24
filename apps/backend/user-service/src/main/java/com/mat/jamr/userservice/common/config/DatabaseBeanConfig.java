@@ -1,5 +1,6 @@
 package com.mat.jamr.userservice.common.config;
 
+import com.mat.jamr.userservice.api.Email;
 import com.mat.jamr.userservice.api.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -96,5 +97,12 @@ public class DatabaseBeanConfig {
             DynamoDbEnhancedClient enhancedClient
     ) {
         return enhancedClient.table("users", TableSchema.fromBean(User.class));
+    }
+
+    @Bean
+    public DynamoDbTable<Email> emailTable(
+            DynamoDbEnhancedClient enhancedClient
+    ) {
+        return enhancedClient.table("emails", TableSchema.fromBean(Email.class));
     }
 }
