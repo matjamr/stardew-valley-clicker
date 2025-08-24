@@ -2,7 +2,7 @@ package com.mat.jamr.userservice.user.create;
 
 import com.mat.jamr.userservice.api.SaveUserResponse;
 import com.mat.jamr.userservice.api.User;
-import com.mat.jamr.userservice.common.user.service.UserCommitConsumer;
+import com.mat.jamr.userservice.user.create.service.CreateUserCommitConsumer;
 import com.mat.jamr.userservice.user.create.service.CreateUserContext;
 import com.matjamr.commonutils.StrategyBasedConsumer;
 import org.springframework.context.annotation.Bean;
@@ -32,6 +32,6 @@ public class CreateUserBeanConfig {
             final DynamoDbTable<User> userTable,
             final DynamoDbEnhancedClient dynamoDbEnhancedClient
     ) {
-        return new UserCommitConsumer<>(userTable, dynamoDbEnhancedClient);
+        return new CreateUserCommitConsumer<>(userTable, dynamoDbEnhancedClient);
     }
 }

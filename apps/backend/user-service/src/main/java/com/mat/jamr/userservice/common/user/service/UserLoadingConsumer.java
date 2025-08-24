@@ -20,7 +20,7 @@ public class UserLoadingConsumer<T extends UserIdAware & UserAware> implements C
     @Override
     public void accept(T t) {
 
-        Optional.ofNullable(t.getUser())
+        Optional.ofNullable(t.getUserId())
                 .map(user -> userTable.getItem(r -> r.key(k -> k.partitionValue(t.getUserId()))))
                 .ifPresentOrElse(t::setUser, () -> {
                     throw new UserServiceException(Error.USER_DOES_NOT_EXIST);
