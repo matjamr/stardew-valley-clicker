@@ -8,19 +8,17 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
 
+import java.util.function.Function;
+
 @Slf4j
 @GrpcService
 @RequiredArgsConstructor
 public class SecurityService extends SecurityServiceGrpc.SecurityServiceImplBase {
-
-    private final JwtService jwtService;
+    private final Function<LoginSecurityContext, LoginUserResponse> loginUserStrategyBasedFlow;
 
     @Override
     public void login(LoginUserRequest request, StreamObserver<LoginUserResponse> responseObserver) {
-
-        log.info(jwtService.generateToken(new SecuredUser(new User().email("asdasda"))));
-        LoginSecurityContext.from(request);
-        responseObserver.onNext(LoginUserResponse.newBuilder().build());
+        responseObserver.onNext(loginUserStrategyBasedFlow.apply(LoginSecurityContext.from(request)));
         responseObserver.onCompleted();
     }
 
