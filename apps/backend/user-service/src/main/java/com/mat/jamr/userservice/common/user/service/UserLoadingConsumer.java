@@ -16,13 +16,11 @@ import java.util.function.Function;
 public class UserLoadingConsumer<T extends UserIdAware & UserAware> implements Consumer<T> {
 
     private final DynamoDbTable<User> userTable;
-    private final Function<String, Optional<User>> optionalUserByEmailExtractor;
 
     @Override
     public void accept(T t) {
 
         Optional.ofNullable(t.getUser())
-                .filter(user -> optionalUserByEmailExtractor.apply(user.getEmail()).isEmpty())
                 .map(user -> userTable.getItem(r -> r.key(k -> k.partitionValue(t.getUserId()))))
                 .ifPresentOrElse(t::setUser, () -> {
                     throw new UserServiceException(Error.USER_DOES_NOT_EXIST);

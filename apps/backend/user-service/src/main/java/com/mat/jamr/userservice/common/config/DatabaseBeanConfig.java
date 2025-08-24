@@ -1,11 +1,5 @@
 package com.mat.jamr.userservice.common.config;
 
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicSessionCredentials;
-import com.amazonaws.client.builder.AwsClientBuilder;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.mat.jamr.userservice.api.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +11,6 @@ import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.AwsSessionCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
-import software.amazon.awssdk.enhanced.dynamodb.DynamoDbIndex;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import software.amazon.awssdk.regions.Region;
@@ -49,7 +42,6 @@ public class DatabaseBeanConfig {
         DynamoDbClientBuilder builder = DynamoDbClient.builder()
                 .region(Region.of(awsRegion));
 
-        // If you’re using temporary session credentials (with token)
         if (dynamodbSessionToken != null && !dynamodbSessionToken.isEmpty()) {
             builder.credentialsProvider(
                     StaticCredentialsProvider.create(
@@ -86,7 +78,7 @@ public class DatabaseBeanConfig {
     }
 
     @Bean
-    LettuceConnectionFactory connectionFactory() {
+    public LettuceConnectionFactory connectionFactory() {
         return new LettuceConnectionFactory();
     }
 
@@ -100,16 +92,9 @@ public class DatabaseBeanConfig {
     }
 
     @Bean
-    DynamoDbTable<User> userTable(
+    public DynamoDbTable<User> userTable(
             DynamoDbEnhancedClient enhancedClient
     ) {
         return enhancedClient.table("users", TableSchema.fromBean(User.class));
-    }
-
-    @Bean
-    DynamoDbIndex<User> emailIndex(
-            DynamoDbTable<User> userTable
-    ) {
-        return userTable.index("email-index");
     }
 }

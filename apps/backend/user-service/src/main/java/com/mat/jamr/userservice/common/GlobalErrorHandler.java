@@ -12,13 +12,13 @@ public class GlobalErrorHandler {
 
     @GrpcExceptionHandler
     public io.grpc.Status handleUserServiceException(UserServiceException exception) {
-        log.error(exception.getCause().getMessage());
+        exception.printStackTrace();
         return Status.fromCodeValue(exception.getError().getCode()).withDescription(exception.getMessage());
     }
 
     @GrpcExceptionHandler
     public io.grpc.Status handleUserServiceException(Exception error) {
-        log.error(error.toString());
+        error.printStackTrace();
         return Status.INTERNAL.withDescription(error.getMessage());
     }
 }

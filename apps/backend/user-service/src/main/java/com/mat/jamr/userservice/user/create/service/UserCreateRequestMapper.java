@@ -1,7 +1,6 @@
 package com.mat.jamr.userservice.user.create.service;
 
 import com.mat.jamr.userservice.api.SaveUserRequest;
-import com.mat.jamr.userservice.api.SaveUserResponse;
 import com.mat.jamr.userservice.api.User;
 import org.mapstruct.Mapper;
 
@@ -16,7 +15,8 @@ public abstract class UserCreateRequestMapper implements Consumer<CreateUserCont
     @Override
     public void accept(CreateUserContext createUserContext) {
         var newUser = mapUserCreate(createUserContext.getSaveUserRequest());
-        newUser.setId(UUID.randomUUID());
+
+        newUser.setId(UUID.randomUUID().toString());
 
         createUserContext.setUser(newUser);
     }

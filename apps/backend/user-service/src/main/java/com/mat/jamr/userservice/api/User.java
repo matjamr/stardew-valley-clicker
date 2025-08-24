@@ -2,29 +2,45 @@ package com.mat.jamr.userservice.api;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSecondaryPartitionKey;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
 
-import java.util.UUID;
-
-@DynamoDbBean
 @Data
+@DynamoDbBean
 @Accessors(chain = true)
 public class User {
 
-    private UUID id;
+    private String id;
     private String name;
     private String email;
-    private String password;
 
     @DynamoDbPartitionKey
-    public UUID getId() {
+    @DynamoDbAttribute("id")
+    public String getId() {
         return id;
     }
 
-    @DynamoDbSecondaryPartitionKey(indexNames = "email-index")
+    @DynamoDbAttribute("name")
+    public String getName() {
+        return name;
+    }
+
+    @DynamoDbAttribute("email")
     public String getEmail() {
         return email;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

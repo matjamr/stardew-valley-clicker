@@ -23,7 +23,7 @@ public class SecuredUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return null;
     }
 
     @Override

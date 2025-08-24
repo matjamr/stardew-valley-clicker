@@ -1,14 +1,11 @@
 package com.mat.jamr.userservice.security;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.mat.jamr.userservice.api.*;
 import com.mat.jamr.userservice.security.service.JwtService;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
-
-import java.util.UUID;
 
 @Slf4j
 @GrpcService
