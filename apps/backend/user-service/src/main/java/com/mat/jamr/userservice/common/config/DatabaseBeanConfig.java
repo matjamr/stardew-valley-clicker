@@ -6,12 +6,25 @@ import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.mat.jamr.userservice.api.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.AwsSessionCredentials;
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbIndex;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClientBuilder;
+
+import java.net.URI;
 
 @Configuration("DatabaseBeanConfig")
 public class DatabaseBeanConfig {
@@ -32,28 +45,43 @@ public class DatabaseBeanConfig {
     private String dynamodbSessionToken;
 
     @Bean
-    public DynamoDBMapper dynamoDBMapper() {
-        return new DynamoDBMapper(buildAmazonDynamoDB());
+    public DynamoDbClient dynamoDbClient() {
+        DynamoDbClientBuilder builder = DynamoDbClient.builder()
+                .region(Region.of(awsRegion));
+
+        // If you’re using temporary session credentials (with token)
+        if (dynamodbSessionToken != null && !dynamodbSessionToken.isEmpty()) {
+            builder.credentialsProvider(
+                    StaticCredentialsProvider.create(
+                            AwsSessionCredentials.create(
+                                    dynamodbAccessKey,
+                                    dynamodbSecretKey,
+                                    dynamodbSessionToken
+                            )
+                    )
+            );
+        } else {
+            builder.credentialsProvider(
+                    StaticCredentialsProvider.create(
+                            AwsBasicCredentials.create(
+                                    dynamodbAccessKey,
+                                    dynamodbSecretKey
+                            )
+                    )
+            );
+        }
+
+        if (dynamodbEndpoint != null && !dynamodbEndpoint.isEmpty()) {
+            builder.endpointOverride(URI.create(dynamodbEndpoint));
+        }
+
+        return builder.build();
     }
 
-    private AmazonDynamoDB buildAmazonDynamoDB() {
-        return AmazonDynamoDBClientBuilder
-                .standard()
-                .withEndpointConfiguration(
-                        new AwsClientBuilder.EndpointConfiguration(
-                                dynamodbEndpoint,
-                                awsRegion
-                        )
-                )
-                .withCredentials(
-                        new AWSStaticCredentialsProvider(
-                                new BasicSessionCredentials(
-                                        dynamodbAccessKey,
-                                        dynamodbSecretKey,
-                                        dynamodbSessionToken
-                                )
-                        )
-                )
+    @Bean
+    public DynamoDbEnhancedClient dynamoDbEnhancedClient(DynamoDbClient dynamoDbClient) {
+        return DynamoDbEnhancedClient.builder()
+                .dynamoDbClient(dynamoDbClient)
                 .build();
     }
 
@@ -69,5 +97,19 @@ public class DatabaseBeanConfig {
         template.setDefaultSerializer(
                 new Jackson2JsonRedisSerializer<>(Object.class));
         return template;
+    }
+
+    @Bean
+    DynamoDbTable<User> userTable(
+            DynamoDbEnhancedClient enhancedClient
+    ) {
+        return enhancedClient.table("users", TableSchema.fromBean(User.class));
+    }
+
+    @Bean
+    DynamoDbIndex<User> emailIndex(
+            DynamoDbTable<User> userTable
+    ) {
+        return userTable.index("email-index");
     }
 }

@@ -5,6 +5,7 @@ import com.mat.jamr.userservice.api.SaveUserResponse;
 import com.mat.jamr.userservice.api.User;
 import org.mapstruct.Mapper;
 
+import java.util.UUID;
 import java.util.function.Consumer;
 
 @Mapper(componentModel = "spring")
@@ -14,6 +15,9 @@ public abstract class UserCreateRequestMapper implements Consumer<CreateUserCont
 
     @Override
     public void accept(CreateUserContext createUserContext) {
-        createUserContext.setUser(mapUserCreate(createUserContext.getSaveUserRequest()));
+        var newUser = mapUserCreate(createUserContext.getSaveUserRequest());
+        newUser.setId(UUID.randomUUID());
+
+        createUserContext.setUser(newUser);
     }
 }
