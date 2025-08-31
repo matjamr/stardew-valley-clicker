@@ -4,7 +4,7 @@ import com.mat.jamr.userservice.api.Email;
 import com.mat.jamr.userservice.api.LoginUserResponse;
 import com.mat.jamr.userservice.api.User;
 import com.mat.jamr.userservice.common.user.service.UserByEmailFetchingConsumer;
-import com.mat.jamr.userservice.security.service.JwtService;
+import com.mat.jamr.userservice.security.service.common.JwtService;
 import com.mat.jamr.userservice.security.service.common.TokenGenerator;
 import com.matjamr.commonutils.StrategyBasedConsumer;
 import org.springframework.context.annotation.Bean;
@@ -42,9 +42,10 @@ public class LoginBeanConfig {
 
     @Bean
     public Consumer<LoginSecurityContext> loginUserTokenGenerator(
-            final JwtService jwtService
-            ) {
-        return new TokenGenerator<>(jwtService);
+            final JwtService accessTokenService,
+            final JwtService refreshTokenService
+    ) {
+        return new TokenGenerator<>(accessTokenService, refreshTokenService);
     }
 
     @Bean

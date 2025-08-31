@@ -6,13 +6,14 @@ import com.mat.jamr.userservice.api.User;
 import com.mat.jamr.userservice.common.user.template.EmailAware;
 import com.mat.jamr.userservice.common.user.template.PasswordAware;
 import com.mat.jamr.userservice.common.user.template.UserAware;
-import com.mat.jamr.userservice.security.service.common.TokenAware;
+import com.mat.jamr.userservice.security.service.common.AccessTokenAware;
+import com.mat.jamr.userservice.security.service.common.RefreshTokenAware;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-public class LoginSecurityContext implements EmailAware, PasswordAware, UserAware, TokenAware {
+public class LoginSecurityContext implements EmailAware, PasswordAware, UserAware, RefreshTokenAware, AccessTokenAware {
 
     private LoginUserRequest loginUserRequest;
     private LoginUserResponse loginUserResponse;
