@@ -2,7 +2,6 @@ package com.mat.jamr.userservice.security.service.common;
 
 import com.mat.jamr.userservice.api.error.UserServiceException;
 import com.mat.jamr.userservice.common.user.template.EmailAware;
-import com.mat.jamr.userservice.common.user.template.UserAware;
 import lombok.RequiredArgsConstructor;
 
 import java.util.function.Consumer;
@@ -10,15 +9,15 @@ import java.util.function.Consumer;
 import static com.mat.jamr.userservice.api.error.Error.INVALID_TOKEN;
 
 @RequiredArgsConstructor
-public class AccessTokenVerifier<T extends AccessTokenAware & EmailAware> implements Consumer<T> {
+public class RefreshTokenVerifier<T extends RefreshTokenAware & EmailAware> implements Consumer<T> {
 
     private final JwtService accessTokenService;
 
     @Override
     public void accept(T t) {
         try {
-            final String username = accessTokenService.extractUsername(t.getAccessToken());
-            accessTokenService.isTokenValid(t.getAccessToken());
+            final String username = accessTokenService.extractUsername(t.getRefreshToken());
+            accessTokenService.isTokenValid(t.getRefreshToken());
             t.setEmail(username);
         } catch (Exception e) {
             throw new UserServiceException(INVALID_TOKEN);
