@@ -1,15 +1,23 @@
 package com.mat.jamr.apigateway.service.user;
 
 import com.mat.jamr.externalapi.model.*;
+import com.mat.jamr.userservice.api.UserServiceGrpc;
+import lombok.RequiredArgsConstructor;
+import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.function.Function;
 
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserServiceController {
+
+    private final Function<String, RetrieveUserResponse> retrieveUserService;
 
     @GetMapping("/{id}")
     public RetrieveUserResponse getUser(@PathVariable String id) {
-        return new RetrieveUserResponse();
+        return retrieveUserService.apply(id);
     }
 
     @PostMapping

@@ -7,3 +7,11 @@ spring:
       WRITE_NULL_MAP_VALUES: false
       WRITE_DATES_AS_TIMESTAMPS: false
     default-property-inclusion: non_null
+
+grpc:
+  client:
+    user-service:
+      address: 'localhost:9090'
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext
