@@ -1,0 +1,215 @@
+openapi: 3.0.0
+info:
+  title: User and Security API
+  description: API for user management and security operations
+  version: 1.0.0
+servers:
+  - url: /api/v1
+paths:
+  /users:
+    post:
+      summary: Create a new user
+      operationId: saveUser
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveUserRequest'
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaveUserResponse'
+        '400':
+          description: Invalid input
+  /users/{id}:
+    get:
+      summary: Retrieve a user by ID
+      operationId: retrieveUser
+      tags:
+        - users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveUserResponse'
+        '404':
+          description: User not found
+  /auth/login:
+    post:
+      summary: Authenticate a user
+      operationId: loginUser
+      tags:
+        - security
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUserRequest'
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginUserResponse'
+        '401':
+          description: Authentication failed
+  /auth/verify:
+    post:
+      summary: Verify a user's access token
+      operationId: verifyUser
+      tags:
+        - security
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyUserRequest'
+      responses:
+        '200':
+          description: Token verification successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyUserResponse'
+        '401':
+          description: Invalid token
+  /auth/refresh:
+    post:
+      summary: Refresh an access token
+      operationId: refreshToken
+      tags:
+        - security
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequest'
+      responses:
+        '200':
+          description: Token refresh successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefreshTokenResponse'
+        '401':
+          description: Invalid refresh token
+components:
+  schemas:
+    SaveUserRequest:
+      type: object
+      required:
+        - name
+        - surname
+        - email
+      properties:
+        name:
+          type: string
+        surname:
+          type: string
+        email:
+          type: string
+          format: email
+    SaveUserResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+        email:
+          type: string
+          format: email
+    RetrieveUserRequest:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+    RetrieveUserResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+        email:
+          type: string
+          format: email
+    LoginUserRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+    LoginUserResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+    VerifyUserRequest:
+      type: object
+      required:
+        - accessToken
+      properties:
+        accessToken:
+          type: string
+    VerifyUserResponse:
+      type: object
+      properties:
+        name:
+          type: string
+        surname:
+          type: string
+        email:
+          type: string
+          format: email
+    RefreshTokenRequest:
+      type: object
+      required:
+        - refreshToken
+      properties:
+        refreshToken:
+          type: string
+    RefreshTokenResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
