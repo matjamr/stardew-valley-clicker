@@ -48,6 +48,8 @@ public class CreateUserCommitConsumer<T extends UserAware> implements Consumer<T
                     System.err.println("  Code: " + reason.code() + ", Message: " + reason.message())
             );
             throw new RuntimeException("Transactional write failed.", e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

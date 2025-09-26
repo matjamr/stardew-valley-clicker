@@ -6,7 +6,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - dynamodb_data:/home/dynamodblocal/data
+      - ./docker/dynamodb/data:/home/dynamodblocal/data
     networks:
       - stardew-valley-network
 
