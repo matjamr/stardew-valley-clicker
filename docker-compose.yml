@@ -36,6 +36,19 @@ services:
     networks:
       - stardew-valley-network
 
+  user-service:
+    image: technikbober/user-service:0.0.1
+    container_name: user-service
+    ports:
+      - "9090:9090"
+    env_file:
+      - ./docker/backend/user-service/.env
+    depends_on:
+      - dynamodb
+      - redis
+    networks:
+      - stardew-valley-network
+
 #  minio:
 #    image: quay.io/minio/minio
 #    container_name: minio

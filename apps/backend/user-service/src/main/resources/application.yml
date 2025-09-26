@@ -2,35 +2,35 @@ spring:
   cloud:
     aws:
       dynamodb:
-        region: local
+        region: ${SPRING_CLOUD_AWS_DYNAMODB_REGION:local}
       credentials:
-        access-key: fake
-        secret-key: fake
+        access-key: ${SPRING_CLOUD_AWS_CREDENTIALS_ACCESS_KEY:fake}
+        secret-key: ${SPRING_CLOUD_AWS_CREDENTIALS_SECRET_KEY:fake}
   grpc:
     server:
       reflection:
-        enabled: true
+        enabled: ${SPRING_GRPC_SERVER_REFLECTION_ENABLED:true}
       ssl:
-        secure: false
+        secure: ${SPRING_GRPC_SERVER_SSL_SECURE:false}
   data:
     redis:
-      port: 6379
-      host: localhost
+      port: ${SPRING_DATA_REDIS_PORT:6379}
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
 
 security:
   jwt:
     access:
-      secret-key: 3cfa76ef14937c1c0ea519f8fc057a80fcd04a7420f8e8bcd0a7567c272e007b
-      expiration-time: 3600000
+      secret-key: ${SECURITY_JWT_ACCESS_SECRET_KEY}
+      expiration-time: ${SECURITY_JWT_ACCESS_EXPIRATION_TIME:3600000}
     refresh:
-      secret-key: 97f258fa9ed3ef7c1652fd1c447a427518fd9737ab3c6e4c8cf9dcd5ff4654bf
-      expiration-time: 360000000
+      secret-key: ${SECURITY_JWT_REFRESH_SECRET_KEY}
+      expiration-time: ${SECURITY_JWT_REFRESH_EXPIRATION_TIME:360000000}
 
 aws:
-  region: local
+  region: ${AWS_REGION:local}
   dynamodb:
-    endpoint: http://localhost:8000
-    accessKey: fake
-    secretKey: fake
+    endpoint: ${AWS_DYNAMODB_ENDPOINT:http://localhost:8000}
+    accessKey: ${AWS_DYNAMODB_ACCESS_KEY:fake}
+    secretKey: ${AWS_DYNAMODB_SECRET_KEY:fake}
   dynamo:
-    sessionToken: fake-token
+    sessionToken: ${AWS_DYNAMO_SESSION_TOKEN:fake-token}

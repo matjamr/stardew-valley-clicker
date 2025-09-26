@@ -1,6 +1,6 @@
 MAKEFLAGS += -j$(shell nproc)
 
-.PHONY: all api-gateway user-service build up down logs
+.PHONY: all api-gateway user-service build up down logs prepare
 
 all: api-gateway user-service
 
@@ -37,3 +37,13 @@ down:
 
 logs:
 	docker compose logs -f
+
+prepare:
+	@echo "Copying .env.example from docker/backend/* to apps/backend/*/.env..."
+	@for dir in docker/backend/*; do \
+		if [ -f "$$dir/.env.example" ]; then \
+			app_dir=$$(basename $$dir); \
+			cp "$$dir/.env.example" "apps/backend/$$app_dir/.env"; \
+			echo "Copied $$dir/.env.example to apps/backend/$$app_dir/.env"; \
+		fi; \
+	done

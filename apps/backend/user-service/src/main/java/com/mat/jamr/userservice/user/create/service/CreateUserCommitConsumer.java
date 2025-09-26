@@ -3,6 +3,8 @@ package com.mat.jamr.userservice.user.create.service;
 
 import com.mat.jamr.userservice.api.Email;
 import com.mat.jamr.userservice.api.User;
+import com.mat.jamr.userservice.api.error.Error;
+import com.mat.jamr.userservice.api.error.UserServiceException;
 import com.mat.jamr.userservice.common.user.template.UserAware;
 import lombok.RequiredArgsConstructor;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
@@ -44,8 +46,12 @@ public class CreateUserCommitConsumer<T extends UserAware> implements Consumer<T
             var ret = dynamoDbEnhancedClient.transactWriteItems(transactWriteRequest);
         } catch (TransactionCanceledException e) {
             System.err.println("Transaction was canceled. Items were not written. Details:");
-            e.cancellationReasons().forEach(reason ->
-                    System.err.println("  Code: " + reason.code() + ", Message: " + reason.message())
+            e.cancellationReasons().forEach(reason -> {
+                        System.err.println("  Code: " + reason.code() + ", Message: " + reason.message());
+                        if(reason.code().equals("ConditionalCheckFailed")) {
+                            throw new UserServiceException(Error.EMAIL_TAKEN);
+                        }
+                    }
             );
             throw new RuntimeException("Transactional write failed.", e);
         } catch (Exception e) {
