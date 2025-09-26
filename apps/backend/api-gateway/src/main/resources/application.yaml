@@ -1,17 +1,18 @@
+
 spring:
   mvc:
     servlet:
-      path: /api
+      path: ${SPRING_MVC_SERVLET_PATH:/api}
   jackson:
     serialization:
-      WRITE_NULL_MAP_VALUES: false
-      WRITE_DATES_AS_TIMESTAMPS: false
-    default-property-inclusion: non_null
+      WRITE_NULL_MAP_VALUES: ${SPRING_JACKSON_SERIALIZATION_WRITE_NULL_MAP_VALUES:false}
+      WRITE_DATES_AS_TIMESTAMPS: ${SPRING_JACKSON_SERIALIZATION_WRITE_DATES_AS_TIMESTAMPS:false}
+    default-property-inclusion: ${SPRING_JACKSON_DEFAULT_PROPERTY_INCLUSION:non_null}
 
 grpc:
   client:
     user-service:
-      address: 'localhost:9090'
-      enableKeepAlive: true
-      keepAliveWithoutCalls: true
-      negotiationType: plaintext
+      address: ${GRPC_CLIENT_USER_SERVICE_ADDRESS:localhost:9090}
+      enableKeepAlive: ${GRPC_CLIENT_USER_SERVICE_ENABLE_KEEP_ALIVE:true}
+      keepAliveWithoutCalls: ${GRPC_CLIENT_USER_SERVICE_KEEP_ALIVE_WITHOUT_CALLS:true}
+      negotiationType: ${GRPC_CLIENT_USER_SERVICE_NEGOTIATION_TYPE:plaintext}

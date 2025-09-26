@@ -48,6 +48,18 @@ services:
       - redis
     networks:
       - stardew-valley-network
+      
+  api-gateway:
+    image: technikbober/api-gateway:0.0.1
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./docker/backend/api-gateway/.env
+    depends_on:
+      - user-service
+    networks:
+      - stardew-valley-network
 
 #  minio:
 #    image: quay.io/minio/minio
