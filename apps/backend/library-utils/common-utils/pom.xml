@@ -6,11 +6,11 @@
 
     <groupId>com.mat.jamr</groupId>
     <artifactId>common-utils</artifactId>
-    <version>1.0</version>
+    <version>1.2</version>
 
     <properties>
-        <maven.compiler.source>23</maven.compiler.source>
-        <maven.compiler.target>23</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
@@ -22,4 +22,11 @@
         </dependency>
     </dependencies>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>matjamr</name>
+            <url>https://maven.pkg.github.com/matjamr/stardew-valley-clicker</url>
+        </repository>
+    </distributionManagement>
 </project>

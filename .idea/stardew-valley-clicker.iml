@@ -2,7 +2,19 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.idea/httpRequests" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/backend/api-gateway/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/backend/api-gateway/target" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/backend/library-utils/common-utils/target" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/backend/user-service/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/backend/user-service/target" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/external-api/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/external-api/target" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/internal-api/user-service-api/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/internal-api/user-service-api/src/generated" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/internal-api/user-service-api/target" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

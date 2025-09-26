@@ -6,9 +6,9 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./dynamodb-data:/home/dynamodblocal/data
+      - dynamodb_data:/home/dynamodblocal/data
     networks:
-      - dynamo-local
+      - stardew-valley-network
 
   dynamodb-admin:
     image: aaronshaf/dynamodb-admin
@@ -23,7 +23,7 @@ services:
     depends_on:
       - dynamodb
     networks:
-      - dynamo-local
+      - stardew-valley-network
 
   redis:
     image: redis:latest
@@ -33,17 +33,9 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    networks:
+      - stardew-valley-network
 
-#  mongo:
-#    image: mongo:latest
-#    container_name: mongo
-#    restart: unless-stopped
-#    ports:
-#      - "27017:27017"
-#    volumes:
-#      - mongo_data:/data/db
-#
-#
 #  minio:
 #    image: quay.io/minio/minio
 #    container_name: minio
@@ -57,26 +49,12 @@ services:
 #    command: server /data --console-address ":9001"
 #    volumes:
 #      - minio_data:/data
-#
-#  postgres:
-#    image: postgres:16
-#    container_name: postgres
-#    restart: unless-stopped
-#    ports:
-#      - "5432:5432"
-#    environment:
-#      POSTGRES_USER: postgres
-#      POSTGRES_PASSWORD: password
-#      POSTGRES_DB: postgres
-#    volumes:
-#      - postgres_data:/var/lib/postgresql/data
+
 
 volumes:
-  mongo_data:
   redis_data:
-  minio_data:
-  postgres_data:
+  dynamodb_data:
 
 networks:
-  dynamo-local:
+  stardew-valley-network:
     driver: bridge
