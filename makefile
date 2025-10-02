@@ -1,5 +1,3 @@
-MAKEFLAGS += -j$(shell nproc)
-
 .PHONY: all api-gateway user-service build up down logs prepare
 
 all: api-gateway user-service

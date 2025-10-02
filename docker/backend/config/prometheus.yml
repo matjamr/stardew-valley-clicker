@@ -1,0 +1,22 @@
+# prometheus.yml
+
+global:
+  # The default scrape interval is 1 minute. We'll set it lower for quick testing.
+  scrape_interval: 15s
+  # Attach these labels to all metrics exported here.
+  external_labels:
+    monitor: 'opentelemetry-monitor'
+
+# A list of configurations for scraping targets.
+scrape_configs:
+  # Job for scraping the Prometheus server itself.
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090'] # Default Prometheus port
+
+  # Job for scraping the OpenTelemetry Collector.
+  # This targets the 'prometheus' exporter defined in the collector-config.yaml.
+  - job_name: 'opentelemetry-collector'
+    # By default, metrics are scraped from the /metrics path.
+    static_configs:
+      - targets: ['localhost:9464'] # Must match the collector's prometheus exporter endpoint

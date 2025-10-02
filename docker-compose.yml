@@ -36,30 +36,81 @@ services:
     networks:
       - stardew-valley-network
 
-  user-service:
-    image: technikbober/user-service:0.0.1
-    container_name: user-service
+  jaeger:
+    image: jaegertracing/all-in-one
+    environment:
+      - COLLECTOR_ZIPKIN_HTTP_PORT=19411
     ports:
-      - "9090:9090"
-    env_file:
-      - ./docker/backend/user-service/.env
-    depends_on:
-      - dynamodb
-      - redis
-    networks:
-      - stardew-valley-network
-      
-  api-gateway:
-    image: technikbober/api-gateway:0.0.1
-    container_name: api-gateway
+    - 5775:5775/udp
+    - 6831:6831/udp
+    - 6832:6832/udp
+    - 5778:5778
+    - 16686:16686
+    - 14268:14268
+    - 19411:19411
+
+  grafana:
+    image: grafana/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=password1
     ports:
-      - "8080:8080"
-    env_file:
-      - ./docker/backend/api-gateway/.env
+      - ${GRAFANA_PORT:-3000}:3000
+    volumes:
+      - ./docker/grafana/datasources:/etc/grafana/provisioning/datasources
+      - ./docker/grafana/dashboards:/var/lib/grafana/dashboards
+      - ./docker/grafana/dashboard.yaml:/etc/grafana/provisioning/dashboards/main.yaml
     depends_on:
-      - user-service
-    networks:
-      - stardew-valley-network
+      - jaeger
+      - prometheus
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./docker/prometheus/:/etc/prometheus/
+      - ./docker/prometheus/prometheus_data:/prometheus_data
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yaml'
+      - '--storage.tsdb.path=/prometheus_data'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - 9090:9090
+    restart: always
+
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    volumes:
+     - ./docker/loki/loki.yaml:/etc/config/loki.yaml
+    entrypoint:
+     - /usr/bin/loki
+     - -config.file=/etc/config/loki.yaml
+
+#  user-service:
+#    image: technikbober/user-service:0.0.1
+#    container_name: user-service
+#    ports:
+#      - "8081:9090"
+#    env_file:
+#      - ./docker/backend/user-service/.env
+#    depends_on:
+#      - dynamodb
+#      - redis
+#    networks:
+#      - stardew-valley-network
+#
+#  api-gateway:
+#    image: technikbober/api-gateway:0.0.1
+#    container_name: api-gateway
+#    ports:
+#      - "8080:8080"
+#    env_file:
+#      - ./docker/backend/api-gateway/.env
+#    depends_on:
+#      - user-service
+#    networks:
+#      - stardew-valley-network
 
 #  minio:
 #    image: quay.io/minio/minio

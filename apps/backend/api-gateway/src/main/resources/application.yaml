@@ -8,11 +8,35 @@ spring:
       WRITE_NULL_MAP_VALUES: ${SPRING_JACKSON_SERIALIZATION_WRITE_NULL_MAP_VALUES:false}
       WRITE_DATES_AS_TIMESTAMPS: ${SPRING_JACKSON_SERIALIZATION_WRITE_DATES_AS_TIMESTAMPS:false}
     default-property-inclusion: ${SPRING_JACKSON_DEFAULT_PROPERTY_INCLUSION:non_null}
+  application:
+    name: api-gateway
+
+management:
+  tracing:
+    sampling:
+      probability: '1.0'
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+opentracing:
+  jaeger:
+    http-sender.url: http://localhost:14268/api/traces
 
 grpc:
   client:
     user-service:
-      address: ${GRPC_CLIENT_USER_SERVICE_ADDRESS:localhost:9090}
+      address: ${GRPC_CLIENT_USER_SERVICE_ADDRESS:localhost:8081}
       enableKeepAlive: ${GRPC_CLIENT_USER_SERVICE_ENABLE_KEEP_ALIVE:true}
       keepAliveWithoutCalls: ${GRPC_CLIENT_USER_SERVICE_KEEP_ALIVE_WITHOUT_CALLS:true}
       negotiationType: ${GRPC_CLIENT_USER_SERVICE_NEGOTIATION_TYPE:plaintext}
