@@ -1,0 +1,195 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.mat.jamr.gameservice.api";
+option java_outer_classname = "IslandGrpcService";
+
+import 'asset.proto';
+
+service IslandService {
+  rpc Create (CreateIslandRequest) returns (CreateIslandResponse) {}
+  rpc Read (ReadIslandRequest) returns (ReadIslandResponse) {}
+  rpc ReadMany (ReadManyIslandsRequest) returns (ReadManyIslandsResponse) {}
+  rpc ReadVariants (ReadIslandVariantsRequest) returns (ReadIslandVariantsResponse) {}
+  rpc Delete (DeleteIslandRequest) returns (DeleteIslandResponse) {}
+  rpc Update (UpdateIslandRequest) returns (UpdateIslandResponse) {}
+//  rpc AddPlayer (AddPlayerRequest) returns (AddPlayerResponse) {}
+//  rpc GenerateInvitation (GenerateInvitationRequest) returns (GenerateInvitationResponse) {}
+  rpc GetTerrainDetails (GetTerrainDetailsRequest) returns (GetTerrainDetailsResponse) {}
+  rpc ModifyTerrain (ModifyTerrainRequest) returns (ModifyTerrainResponse) {}
+  rpc CreateBuilding (CreateBuildingRequest) returns (CreateBuildingResponse) {}
+  rpc UpdatePlayerEnergyState (UpdatePlayerEnergyStateRequest) returns (UpdatePlayerEnergyStateResponse) {}
+  rpc GetIslandBag (GetIslandBagRequest) returns (GetIslandBagResponse) {}
+}
+
+message CreateIslandRequest {
+  string userId = 1;
+  string variantId = 2;
+  string name = 3;
+}
+
+message CreateIslandResponse {
+  Island island = 1;
+}
+
+message ReadIslandRequest {
+  string islandId = 1;
+}
+
+message ReadIslandResponse {
+  Island island = 1;
+}
+
+message ReadManyIslandsRequest {
+  string userId = 1;
+}
+
+message ReadManyIslandsResponse {
+  repeated Island islands = 1;
+}
+
+message ReadIslandVariantsRequest {}
+
+message ReadIslandVariantsResponse {
+  repeated IslandVariant variants = 1;
+}
+
+message DeleteIslandRequest {
+  string islandId = 1;
+}
+
+message DeleteIslandResponse {
+  bool success = 1;
+}
+
+message UpdateIslandRequest {
+  Island island = 1;
+}
+
+message UpdateIslandResponse {
+  Island island = 1;
+}
+
+message GetTerrainDetailsRequest {
+  string islandId = 1;
+  string terrainType = 2;
+}
+
+message GetTerrainDetailsResponse {
+  Terrain terrain = 1;
+}
+
+message ModifyTerrainRequest {
+  string islandId = 1;
+  string terrainType = 2;
+  TerrainModification modification = 3;
+}
+
+message ModifyTerrainResponse {
+  Terrain updatedTerrain = 1;
+}
+
+message CreateBuildingRequest {
+  string islandId = 1;
+  string terrainType = 2;
+  Building building = 3;
+}
+
+message CreateBuildingResponse {
+  Building building = 1;
+}
+
+message UpdatePlayerEnergyStateRequest {
+  string islandId = 1;
+  string playerId = 2;
+  int32 energyState = 3;
+}
+
+message UpdatePlayerEnergyStateResponse {
+  Player updatedPlayer = 1;
+}
+
+message GetIslandBagRequest {
+  string islandId = 1;
+}
+
+message GetIslandBagResponse {
+  IslandBag bag = 1;
+}
+
+enum IslandVariantType {
+  DEFAULT = 0;
+  CLASSIC = 1;
+  FOREST = 2;
+}
+
+message Island {
+  string id = 1;
+  string name = 2;
+  string ownerId = 3;
+  IslandVariantType variantType = 4;
+  repeated Terrain terrains = 5;
+  repeated Player players = 6;
+  string createdAt = 7;
+  string updatedAt = 8;
+}
+
+message IslandVariant {
+  string id = 1;
+  IslandVariantType type = 2;
+  string name = 3;
+  string description = 4;
+  int32 maxPlayers = 5;
+  int32 maxBuildings = 6;
+  int32 price = 7;
+}
+
+message Terrain {
+  string id = 1;
+  Asset asset = 2;
+  int32 x = 3;
+  int32 y = 4;
+  int32 width = 5;
+  int32 height = 6;
+  repeated Building buildings = 7;
+}
+
+message TerrainModification {
+  int32 x = 1;
+  int32 y = 2;
+  int32 width = 3;
+  int32 height = 4;
+  Asset newAsset = 5;
+}
+
+message Building {
+  string id = 1;
+  string name = 2;
+  string type = 3;
+  int32 x = 4;
+  int32 y = 5;
+  int32 level = 6;
+  string ownerId = 7;
+}
+
+message Player {
+  string id = 1;
+  string userId = 2;
+  string name = 3;
+  int32 energy = 4;
+  string joinedAt = 5;
+}
+
+message IslandBag {
+  string id = 1;
+  string islandId = 2;
+  repeated Item items = 3;
+  int32 capacity = 4;
+}
+
+message Item {
+  string id = 1;
+  string name = 2;
+  string type = 3;
+  int32 quantity = 4;
+}

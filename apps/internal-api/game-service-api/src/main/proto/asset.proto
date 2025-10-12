@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.mat.jamr.gameservice.api";
+option java_outer_classname = "AssetGrpcService";
+
+service AssetService {
+  rpc Create (CreateAssetRequest) returns (CreateAssetResponse) {}
+  rpc Read (ReadAssetRequest) returns (ReadAssetResponse) {}
+  rpc ReadMany (ReadManyAssetsRequest) returns (ReadManyAssetsResponse) {}
+  rpc Delete (DeleteAssetRequest) returns (DeleteAssetResponse) {}
+  rpc Update (UpdateAssetRequest) returns (UpdateAssetResponse) {}
+}
+
+message CreateAssetRequest {
+  AssetType type = 1;
+  string url = 2;
+  string id = 3;
+  string name = 4;
+  string description = 5;
+}
+
+message CreateAssetResponse {
+  Asset asset = 1;
+}
+
+message ReadAssetRequest {
+  string id = 1;
+}
+
+message ReadAssetResponse {
+  Asset asset = 1;
+}
+
+message ReadManyAssetsRequest {
+  repeated string ids = 1;
+}
+
+message ReadManyAssetsResponse {
+  repeated Asset assets = 1;
+}
+
+message DeleteAssetRequest {
+  string id = 1;
+}
+
+message DeleteAssetResponse {
+  bool success = 1;
+}
+
+message UpdateAssetRequest {
+  Asset asset = 1;
+}
+
+message UpdateAssetResponse {
+  Asset asset = 1;
+}
+
+enum AssetType {
+  UNKNOWN = 0;
+  IMAGE = 1;
+  AUDIO = 2;
+  VIDEO = 3;
+  MODEL = 4;
+}
+
+message Asset {
+  AssetType type = 1;
+  string url = 2;
+  string id = 3;
+  string name = 4;
+  string description = 5;
+}

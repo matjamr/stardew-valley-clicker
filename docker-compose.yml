@@ -76,6 +76,23 @@ services:
     networks:
       - stardew-valley-network
 
+  nginx:
+    image: "bitnami/nginx:latest"
+    container_name: nginx-proxy
+    restart: "always"
+    user: "root"
+    ports:
+      - "80:8080"
+    volumes:
+      - "./deployment/nginx/nginx.conf:/opt/bitnami/nginx/conf/nginx.conf:ro"
+    depends_on:
+      neo4j:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    networks:
+      - app-network
+
 #  jaeger:
 #    image: jaegertracing/all-in-one
 #    environment:
