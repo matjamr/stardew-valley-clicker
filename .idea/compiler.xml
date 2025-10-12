@@ -10,7 +10,7 @@
         <module name="user-service-api" />
         <module name="user-service-api (1)" />
       </profile>
-      <profile name="Annotation profile for outbound" enabled="true">
+      <profile name="Annotation profile for api-gateway" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />

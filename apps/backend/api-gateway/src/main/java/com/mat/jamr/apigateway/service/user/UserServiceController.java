@@ -1,5 +1,6 @@
 package com.mat.jamr.apigateway.service.user;
 
+import com.mat.jamr.apigateway.service.common.SecurityContext;
 import com.mat.jamr.externalapi.model.*;
 import com.mat.jamr.userservice.api.UserServiceGrpc;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,8 @@ import java.util.function.Function;
 public class UserServiceController {
 
     private final Function<String, RetrieveUserResponse> retrieveUserService;
+    private final Function<LoginUserRequest, LoginUserResponse> loginUserService;
+    private final SecurityContext securityContext;
 
     @GetMapping("/{id}")
     public RetrieveUserResponse getUser(@PathVariable String id) {
@@ -26,8 +29,8 @@ public class UserServiceController {
     }
 
     @PostMapping("/verify")
-    public VerifyUserResponse verifyUser(@RequestBody VerifyUserRequest request) {
-        return new VerifyUserResponse();
+    public VerifyUserResponse verifyUser() {
+        return securityContext.getVerifyUserResponse();
     }
 
     @PostMapping("/refresh")
@@ -37,6 +40,6 @@ public class UserServiceController {
 
     @PostMapping("/login")
     public LoginUserResponse loginUser(@RequestBody LoginUserRequest request) {
-        return new LoginUserResponse();
+        return loginUserService.apply(request);
     }
 }
