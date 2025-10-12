@@ -7,6 +7,9 @@
         <option value="$PROJECT_DIR$/apps/backend/user-service/pom.xml" />
         <option value="$PROJECT_DIR$/apps/internal-api/pom.xml" />
         <option value="$PROJECT_DIR$/apps/internal-api/user-service-api/pom.xml" />
+        <option value="$PROJECT_DIR$/apps/backend/api-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/apps/backend/outbound/pom.xml" />
+        <option value="$PROJECT_DIR$/apps/internal-api/outbound-api/pom.xml" />
       </list>
     </option>
   </component>

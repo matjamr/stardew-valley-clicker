@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.mat.jamr.outbound.api";
+option java_outer_classname = "OutboundGrpcService";
+
+message SendEmailConfirmationRequest {
+  string email = 1;
+  string additionalInfo = 2;
+}
+
+message ConfirmEmailRequest {
+  string email = 1;
+  string additionalInfo = 2;
+}
+
+message SendEmailUserCreatedRequest {
+  string email = 1;
+}
+

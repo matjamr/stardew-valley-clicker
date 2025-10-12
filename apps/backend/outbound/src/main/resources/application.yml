@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: outbound
+  data:
+    redis:
+      port: ${SPRING_DATA_REDIS_PORT:6379}
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${OUTBOUND_SPRING_MAIL_USERNAME:DUMMY}
+    password: ${OUTBOUND_SPRING_MAIL_PASSWORD:DUMMY}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  kafka:
+    bootstrap-servers: localhost:9092
+grpc:
+  server:
+    port: 9091
+    reflection-service-enabled: true
+    

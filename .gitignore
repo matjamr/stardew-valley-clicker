@@ -2,3 +2,4 @@ docker/*/data
 docker/*/.env
 docker/backend/settings.xml
 docker/dynamodb/data
+.env

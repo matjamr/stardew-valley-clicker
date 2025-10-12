@@ -14,6 +14,7 @@
       <excludeFolder url="file://$MODULE_DIR$/apps/internal-api/user-service-api/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/apps/internal-api/user-service-api/src/generated" />
       <excludeFolder url="file://$MODULE_DIR$/apps/internal-api/user-service-api/target" />
+      <excludeFolder url="file://$MODULE_DIR$/docker/dynamodb/data" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

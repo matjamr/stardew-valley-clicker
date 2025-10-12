@@ -37,15 +37,3 @@ aws:
   dynamo:
     sessionToken: ${AWS_DYNAMO_SESSION_TOKEN:fake-token}
 
-management:
-  tracing:
-    sampling:
-      probability: '1.0'
-  otlp:
-    traces:
-      endpoint: ${OTLP_TRACES_URL:http://localhost:4318/v1/traces}
-    metrics:
-      endpoint: ${OTLP_METRICS_URL:http://localhost:4318/v1/metrics}
-    logs:
-      endpoint: ${OTLP_LOGS_URL:http://localhost:4317}
-
