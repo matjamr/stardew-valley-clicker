@@ -81,6 +81,20 @@ public class TableConfig {
         return enhancedClient.table("Assets", TableSchema.fromBean(Asset.class));
     }
 
+    @Bean
+    public DynamoDbTable<com.mat.jamr.gameservice.api.db.Island> islandTable(
+            DynamoDbEnhancedClient enhancedClient
+    ) {
+        return enhancedClient.table("Islands", TableSchema.fromBean(Island.class));
+    }
+
+    @Bean
+    public DynamoDbTable<com.mat.jamr.gameservice.api.db.IslandVariant> islandVariantTable(
+            DynamoDbEnhancedClient enhancedClient
+    ) {
+        return enhancedClient.table("IslandVariants", TableSchema.fromBean(IslandVariant.class));
+    }
+
 
     @Value("${minio.url}")
     private String url;

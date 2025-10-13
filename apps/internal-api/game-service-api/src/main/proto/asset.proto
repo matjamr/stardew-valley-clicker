@@ -61,6 +61,11 @@ enum AssetType {
   AUDIO = 2;
   VIDEO = 3;
   MODEL = 4;
+  BUILDING = 5;
+  WOOD = 6;
+  STONE = 7;
+  HARDWOOD = 8;
+  HARDSTONE = 9;
 }
 
 message Asset {
