@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.mat.jamr</groupId>
     <artifactId>game-service-api</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.4</version>
     <name>game-service-api</name>
     <description>game-service-api</description>
     <url/>

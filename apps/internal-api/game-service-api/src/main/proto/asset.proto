@@ -14,10 +14,9 @@ service AssetService {
 
 message CreateAssetRequest {
   AssetType type = 1;
-  string url = 2;
-  string id = 3;
-  string name = 4;
-  string description = 5;
+  string name = 2;
+  string description = 3;
+  bytes content = 4;
 }
 
 message CreateAssetResponse {
@@ -70,4 +69,5 @@ message Asset {
   string id = 3;
   string name = 4;
   string description = 5;
+  bytes content = 6;
 }

@@ -34,7 +34,7 @@
         <spring-cloud-aws.version>3.3.1</spring-cloud-aws.version>
         <spring-redis.version>3.5.3</spring-redis.version>
         <jedis.version>6.1.0</jedis.version>
-        <game-service-api.version>0.0.2</game-service-api.version>
+        <game-service-api.version>0.0.4</game-service-api.version>
         <common-utils.version>1.2</common-utils.version>
         <protobuf-maven-plugin.version>3.4.2</protobuf-maven-plugin.version>
     </properties>
@@ -84,12 +84,23 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>RELEASE</version>
+        </dependency>
 
         <!-- Internal Dependencies -->
         <dependency>
             <groupId>com.mat.jamr</groupId>
             <artifactId>game-service-api</artifactId>
             <version>${game-service-api.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.grpc</groupId>
+                    <artifactId>grpc-protobuf-lite</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.mat.jamr</groupId>

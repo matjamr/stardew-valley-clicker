@@ -28,3 +28,11 @@ grpc:
   server:
     port: 9093
     reflection-service-enabled: true
+    
+minio:
+  url: http://localhost:9000
+  access:
+    name: minio
+    secret: password
+  bucket:
+    name: stardew-valley-clicker

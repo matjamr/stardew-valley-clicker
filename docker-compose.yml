@@ -76,22 +76,22 @@ services:
     networks:
       - stardew-valley-network
 
-  nginx:
-    image: "bitnami/nginx:latest"
-    container_name: nginx-proxy
-    restart: "always"
-    user: "root"
-    ports:
-      - "80:8080"
-    volumes:
-      - "./deployment/nginx/nginx.conf:/opt/bitnami/nginx/conf/nginx.conf:ro"
-    depends_on:
-      neo4j:
-        condition: service_healthy
-      postgres:
-        condition: service_healthy
-    networks:
-      - app-network
+#  nginx:
+#    image: "bitnami/nginx:latest"
+#    container_name: nginx-proxy
+#    restart: "always"
+#    user: "root"
+#    ports:
+#      - "80:8080"
+#    volumes:
+#      - "./deployment/nginx/nginx.conf:/opt/bitnami/nginx/conf/nginx.conf:ro"
+#    depends_on:
+#      neo4j:
+#        condition: service_healthy
+#      postgres:
+#        condition: service_healthy
+#    networks:
+#      - app-network
 
 #  jaeger:
 #    image: jaegertracing/all-in-one
@@ -169,25 +169,26 @@ services:
 #    networks:
 #      - stardew-valley-network
 
-#  minio:
-#    image: quay.io/minio/minio
-#    container_name: minio
-#    restart: unless-stopped
-#    ports:
-#      - "9000:9000"
-#      - "9001:9001"
-#    environment:
-#      MINIO_ROOT_USER: minio
-#      MINIO_ROOT_PASSWORD: password
-#    command: server /data --console-address ":9001"
-#    volumes:
-#      - minio_data:/data
+  minio:
+    image: quay.io/minio/minio
+    container_name: minio
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: password
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
 
 
 volumes:
   redis_data:
   dynamodb_data:
   kafka_data:
+  minio_data:
 
 networks:
   stardew-valley-network:
