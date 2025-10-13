@@ -13,8 +13,6 @@ public class AssetFileAppender implements Consumer<CreateAssetContext> {
 
     @Override
     public void accept(CreateAssetContext context) {
-        var url = minioFileService.uploadFile(context.getAsset().getName(), context.getCreateAssetRequest().getContent().newInput());
-
-        context.getAsset().setUrl(url);
+        minioFileService.uploadFile(context.getAsset().getName(), context.getCreateAssetRequest().getContent().newInput());
     }
 }

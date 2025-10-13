@@ -2,6 +2,7 @@ package com.mat.jamr.gameservice.service;
 
 import com.mat.jamr.gameservice.api.*;
 import com.mat.jamr.gameservice.context.CreateAssetContext;
+import com.mat.jamr.gameservice.context.ReadAssetContext;
 import com.mat.jamr.gameservice.service.common.MinioFileService;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.function.Function;
 public class AssetsService extends AssetServiceGrpc.AssetServiceImplBase {
 
     private final Function<CreateAssetContext, CreateAssetResponse> createUserStrategyBasedFlow;
+    private final Function<ReadAssetContext, ReadAssetResponse> readAssetStrategyBasedFlow;
 
     @Override
     public void create(CreateAssetRequest request, StreamObserver<CreateAssetResponse> responseObserver) {
@@ -23,7 +25,8 @@ public class AssetsService extends AssetServiceGrpc.AssetServiceImplBase {
 
     @Override
     public void read(ReadAssetRequest request, StreamObserver<ReadAssetResponse> responseObserver) {
-        super.read(request, responseObserver);
+        responseObserver.onNext(readAssetStrategyBasedFlow.apply(new ReadAssetContext().request(request)));
+        responseObserver.onCompleted();
     }
 
     @Override

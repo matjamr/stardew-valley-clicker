@@ -1,4 +1,4 @@
-package com.mat.jamr.gameservice.service.assets.create.config;
+package com.mat.jamr.gameservice.service.assets.create;
 
 import com.mat.jamr.gameservice.api.CreateAssetResponse;
 import com.mat.jamr.gameservice.api.db.Asset;

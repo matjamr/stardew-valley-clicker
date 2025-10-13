@@ -65,7 +65,6 @@ enum AssetType {
 
 message Asset {
   AssetType type = 1;
-  string url = 2;
   string id = 3;
   string name = 4;
   string description = 5;
