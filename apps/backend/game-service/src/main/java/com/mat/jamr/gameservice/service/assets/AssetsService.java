@@ -1,9 +1,8 @@
-package com.mat.jamr.gameservice.service;
+package com.mat.jamr.gameservice.service.assets;
 
 import com.mat.jamr.gameservice.api.*;
 import com.mat.jamr.gameservice.context.CreateAssetContext;
 import com.mat.jamr.gameservice.context.ReadAssetContext;
-import com.mat.jamr.gameservice.service.common.MinioFileService;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.server.service.GrpcService;

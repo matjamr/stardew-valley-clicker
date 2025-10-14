@@ -66,6 +66,8 @@ enum AssetType {
   STONE = 7;
   HARDWOOD = 8;
   HARDSTONE = 9;
+  GROUND = 10;
+  DECORATION = 11;
 }
 
 message Asset {
@@ -74,4 +76,5 @@ message Asset {
   string name = 4;
   string description = 5;
   bytes content = 6;
+  string url = 7;
 }

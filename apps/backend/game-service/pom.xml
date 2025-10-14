@@ -34,7 +34,7 @@
         <spring-cloud-aws.version>3.3.1</spring-cloud-aws.version>
         <spring-redis.version>3.5.3</spring-redis.version>
         <jedis.version>6.1.0</jedis.version>
-        <game-service-api.version>0.0.5</game-service-api.version>
+        <game-service-api.version>0.0.9</game-service-api.version>
         <common-utils.version>1.2</common-utils.version>
         <protobuf-maven-plugin.version>3.4.2</protobuf-maven-plugin.version>
     </properties>

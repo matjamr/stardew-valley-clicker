@@ -29,10 +29,18 @@ message ReadIslandResponse {
   Island island = 1;
 }
 
+service IslandVariantService {
+  rpc Read (ReadIslandVariantRequest) returns (IslandVariant) {}
+}
+
 enum IslandVariantType {
   DEFAULT = 0;
   CLASSIC = 1;
   FOREST = 2;
+}
+
+message ReadIslandVariantRequest {
+  string id = 1;
 }
 
 message Island {
