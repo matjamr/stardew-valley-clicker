@@ -1,40 +1,37 @@
-import 'dart:async';
-
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile/game/my_game.dart';
+import 'package:mobile/state/app_providers.dart';
 
-class GamePage extends StatefulWidget {
+class GamePage extends ConsumerStatefulWidget {
   const GamePage({super.key});
 
   @override
-  State<GamePage> createState() => _GamePageState();
+  ConsumerState<GamePage> createState() => _GamePageState();
 }
 
-class _GamePageState extends State<GamePage> {
+class _GamePageState extends ConsumerState<GamePage> {
   late MyGame _game;
-  LocationArea _location = LocationArea.farm;
-  int _energy = 100; // mocked energy
-  int _notifications = 2; // mocked notifications
-  late Timer _clockTimer;
-  TimeOfDay _timeOfDay = TimeOfDay.now();
+  late ProviderSubscription<LocationArea> _locationSub;
 
   @override
   void initState() {
     super.initState();
-    _game = MyGame(location: _location);
-    _clockTimer = Timer.periodic(const Duration(seconds: 1), (_) {
-      setState(() => _timeOfDay = TimeOfDay.now());
-    });
-  }
-
-  @override
-  void dispose() {
-    _clockTimer.cancel();
-    super.dispose();
+    _game = MyGame(location: ref.read(locationProvider));
+    // Listen for location changes to update the Flame scene using listenManual (allowed outside build)
+    _locationSub = ref.listenManual<LocationArea>(locationProvider, (
+      prev,
+      next,
+    ) {
+      if (prev != next) {
+        _game.updateLocation(next);
+      }
+    }, fireImmediately: false);
   }
 
   void _pickLocation() async {
+    final current = ref.read(locationProvider);
     final selected = await showModalBottomSheet<LocationArea>(
       context: context,
       backgroundColor: const Color(0xFF2E1F1A),
@@ -47,34 +44,60 @@ class _GamePageState extends State<GamePage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 8),
-              _locationTile(LocationArea.farm, Icons.agriculture, 'Farm'),
-              _locationTile(LocationArea.fishing, Icons.water, 'Fishing'),
-              _locationTile(LocationArea.barn, Icons.pets, 'Barn'),
-              _locationTile(LocationArea.mines, Icons.landscape, 'Mines'),
+              _locationTile(
+                current,
+                LocationArea.farm,
+                Icons.agriculture,
+                'Farm',
+              ),
+              _locationTile(
+                current,
+                LocationArea.fishing,
+                Icons.water,
+                'Fishing',
+              ),
+              _locationTile(current, LocationArea.barn, Icons.pets, 'Barn'),
+              _locationTile(
+                current,
+                LocationArea.mines,
+                Icons.landscape,
+                'Mines',
+              ),
               const SizedBox(height: 8),
             ],
           ),
         );
       },
     );
-    if (selected != null && selected != _location) {
-      setState(() => _location = selected);
-      _game.updateLocation(selected);
+    if (selected != null && selected != current) {
+      ref.read(locationProvider.notifier).state = selected;
     }
   }
 
-  ListTile _locationTile(LocationArea area, IconData icon, String title) {
+  ListTile _locationTile(
+    LocationArea current,
+    LocationArea area,
+    IconData icon,
+    String title,
+  ) {
     return ListTile(
       leading: Icon(icon, color: const Color(0xFFFFE7A0)),
       title: Text(title, style: const TextStyle(color: Color(0xFFFFE7A0))),
-      selected: _location == area,
+      selected: current == area,
       onTap: () => Navigator.of(context).pop(area),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final timeLabel = _timeOfDay.format(context);
+    final notifications = ref.watch(notificationsCountProvider);
+    final energy = ref.watch(energyProvider);
+    final timeAsync = ref.watch(timeProvider);
+    final timeLabel = timeAsync.when(
+      data: (t) => t.format(context),
+      loading: () => '—:—',
+      error: (_, __) => 'Err',
+    );
 
     return Scaffold(
       backgroundColor: const Color(0xFF1B1B1B),
@@ -97,7 +120,7 @@ class _GamePageState extends State<GamePage> {
                     ),
                     const SizedBox(width: 6),
                     Text(
-                      '$_notifications',
+                      '${notifications}',
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -144,7 +167,7 @@ class _GamePageState extends State<GamePage> {
                         const Icon(Icons.bolt, color: Colors.yellow, size: 16),
                         const SizedBox(width: 6),
                         Text(
-                          '$_energy',
+                          '$energy',
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -185,7 +208,7 @@ class _GamePageState extends State<GamePage> {
                       Icons.notifications,
                       label: 'Alerts',
                       onTap: () {
-                        setState(() => _notifications = 0);
+                        ref.read(notificationsCountProvider.notifier).state = 0;
                       },
                     ),
                     _bottomIcon(Icons.store, label: 'Shop', onTap: () {}),

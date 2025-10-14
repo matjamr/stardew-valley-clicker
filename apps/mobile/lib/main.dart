@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile/game_page.dart';
 import 'package:mobile/login_screen.dart';
 
 void main() {
-  runApp(const StardewClickerApp());
+  runApp(const ProviderScope(child: StardewClickerApp()));
 }
 
 class StardewClickerApp extends StatelessWidget {
