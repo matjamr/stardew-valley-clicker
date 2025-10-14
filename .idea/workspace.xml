@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="635becb2-690f-4978-8c96-999695fb46c7" name="Changes" comment="Integrate `game-service` with `api-gateway`: Add gRPC client configurations, mappers, and controllers for Assets, Islands, and Island Variants. Enhance external API with new routes and schemas for game entities. Update IntelliJ project settings and clean up obsolete `.idea` files. Increment `external-api` version to 0.0.4.">
+      <change beforePath="$PROJECT_DIR$/apps/mobile-android/.keep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile-ios/.keep" beforeDir="false" />
+    </list>
+    <list id="8a89aab7-bfc2-4748-9dc5-dafb80757922" name="ignored" comment="">
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker/backend/settings.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;matjamr&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/matjamr/stardew-valley-clicker.git&quot;,
+    &quot;accountId&quot;: &quot;09b59a6f-0ead-4a20-9cbb-ba698d97b611&quot;
+  }
+}</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="31GpZgicYjK5u4KhsLbbgmot5hG" />
+  <component name="ProjectViewState">
+    <option name="openDirectoriesWithSingleClick" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "HTTP Request.generated-requests | #2.executor": "Run",
+    "Java Scratch.Scratch.executor": "Run",
+    "Maven.external-api [clean,install,-DskipTests].executor": "Run",
+    "Maven.internal-api [clean,install].executor": "Run",
+    "Maven.internal-api [org.xolstice.maven.plugins:protobuf-maven-plugin:0.6.1:compile].executor": "Run",
+    "Maven.outbound-api [deploy].executor": "Run",
+    "Maven.user-service [clean,install,-DskipTests].executor": "Run",
+    "Maven.user-service [clean,install].executor": "Run",
+    "Maven.user-service [clean,package].executor": "Run",
+    "Maven.user-service [generate].executor": "Run",
+    "Maven.user-service [initialize].executor": "Run",
+    "Maven.user-service [io.github.ascopes:protobuf-maven-plugin:3.4.2:generate].executor": "Run",
+    "Maven.user-service [org.apache.maven.plugins:maven-clean-plugin:3.4.1:clean].executor": "Run",
+    "Maven.user-service [org.apache.maven.plugins:maven-compiler-plugin:3.14.0:compile].executor": "Run",
+    "Maven.user-service [org.apache.maven.plugins:maven-install-plugin:3.1.4:install].executor": "Run",
+    "Maven.user-service [org.xolstice.maven.plugins:protobuf-maven-plugin:0.6.1:compile].executor": "Run",
+    "Maven.user-service [package].executor": "Run",
+    "Maven.user-service-api [clean,install...].executor": "Run",
+    "Maven.user-service-api [clean,package].executor": "Run",
+    "Maven.user-service.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.ApiGatewayApplication.executor": "Run",
+    "Spring Boot.GameServiceApplication (1).executor": "Run",
+    "Spring Boot.GameServiceApplication.executor": "Run",
+    "Spring Boot.OutboundApplication (1).executor": "Run",
+    "Spring Boot.OutboundApplication.executor": "Run",
+    "Spring Boot.UserServiceApplication.executor": "Run",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "master",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/Users/bober2137/dev/stardew-valley-clicker",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "show.migrate.to.gradle.popup": "false",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "JAVA"
+    ]
+  }
+}]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/islands/create" />
+      <recent name="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/assets/read" />
+      <recent name="$PROJECT_DIR$/apps/internal-api" />
+      <recent name="$PROJECT_DIR$/apps/backend" />
+      <recent name="$PROJECT_DIR$/apps/external-api" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/apps/mobile/assets" />
+      <recent name="$PROJECT_DIR$/apps/backend/api-gateway" />
+      <recent name="$PROJECT_DIR$/docker/dynamodb" />
+      <recent name="$PROJECT_DIR$/apps/backend/user-service" />
+      <recent name="$PROJECT_DIR$/apps/backend" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.mat.jamr.gameservice.service.assets" />
+      <recent name="com.mat.jamr.gameservice.service.assets.create" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.mat.jamr.gameservice.context" />
+      <recent name="com.mat.jamr.gameservice.service.assets.create.consumers" />
+      <recent name="com.mat.jamr.apigateway.service.user.login" />
+      <recent name="com.mat.jamr.apigateway.service.user.verify" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn generate" />
+      <command value="mvn package" />
+      <command value="mvn initialize" />
+      <command value="mvn clean install" />
+      <command value="mvn " />
+      <command value="mvn clean package" />
+      <command value="mvn clean install -DskipTests" />
+    </option>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="KtorApplicationConfigurationType" />
+        <option value="MicronautRunConfigurationType" />
+        <option value="QuarkusRunConfigurationType" />
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.GameServiceApplication">
+    <configuration name="generated-requests | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#2" index="2" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="Scratch" type="Java Scratch" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Scratch" />
+      <option name="SCRATCH_FILE_URL" value="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ApiGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="api-gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.mat.jamr.apigateway.ApiGatewayApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="user-service (2)" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.mat.jamr.gameservice.GameServiceApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.mat.jamr.gameservice.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OutboundApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="user-service (1)" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.mat.jamr.outbound.OutboundApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="user-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.mat.jamr.userservice.UserServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.GameServiceApplication" />
+        <item itemvalue="Java Scratch.Scratch" />
+        <item itemvalue="HTTP Request.generated-requests | #2" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
+        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="635becb2-690f-4978-8c96-999695fb46c7" name="Changes" comment="" />
+      <changelist id="8a89aab7-bfc2-4748-9dc5-dafb80757922" name="ignored" comment="" />
+      <created>1755160320427</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1755160320427</updated>
+      <workItem from="1755160321521" duration="107000" />
+      <workItem from="1755160433742" duration="1401000" />
+      <workItem from="1755162399319" duration="4557000" />
+      <workItem from="1755172766692" duration="3893000" />
+      <workItem from="1755766976009" duration="121000" />
+      <workItem from="1755767107211" duration="97000" />
+      <workItem from="1755771896080" duration="12938000" />
+      <workItem from="1755938741245" duration="1399000" />
+      <workItem from="1756055436417" duration="617000" />
+      <workItem from="1756662644989" duration="1806000" />
+      <workItem from="1758656389858" duration="11277000" />
+      <workItem from="1759955950657" duration="12054000" />
+      <workItem from="1760193002996" duration="50447000" />
+      <workItem from="1760478125204" duration="151000" />
+    </task>
+    <task id="LOCAL-00001" summary="Initialize project structure with key backend, frontend, and mobile app components. Added Maven configurations, gRPC setup, and initial service implementation.">
+      <option name="closed" value="true" />
+      <created>1755173704086</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1755173704086</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Refactor project structure: remove legacy gRPC configurations and unused proto files, reorganize Maven and IntelliJ project files, and streamline service definitions.">
+      <option name="closed" value="true" />
+      <created>1755773163850</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1755773163850</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Refactor gRPC implementation: replace legacy gRPC services with user-specific API and validation, introduce DynamoDB integration and exception handling, and update configurations and dependencies accordingly.">
+      <option name="closed" value="true" />
+      <created>1755809587655</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1755809587655</updated>
+    </task>
+    <task id="LOCAL-00004" summary="test">
+      <option name="closed" value="true" />
+      <created>1758888430760</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1758888430760</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Remove OpenTelemetry integration from `user-service`, clean up related dependencies and configuration. Add `outbound` service with Kafka integration, Redis configuration, and gRPC support. Update IntelliJ project settings, Maven wrapper files, and `.gitignore` entries. Enhance `outbound-api` and refine error handling logic.">
+      <option name="closed" value="true" />
+      <created>1760251280392</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1760251280392</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Remove Prometheus, OpenTelemetry, and Loki integrations from `api-gateway`, clean up related dependencies and configurations. Add gRPC client for `SecurityService`, implement `LoginUserService` and `VerifyUserService`, update `UserServiceController` for login and verify endpoints, and enhance session management with `SessionSetupFilter` and `SecurityContext`. Update `application.yaml` with new configurations. Refine IntelliJ project settings.">
+      <option name="closed" value="true" />
+      <created>1760253304166</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1760253304166</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Add `game-service` backend and `game-service-api` modules. Introduce database table schemas, DynamoDB configurations, and gRPC integration. Update IntelliJ project settings, IntelliJ `.gitignore`, and Maven wrapper files. Include nginx service in `docker-compose.yml`. Refine `.gitignore` for consistency.">
+      <option name="closed" value="true" />
+      <created>1760288869736</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1760288869736</updated>
+    </task>
+    <task id="LOCAL-00008" summary="fix">
+      <option name="closed" value="true" />
+      <created>1760289086444</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1760289086444</updated>
+    </task>
+    <task id="LOCAL-00009" summary="create asset POC">
+      <option name="closed" value="true" />
+      <created>1760385909404</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1760385909404</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Add `read` functionality to `game-service`: Introduce `ReadAssetContext`, `ReadAssetBeanConfig`, and `ReadAssetFromDbConsumer`. Implement `AssetIdAware` interface and `ReadAssetResponseMapper`. Update gRPC service in `AssetsService` to support reading assets.">
+      <option name="closed" value="true" />
+      <created>1760388298950</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1760388298950</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Introduce Island and Terrain entities with DynamoDB support; Implement asset creation flow with mappers and consumers. Update gRPC definitions and increment API version to 0.0.5.">
+      <option name="closed" value="true" />
+      <created>1760391129962</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1760391129962</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Introduce IslandVariant functionality within `game-service`: Add `ReadIslandVariantContext`, `IslandVariantService`, and mappers for IslandVariants and related entities. Deprecate legacy asset consumers and mappers. Refactor gRPC and DynamoDB configurations. Increment `game-service-api` to version 0.0.9.">
+      <option name="closed" value="true" />
+      <created>1760470099025</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1760470099025</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Integrate `game-service` with `api-gateway`: Add gRPC client configurations, mappers, and controllers for Assets, Islands, and Island Variants. Enhance external API with new routes and schemas for game entities. Update IntelliJ project settings and clean up obsolete `.idea` files. Increment `external-api` version to 0.0.4.">
+      <option name="closed" value="true" />
+      <created>1760475014276</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1760475014276</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initialize project structure with key backend, frontend, and mobile app components. Added Maven configurations, gRPC setup, and initial service implementation." />
+    <MESSAGE value="Refactor project structure: remove legacy gRPC configurations and unused proto files, reorganize Maven and IntelliJ project files, and streamline service definitions." />
+    <MESSAGE value="Refactor gRPC implementation: replace legacy gRPC services with user-specific API and validation, introduce DynamoDB integration and exception handling, and update configurations and dependencies accordingly." />
+    <MESSAGE value="test" />
+    <MESSAGE value="Remove OpenTelemetry integration from `user-service`, clean up related dependencies and configuration. Add `outbound` service with Kafka integration, Redis configuration, and gRPC support. Update IntelliJ project settings, Maven wrapper files, and `.gitignore` entries. Enhance `outbound-api` and refine error handling logic." />
+    <MESSAGE value="Remove Prometheus, OpenTelemetry, and Loki integrations from `api-gateway`, clean up related dependencies and configurations. Add gRPC client for `SecurityService`, implement `LoginUserService` and `VerifyUserService`, update `UserServiceController` for login and verify endpoints, and enhance session management with `SessionSetupFilter` and `SecurityContext`. Update `application.yaml` with new configurations. Refine IntelliJ project settings." />
+    <MESSAGE value="Add `game-service` backend and `game-service-api` modules. Introduce database table schemas, DynamoDB configurations, and gRPC integration. Update IntelliJ project settings, IntelliJ `.gitignore`, and Maven wrapper files. Include nginx service in `docker-compose.yml`. Refine `.gitignore` for consistency." />
+    <MESSAGE value="fix" />
+    <MESSAGE value="create asset POC" />
+    <MESSAGE value="Add `read` functionality to `game-service`: Introduce `ReadAssetContext`, `ReadAssetBeanConfig`, and `ReadAssetFromDbConsumer`. Implement `AssetIdAware` interface and `ReadAssetResponseMapper`. Update gRPC service in `AssetsService` to support reading assets." />
+    <MESSAGE value="Introduce Island and Terrain entities with DynamoDB support; Implement asset creation flow with mappers and consumers. Update gRPC definitions and increment API version to 0.0.5." />
+    <MESSAGE value="Introduce IslandVariant functionality within `game-service`: Add `ReadIslandVariantContext`, `IslandVariantService`, and mappers for IslandVariants and related entities. Deprecate legacy asset consumers and mappers. Refactor gRPC and DynamoDB configurations. Increment `game-service-api` to version 0.0.9." />
+    <MESSAGE value="Add initial implementation of `api-gateway` game-related functionality: introduce controllers and mappers for `Asset`, `Island`, and `IslandVariant`; configure gRPC clients for `game-service`; update `application.yaml` for game-related settings; enhance `external-api` definitions and increment version to 0.0.4." />
+    <MESSAGE value="Integrate `game-service` with `api-gateway`: Add gRPC client configurations, mappers, and controllers for Assets, Islands, and Island Variants. Enhance external API with new routes and schemas for game entities. Update IntelliJ project settings and clean up obsolete `.idea` files. Increment `external-api` version to 0.0.4." />
+    <option name="LAST_COMMIT_MESSAGE" value="Integrate `game-service` with `api-gateway`: Add gRPC client configurations, mappers, and controllers for Assets, Islands, and Island Variants. Enhance external API with new routes and schemas for game entities. Update IntelliJ project settings and clean up obsolete `.idea` files. Increment `external-api` version to 0.0.4." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/apps/backend/user-service/src/main/java/com/mat/jamr/userservice/user/create/CreateUserBeanConfig.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/apps/backend/user-service/src/main/java/com/mat/jamr/userservice/user/retrieve/RetrieveUserBeanConfig.java</url>
+          <line>20</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
