@@ -73,12 +73,17 @@
         <dependency>
             <groupId>com.mat.jamr</groupId>
             <artifactId>external-api</artifactId>
-            <version>0.0.3</version>
+            <version>0.0.4</version>
         </dependency>
         <dependency>
             <groupId>com.mat.jamr</groupId>
             <artifactId>user-service-api</artifactId>
             <version>0.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mat.jamr</groupId>
+            <artifactId>game-service-api</artifactId>
+            <version>0.0.9</version>
         </dependency>
 
         <dependency>
