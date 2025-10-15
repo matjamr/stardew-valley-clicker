@@ -1,0 +1,473 @@
+openapi: 3.0.0
+info:
+  title: User, Security and Game API
+  description: API for user management, security operations and game operations (assets, islands)
+  version: 1.0.0
+servers:
+  - url: /api/v1
+paths:
+  /users:
+    post:
+      summary: Create a new user
+      operationId: saveUser
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveUserRequest'
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaveUserResponse'
+        '400':
+          description: Invalid input
+  /users/{id}:
+    get:
+      summary: Retrieve a user by ID
+      operationId: retrieveUser
+      tags:
+        - users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveUserResponse'
+        '404':
+          description: User not found
+  /auth/login:
+    post:
+      summary: Authenticate a user
+      operationId: loginUser
+      tags:
+        - security
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUserRequest'
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginUserResponse'
+        '401':
+          description: Authentication failed
+  /auth/verify:
+    post:
+      summary: Verify a user's access token
+      operationId: verifyUser
+      tags:
+        - security
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyUserRequest'
+      responses:
+        '200':
+          description: Token verification successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyUserResponse'
+        '401':
+          description: Invalid token
+  /auth/refresh:
+    post:
+      summary: Refresh an access token
+      operationId: refreshToken
+      tags:
+        - security
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequest'
+      responses:
+        '200':
+          description: Token refresh successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefreshTokenResponse'
+        '401':
+          description: Invalid refresh token
+
+  # Game - Assets
+  /assets:
+    post:
+      summary: Create a new asset
+      operationId: createAsset
+      tags:
+        - assets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAssetRequest'
+      responses:
+        '200':
+          description: Asset created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAssetResponse'
+        '400':
+          description: Invalid input
+  /assets/{id}:
+    get:
+      summary: Read an asset by ID
+      operationId: readAsset
+      tags:
+        - assets
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Asset found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadAssetResponse'
+        '404':
+          description: Asset not found
+
+  # Game - Islands
+  /islands:
+    post:
+      summary: Create a new island
+      operationId: createIsland
+      tags:
+        - islands
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateIslandRequest'
+      responses:
+        '200':
+          description: Island created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateIslandResponse'
+  /islands/{id}:
+    get:
+      summary: Read island by ID
+      operationId: readIsland
+      tags:
+        - islands
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Island found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadIslandResponse'
+        '404':
+          description: Island not found
+
+  # Game - Island Variants
+  /island-variants/{id}:
+    get:
+      summary: Read island variant by ID
+      operationId: readIslandVariant
+      tags:
+        - island-variants
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Island variant found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IslandVariant'
+        '404':
+          description: Island variant not found
+components:
+  schemas:
+    SaveUserRequest:
+      type: object
+      required:
+        - name
+        - surname
+        - email
+      properties:
+        name:
+          type: string
+        surname:
+          type: string
+        email:
+          type: string
+          format: email
+    SaveUserResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+        email:
+          type: string
+          format: email
+    RetrieveUserRequest:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+    RetrieveUserResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+        email:
+          type: string
+          format: email
+    LoginUserRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+    LoginUserResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+    VerifyUserRequest:
+      type: object
+      required:
+        - accessToken
+      properties:
+        accessToken:
+          type: string
+    VerifyUserResponse:
+      type: object
+      properties:
+        name:
+          type: string
+        surname:
+          type: string
+        email:
+          type: string
+          format: email
+    RefreshTokenRequest:
+      type: object
+      required:
+        - refreshToken
+      properties:
+        refreshToken:
+          type: string
+    RefreshTokenResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+
+
+    # --- Game Schemas ---
+    # Asset
+    CreateAssetRequest:
+      type: object
+      required:
+        - type
+        - name
+      properties:
+        type:
+          $ref: '#/components/schemas/AssetType'
+        name:
+          type: string
+        description:
+          type: string
+        content:
+          type: string
+          format: byte
+    CreateAssetResponse:
+      type: object
+      properties:
+        asset:
+          $ref: '#/components/schemas/Asset'
+    ReadAssetResponse:
+      type: object
+      properties:
+        asset:
+          $ref: '#/components/schemas/Asset'
+    Asset:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          $ref: '#/components/schemas/AssetType'
+        name:
+          type: string
+        description:
+          type: string
+        url:
+          type: string
+        content:
+          type: string
+          format: byte
+    AssetType:
+      type: string
+      enum: [UNKNOWN, IMAGE, AUDIO, VIDEO, MODEL, BUILDING, WOOD, STONE, HARDWOOD, HARDSTONE, GROUND, DECORATION]
+
+    # Island
+    CreateIslandRequest:
+      type: object
+      required: [userId, variantId, name]
+      properties:
+        userId:
+          type: string
+        variantId:
+          type: string
+        name:
+          type: string
+    CreateIslandResponse:
+      type: object
+      properties:
+        id:
+          type: string
+    ReadIslandResponse:
+      type: object
+      properties:
+        island:
+          $ref: '#/components/schemas/Island'
+    Island:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        ownerId:
+          type: string
+        namedVariant:
+          type: string
+        allowedPlayers:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        terrains:
+          type: array
+          items:
+            $ref: '#/components/schemas/Terrain'
+
+    # Island Variant
+    IslandVariant:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum: [DEFAULT, CLASSIC, FOREST]
+        name:
+          type: string
+        description:
+          type: string
+        startingTerrains:
+          type: array
+          items:
+            $ref: '#/components/schemas/Terrain'
+
+    Terrain:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        tiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/TerrainTile'
+        blockSize:
+          type: integer
+          format: int32
+        sizeX:
+          type: integer
+          format: int32
+        sizeY:
+          type: integer
+          format: int32
+    TerrainTile:
+      type: object
+      properties:
+        x:
+          type: integer
+          format: int32
+        y:
+          type: integer
+          format: int32
+        sizeX:
+          type: integer
+          format: int32
+        sizeY:
+          type: integer
+          format: int32
+        asset:
+          $ref: '#/components/schemas/Asset'
