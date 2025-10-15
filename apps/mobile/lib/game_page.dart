@@ -4,10 +4,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile/game/model/location.dart';
 import 'package:mobile/game/my_game.dart';
 import 'package:mobile/state/app_providers.dart';
-import 'package:mobile/ui/widgets/game_bottom_bar.dart';
-import 'package:mobile/ui/widgets/hud_pill.dart';
-import 'package:mobile/ui/widgets/location_picker_sheet.dart';
 import 'package:mobile/state/island_providers.dart';
+import 'package:mobile/ui/widgets/alerts_modal.dart';
+import 'package:mobile/ui/widgets/bag_modal.dart';
+import 'package:mobile/ui/widgets/game_bottom_bar.dart';
+import 'package:mobile/ui/widgets/game_centered_modal.dart';
+import 'package:mobile/ui/widgets/game_icon_button.dart';
+import 'package:mobile/ui/widgets/hud_pill.dart';
+import 'package:mobile/ui/widgets/location_radial_menu.dart';
+import 'package:mobile/ui/widgets/profile_modal.dart';
+import 'package:mobile/ui/widgets/shop_modal.dart';
 import 'package:mobile/ui/widgets/terrain_grid.dart';
 
 class GamePage extends ConsumerStatefulWidget {
@@ -18,6 +24,7 @@ class GamePage extends ConsumerStatefulWidget {
 }
 
 class _GamePageState extends ConsumerState<GamePage> {
+  bool _locationMenuOpen = false;
   late MyGame _game;
   late ProviderSubscription<LocationArea> _locationSub;
 
@@ -42,21 +49,10 @@ class _GamePageState extends ConsumerState<GamePage> {
     super.dispose();
   }
 
-  void _pickLocation() async {
-    final current = ref.read(locationProvider);
-    final selected = await showModalBottomSheet<LocationArea>(
-      context: context,
-      backgroundColor: const Color(0xFF2E1F1A),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (context) {
-        return LocationPickerSheet(current: current);
-      },
-    );
-    if (selected != null && selected != current) {
-      ref.read(locationProvider.notifier).state = selected;
-    }
+  void _toggleLocationMenu() {
+    setState(() {
+      _locationMenuOpen = !_locationMenuOpen;
+    });
   }
 
   @override
@@ -183,19 +179,89 @@ class _GamePageState extends ConsumerState<GamePage> {
                 ],
               ),
             ),
-            // Bottom bar with 5 buttons
+            // Location radial menu overlay (toggles via Location button)
+            Positioned.fill(
+              child: IgnorePointer(
+                // allow taps only when open; handled inside the menu
+                ignoring: false,
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Consumer(
+                    builder: (context, ref, _) {
+                      final current = ref.watch(locationProvider);
+                      return LocationRadialMenu(
+                        isOpen: _locationMenuOpen,
+                        current: current,
+                        anchor: LocationMenuAnchor.centerRight,
+                        padding: const EdgeInsets.only(right: 16),
+                        onSelect: (loc) {
+                          if (loc != current) {
+                            ref.read(locationProvider.notifier).state = loc;
+                            // Also update Flame background via listener already set
+                          }
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+            // Center-right Location toggle button matching radial menu styling
+            Positioned.fill(
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 0),
+                  child: GameIconButton(
+                    icon: Icons.place,
+                    label: 'Location',
+                    onTap: _toggleLocationMenu,
+                    style: GameIconButtonStyle.card,
+                    selected: _locationMenuOpen,
+                  ),
+                ),
+              ),
+            ),
             Positioned(
               left: 0,
               right: 0,
               bottom: 0,
               child: GameBottomBar(
-                onAlerts: () {
+                onAlerts: () async {
+                  // Open alerts modal centered and clear notifications after
+                  await showGameCenteredModal(
+                    context: context,
+                    width: 520,
+                    height: 480,
+                    child: const SizedBox(height: 420, child: AlertsModal()),
+                  );
                   ref.read(notificationsCountProvider.notifier).state = 0;
                 },
-                onShop: () {},
-                onBag: () {},
-                onProfile: () {},
-                onLocation: _pickLocation,
+                onShop: () async {
+                  await showGameCenteredModal(
+                    context: context,
+                    width: 560,
+                    height: 560,
+                    child: const SizedBox(height: 520, child: ShopModal()),
+                  );
+                },
+                onBag: () async {
+                  await showGameCenteredModal(
+                    context: context,
+                    width: 520,
+                    height: 480,
+                    child: const SizedBox(height: 420, child: BagModal()),
+                  );
+                },
+                onProfile: () async {
+                  await showGameCenteredModal(
+                    context: context,
+                    width: 480,
+                    height: 420,
+                    child: const SizedBox(height: 360, child: ProfileModal()),
+                  );
+                },
+                onLocation: _toggleLocationMenu,
               ),
             ),
           ],

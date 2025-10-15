@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'game_icon_button.dart';
+
 class GameBottomBar extends StatelessWidget {
   final VoidCallback onAlerts;
   final VoidCallback onShop;
@@ -33,41 +35,32 @@ class GameBottomBar extends StatelessWidget {
       ),
       child: Row(
         children: [
-          _bottomIcon(Icons.notifications, label: 'Alerts', onTap: onAlerts),
-          _bottomIcon(Icons.store, label: 'Shop', onTap: onShop),
-          _bottomIcon(Icons.inventory, label: 'Bag', onTap: onBag),
-          _bottomIcon(Icons.person, label: 'Profile', onTap: onProfile),
-          const Spacer(),
-          _bottomIcon(Icons.place, label: 'Location', onTap: onLocation),
-        ],
-      ),
-    );
-  }
-
-  Widget _bottomIcon(
-    IconData icon, {
-    required String label,
-    required VoidCallback onTap,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 6.0),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(icon, color: const Color(0xFFFFE7A0)),
-              const SizedBox(height: 4),
-              Text(
-                label,
-                style: const TextStyle(color: Color(0xFFFFE7A0), fontSize: 12),
-              ),
-            ],
+          GameIconButton(
+            icon: Icons.notifications,
+            label: 'Alerts',
+            onTap: onAlerts,
+            style: GameIconButtonStyle.flat,
           ),
-        ),
+          GameIconButton(
+            icon: Icons.store,
+            label: 'Shop',
+            onTap: onShop,
+            style: GameIconButtonStyle.flat,
+          ),
+          GameIconButton(
+            icon: Icons.inventory,
+            label: 'Bag',
+            onTap: onBag,
+            style: GameIconButtonStyle.flat,
+          ),
+          GameIconButton(
+            icon: Icons.person,
+            label: 'Profile',
+            onTap: onProfile,
+            style: GameIconButtonStyle.flat,
+          ),
+          const Spacer(),
+        ],
       ),
     );
   }
