@@ -85,7 +85,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         onPressed: () {
                           if (_formKey.currentState?.validate() ?? false) {
-                            Navigator.of(context).pushReplacementNamed('/game');
+                            Navigator.of(
+                              context,
+                            ).pushReplacementNamed('/islands');
                           }
                         },
                         child: const Text('Enter the Valley'),
