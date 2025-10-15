@@ -7,6 +7,8 @@ import 'package:mobile/state/app_providers.dart';
 import 'package:mobile/ui/widgets/game_bottom_bar.dart';
 import 'package:mobile/ui/widgets/hud_pill.dart';
 import 'package:mobile/ui/widgets/location_picker_sheet.dart';
+import 'package:mobile/state/island_providers.dart';
+import 'package:mobile/ui/widgets/terrain_grid.dart';
 
 class GamePage extends ConsumerStatefulWidget {
   const GamePage({super.key});
@@ -73,7 +75,40 @@ class _GamePageState extends ConsumerState<GamePage> {
       body: SafeArea(
         child: Stack(
           children: [
+            // Flame scene (still used for overlays/logic); terrain grid will be layered above as the visual background
             Positioned.fill(child: GameWidget(game: _game)),
+            // Terrain grid background based on current island variant + location
+            Positioned.fill(
+              child: Consumer(
+                builder: (context, ref, _) {
+                  final variantKey = ref.watch(
+                    selectedIslandVariantKeyProvider,
+                  );
+                  if (variantKey == null) {
+                    return const SizedBox.shrink();
+                  }
+                  final loc = ref.watch(locationProvider);
+                  final repo = ref.watch(islandRepositoryProvider);
+                  final terrain = repo.getTerrainForVariant(
+                    variantKey,
+                    loc.name,
+                  );
+                  final size = MediaQuery.of(context).size;
+                  return IgnorePointer(
+                    ignoring: true,
+                    child: Center(
+                      child: TerrainGrid(
+                        terrain: terrain,
+                        maxWidth: size.width - 24, // a bit of safe padding
+                        maxHeight:
+                            size.height -
+                            120, // leave room for HUD/bottom bar visually
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
             // Top-left notifications
             Positioned(
               left: 8,

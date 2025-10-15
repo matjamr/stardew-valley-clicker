@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile/state/island_providers.dart';
 
+import '../widgets/terrain_grid.dart';
+
 class IslandVariantSelectPage extends ConsumerWidget {
   const IslandVariantSelectPage({super.key});
 
@@ -36,9 +38,20 @@ class IslandVariantSelectPage extends ConsumerWidget {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  subtitle: Text(
-                    v.description,
-                    style: const TextStyle(color: Color(0xFFFFE7A0)),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        v.description,
+                        style: const TextStyle(color: Color(0xFFFFE7A0)),
+                      ),
+                      const SizedBox(height: 8),
+                      TerrainGrid(
+                        terrain: v.terrains.first,
+                        maxWidth: 300,
+                        maxHeight: 140,
+                      ),
+                    ],
                   ),
                   trailing: const Icon(
                     Icons.chevron_right,

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile/state/island_providers.dart';
 
+import '../widgets/terrain_grid.dart';
+
 class IslandDetailsPage extends ConsumerStatefulWidget {
   final String variantKey;
   const IslandDetailsPage({super.key, required this.variantKey});
@@ -25,6 +27,7 @@ class _IslandDetailsPageState extends ConsumerState<IslandDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final variantsAsync = ref.watch(islandVariantsProvider);
     return Scaffold(
       appBar: AppBar(title: const Text('Island Details')),
       body: Padding(
@@ -33,6 +36,51 @@ class _IslandDetailsPageState extends ConsumerState<IslandDetailsPage> {
           key: _formKey,
           child: Column(
             children: [
+              // Variant preview
+              variantsAsync.when(
+                data: (variants) {
+                  final v = variants.firstWhere(
+                    (e) => e.key == widget.variantKey,
+                    orElse: () => variants.first,
+                  );
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      side: const BorderSide(
+                        color: Color(0xFF7C5A4A),
+                        width: 2,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Variant: ${v.title}',
+                            style: const TextStyle(
+                              color: Color(0xFFFFF3C4),
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          TerrainGrid(
+                            terrain: v.terrains.first,
+                            maxWidth: 340,
+                            maxHeight: 160,
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                loading: () => const Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Center(child: CircularProgressIndicator()),
+                ),
+                error: (e, st) => const SizedBox.shrink(),
+              ),
+              const SizedBox(height: 12),
               Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
