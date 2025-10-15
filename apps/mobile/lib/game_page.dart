@@ -1,8 +1,12 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/game/model/location.dart';
 import 'package:mobile/game/my_game.dart';
 import 'package:mobile/state/app_providers.dart';
+import 'package:mobile/ui/widgets/game_bottom_bar.dart';
+import 'package:mobile/ui/widgets/hud_pill.dart';
+import 'package:mobile/ui/widgets/location_picker_sheet.dart';
 
 class GamePage extends ConsumerStatefulWidget {
   const GamePage({super.key});
@@ -30,6 +34,12 @@ class _GamePageState extends ConsumerState<GamePage> {
     }, fireImmediately: false);
   }
 
+  @override
+  void dispose() {
+    _locationSub.close();
+    super.dispose();
+  }
+
   void _pickLocation() async {
     final current = ref.read(locationProvider);
     final selected = await showModalBottomSheet<LocationArea>(
@@ -39,53 +49,12 @@ class _GamePageState extends ConsumerState<GamePage> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
       builder: (context) {
-        return SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 8),
-              _locationTile(
-                current,
-                LocationArea.farm,
-                Icons.agriculture,
-                'Farm',
-              ),
-              _locationTile(
-                current,
-                LocationArea.fishing,
-                Icons.water,
-                'Fishing',
-              ),
-              _locationTile(current, LocationArea.barn, Icons.pets, 'Barn'),
-              _locationTile(
-                current,
-                LocationArea.mines,
-                Icons.landscape,
-                'Mines',
-              ),
-              const SizedBox(height: 8),
-            ],
-          ),
-        );
+        return LocationPickerSheet(current: current);
       },
     );
     if (selected != null && selected != current) {
       ref.read(locationProvider.notifier).state = selected;
     }
-  }
-
-  ListTile _locationTile(
-    LocationArea current,
-    LocationArea area,
-    IconData icon,
-    String title,
-  ) {
-    return ListTile(
-      leading: Icon(icon, color: const Color(0xFFFFE7A0)),
-      title: Text(title, style: const TextStyle(color: Color(0xFFFFE7A0))),
-      selected: current == area,
-      onTap: () => Navigator.of(context).pop(area),
-    );
   }
 
   @override
@@ -109,7 +78,7 @@ class _GamePageState extends ConsumerState<GamePage> {
             Positioned(
               left: 8,
               top: 8,
-              child: _pill(
+              child: HudPill(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -136,7 +105,7 @@ class _GamePageState extends ConsumerState<GamePage> {
               top: 8,
               child: Row(
                 children: [
-                  _pill(
+                  HudPill(
                     child: Row(
                       children: [
                         Image.asset(
@@ -161,7 +130,7 @@ class _GamePageState extends ConsumerState<GamePage> {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  _pill(
+                  HudPill(
                     child: Row(
                       children: [
                         const Icon(Icons.bolt, color: Colors.yellow, size: 16),
@@ -184,94 +153,18 @@ class _GamePageState extends ConsumerState<GamePage> {
               left: 0,
               right: 0,
               bottom: 0,
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xCC2E1F1A),
-                  border: const Border(
-                    top: BorderSide(color: Color(0xFF7C5A4A), width: 2),
-                  ),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black54,
-                      blurRadius: 8,
-                      offset: Offset(0, -2),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    _bottomIcon(
-                      Icons.notifications,
-                      label: 'Alerts',
-                      onTap: () {
-                        ref.read(notificationsCountProvider.notifier).state = 0;
-                      },
-                    ),
-                    _bottomIcon(Icons.store, label: 'Shop', onTap: () {}),
-                    _bottomIcon(Icons.backpack, label: 'Bag', onTap: () {}),
-                    _bottomIcon(Icons.person, label: 'Profile', onTap: () {}),
-                    const Spacer(),
-                    _bottomIcon(
-                      Icons.map,
-                      label: 'Location',
-                      onTap: _pickLocation,
-                    ),
-                  ],
-                ),
+              child: GameBottomBar(
+                onAlerts: () {
+                  ref.read(notificationsCountProvider.notifier).state = 0;
+                },
+                onShop: () {},
+                onBag: () {},
+                onProfile: () {},
+                onLocation: _pickLocation,
               ),
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _pill({required Widget child}) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      decoration: BoxDecoration(
-        color: const Color(0x99212121),
-        borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: const Color(0xFF7C5A4A), width: 1.5),
-      ),
-      child: child,
-    );
-  }
-
-  Widget _bottomIcon(
-    IconData icon, {
-    required String label,
-    required VoidCallback onTap,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 6),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          InkResponse(
-            onTap: onTap,
-            radius: 28,
-            child: Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                color: const Color(0xFF4A372F),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: const Color(0xFF7C5A4A), width: 2),
-              ),
-              child: Icon(icon, color: const Color(0xFFFFE7A0)),
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: const TextStyle(color: Color(0xFFFFE7A0), fontSize: 11),
-          ),
-        ],
       ),
     );
   }

@@ -1,11 +1,8 @@
-import 'dart:ui';
-
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/text.dart';
 import 'package:flutter/painting.dart';
-
-enum LocationArea { farm, fishing, barn, mines }
+import 'package:mobile/game/model/location.dart';
 
 class MyGame extends FlameGame {
   LocationArea location;
@@ -31,7 +28,7 @@ class MyGame extends FlameGame {
     }
 
     // pick an asset per location (using available assets as placeholders)
-    final String asset;
+    late String asset;
     switch (loc) {
       case LocationArea.farm:
         asset = 'grass.png';

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
-import 'package:mobile/game/my_game.dart';
+import 'package:mobile/game/model/location.dart';
 
 // Location selection for the game scene
 final locationProvider = StateProvider<LocationArea>(
