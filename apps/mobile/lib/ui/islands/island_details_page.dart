@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile/state/island_providers.dart';
 
 import '../widgets/terrain_grid.dart';
+import '../widgets/zoom_pan_viewer.dart';
 
 class IslandDetailsPage extends ConsumerStatefulWidget {
   final String variantKey;
@@ -64,10 +65,15 @@ class _IslandDetailsPageState extends ConsumerState<IslandDetailsPage> {
                             ),
                           ),
                           const SizedBox(height: 8),
-                          TerrainGrid(
-                            terrain: v.terrains.first,
-                            maxWidth: 340,
-                            maxHeight: 160,
+                          ZoomPanViewer(
+                            minScale: 1.0,
+                            maxScale: 2.5,
+                            boundaryMargin: const EdgeInsets.all(24),
+                            child: TerrainGrid(
+                              terrain: v.terrains.first,
+                              maxWidth: 340,
+                              maxHeight: 160,
+                            ),
                           ),
                         ],
                       ),

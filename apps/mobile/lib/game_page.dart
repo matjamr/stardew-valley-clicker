@@ -11,10 +11,11 @@ import 'package:mobile/ui/widgets/game_bottom_bar.dart';
 import 'package:mobile/ui/widgets/game_centered_modal.dart';
 import 'package:mobile/ui/widgets/game_icon_button.dart';
 import 'package:mobile/ui/widgets/hud_pill.dart';
+import 'package:mobile/ui/widgets/interactive_terrain.dart';
 import 'package:mobile/ui/widgets/location_radial_menu.dart';
 import 'package:mobile/ui/widgets/profile_modal.dart';
 import 'package:mobile/ui/widgets/shop_modal.dart';
-import 'package:mobile/ui/widgets/terrain_grid.dart';
+import 'package:mobile/ui/widgets/zoom_pan_viewer.dart';
 
 class GamePage extends ConsumerStatefulWidget {
   const GamePage({super.key});
@@ -90,10 +91,12 @@ class _GamePageState extends ConsumerState<GamePage> {
                     loc.name,
                   );
                   final size = MediaQuery.of(context).size;
-                  return IgnorePointer(
-                    ignoring: true,
-                    child: Center(
-                      child: TerrainGrid(
+                  return Center(
+                    child: ZoomPanViewer(
+                      minScale: 0.8,
+                      maxScale: 4.0,
+                      boundaryMargin: const EdgeInsets.all(120),
+                      child: InteractiveTerrain(
                         terrain: terrain,
                         maxWidth: size.width - 24, // a bit of safe padding
                         maxHeight:
