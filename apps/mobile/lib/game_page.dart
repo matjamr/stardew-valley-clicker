@@ -4,9 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile/game/model/location.dart';
 import 'package:mobile/game/my_game.dart';
 import 'package:mobile/state/app_providers.dart';
+import 'package:mobile/state/fishing.dart';
 import 'package:mobile/state/island_providers.dart';
 import 'package:mobile/ui/widgets/alerts_modal.dart';
 import 'package:mobile/ui/widgets/bag_modal.dart';
+import 'package:mobile/ui/widgets/fishing_minigame.dart';
 import 'package:mobile/ui/widgets/game_bottom_bar.dart';
 import 'package:mobile/ui/widgets/game_centered_modal.dart';
 import 'package:mobile/ui/widgets/game_icon_button.dart';
@@ -15,6 +17,7 @@ import 'package:mobile/ui/widgets/interactive_terrain.dart';
 import 'package:mobile/ui/widgets/location_radial_menu.dart';
 import 'package:mobile/ui/widgets/profile_modal.dart';
 import 'package:mobile/ui/widgets/shop_modal.dart';
+import 'package:mobile/ui/widgets/terrain_grid.dart';
 import 'package:mobile/ui/widgets/zoom_pan_viewer.dart';
 
 class GamePage extends ConsumerStatefulWidget {
@@ -40,6 +43,18 @@ class _GamePageState extends ConsumerState<GamePage> {
     ) {
       if (prev != next) {
         _game.updateLocation(next);
+        // Manage fishing session lifecycle
+        if (next == LocationArea.fishing) {
+          // ensure a session will start when UI builds
+        } else {
+          // leaving fishing
+          try {
+            // Stop any active fishing session when leaving fishing area
+            // This import is declared at the top of the file
+            // ignore: unused_catch_clause
+            ref.read(fishingProvider.notifier).stop();
+          } catch (_) {}
+        }
       }
     }, fireImmediately: false);
   }
@@ -91,20 +106,25 @@ class _GamePageState extends ConsumerState<GamePage> {
                     loc.name,
                   );
                   final size = MediaQuery.of(context).size;
-                  return Center(
-                    child: ZoomPanViewer(
-                      minScale: 0.8,
-                      maxScale: 4.0,
-                      boundaryMargin: const EdgeInsets.all(120),
-                      child: InteractiveTerrain(
-                        terrain: terrain,
-                        maxWidth: size.width - 24, // a bit of safe padding
-                        maxHeight:
-                            size.height -
-                            120, // leave room for HUD/bottom bar visually
+                  if (loc == LocationArea.fishing) {
+                    // During fishing, hide terrain entirely per requirement
+                    return const SizedBox.shrink();
+                  } else {
+                    return Center(
+                      child: ZoomPanViewer(
+                        minScale: 0.8,
+                        maxScale: 4.0,
+                        boundaryMargin: const EdgeInsets.all(120),
+                        child: InteractiveTerrain(
+                          terrain: terrain,
+                          maxWidth: size.width - 24, // a bit of safe padding
+                          maxHeight:
+                              size.height -
+                              120, // leave room for HUD/bottom bar visually
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  }
                 },
               ),
             ),
@@ -180,6 +200,22 @@ class _GamePageState extends ConsumerState<GamePage> {
                     ),
                   ),
                 ],
+              ),
+            ),
+            // Fishing minigame overlay when in fishing location
+            Positioned.fill(
+              child: Consumer(
+                builder: (context, ref, _) {
+                  final loc = ref.watch(locationProvider);
+                  if (loc != LocationArea.fishing)
+                    return const SizedBox.shrink();
+                  return IgnorePointer(
+                    ignoring: false,
+                    child: Center(
+                      child: FishingMinigame(width: 380, height: 540),
+                    ),
+                  );
+                },
               ),
             ),
             // Location radial menu overlay (toggles via Location button)

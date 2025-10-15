@@ -5,8 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="635becb2-690f-4978-8c96-999695fb46c7" name="Changes" comment="Integrate `game-service` with `api-gateway`: Add gRPC client configurations, mappers, and controllers for Assets, Islands, and Island Variants. Enhance external API with new routes and schemas for game entities. Update IntelliJ project settings and clean up obsolete `.idea` files. Increment `external-api` version to 0.0.4.">
-      <change beforePath="$PROJECT_DIR$/apps/mobile-android/.keep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile-ios/.keep" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/mobile/lib/state/fishing.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/mobile/lib/ui/widgets/fishing_minigame.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/game_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/game_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/state/island_providers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/state/island_providers.dart" afterDir="false" />
     </list>
     <list id="8a89aab7-bfc2-4748-9dc5-dafb80757922" name="ignored" comment="">
       <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
@@ -44,6 +51,13 @@
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -75,18 +89,23 @@
     "Maven.user-service-api [clean,install...].executor": "Run",
     "Maven.user-service-api [clean,package].executor": "Run",
     "Maven.user-service.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.ApiGatewayApplication.executor": "Run",
     "Spring Boot.GameServiceApplication (1).executor": "Run",
     "Spring Boot.GameServiceApplication.executor": "Run",
     "Spring Boot.OutboundApplication (1).executor": "Run",
     "Spring Boot.OutboundApplication.executor": "Run",
     "Spring Boot.UserServiceApplication.executor": "Run",
+    "cidr.known.project.marker": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "master",
@@ -182,7 +201,7 @@
       </method>
     </configuration>
     <configuration name="GameServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="user-service (2)" />
+      <module name="game-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.mat.jamr.gameservice.GameServiceApplication" />
       <extension name="coverage">
         <pattern>
@@ -247,6 +266,7 @@
       <workItem from="1759955950657" duration="12054000" />
       <workItem from="1760193002996" duration="50447000" />
       <workItem from="1760478125204" duration="151000" />
+      <workItem from="1760558676616" duration="1486000" />
     </task>
     <task id="LOCAL-00001" summary="Initialize project structure with key backend, frontend, and mobile app components. Added Maven configurations, gRPC setup, and initial service implementation.">
       <option name="closed" value="true" />

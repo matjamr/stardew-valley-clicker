@@ -332,6 +332,26 @@ class IslandRepository {
     // verify exists
     return _islands.any((e) => e.id == islandId);
   }
+
+  // Mocked collection API: returns gold amount
+  Future<int> collectField({
+    required String terrainId,
+    required int x,
+    required int y,
+  }) async {
+    // pretend to send request
+    await Future<void>.delayed(const Duration(milliseconds: 300));
+    // basic heuristic: different tiles give different ranges
+    final base = (x + y) % 3;
+    switch (base) {
+      case 0:
+        return 5;
+      case 1:
+        return 8;
+      default:
+        return 12;
+    }
+  }
 }
 
 // Providers
