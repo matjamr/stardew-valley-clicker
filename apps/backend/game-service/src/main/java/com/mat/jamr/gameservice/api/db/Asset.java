@@ -5,6 +5,8 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttri
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 
+import java.util.Optional;
+
 @DynamoDbBean
 public class Asset {
 
@@ -53,7 +55,7 @@ public class Asset {
 
     @DynamoDbAttribute("type")
     public String getType() {
-        return type.name();
+        return Optional.ofNullable(type).map(a -> a.name()).orElse(null);
     }
 
     public void setType(String type) {

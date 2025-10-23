@@ -5,15 +5,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="635becb2-690f-4978-8c96-999695fb46c7" name="Changes" comment="Integrate `game-service` with `api-gateway`: Add gRPC client configurations, mappers, and controllers for Assets, Islands, and Island Variants. Enhance external API with new routes and schemas for game entities. Update IntelliJ project settings and clean up obsolete `.idea` files. Increment `external-api` version to 0.0.4.">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/mobile/lib/state/fishing.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/mobile/lib/ui/widgets/fishing_minigame.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/AnimalPen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Barn.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/CropPlot.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Decoration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Farm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/FishingArea.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/FishingSpot.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/MineLevel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/MineTile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Mines.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Storage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/BarnMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/FarmMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/FishingAreaMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/MinesMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/resources/schemas/island-variants.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/java/com/mat/jamr/schedulingworker/WordCountProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/java/com/mat/jamr/schedulingworker/config/KafkaConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/event.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/game_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/game_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/state/island_providers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/state/island_providers.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/api-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/api-gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Asset.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Asset.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/IslandVariant.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/IslandVariant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/IslandVariantMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/IslandVariantMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/TerrainMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/TerrainTileMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/islandvariant/read/consumers/ReadIslandVariantResponseMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/islandvariant/read/consumers/ReadIslandVariantResponseMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/outbound/src/main/java/com/mat/jamr/outbound/OutboundApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/outbound/src/main/java/com/mat/jamr/outbound/OutboundApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/user-service/.dockerignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/user-service/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/user-service/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/user-service/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/user-service/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/internal-api/game-service-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/internal-api/game-service-api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/asset.proto" beforeDir="false" afterPath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/asset.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/island.proto" beforeDir="false" afterPath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/island.proto" afterDir="false" />
     </list>
     <list id="8a89aab7-bfc2-4748-9dc5-dafb80757922" name="ignored" comment="">
       <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
@@ -71,6 +102,7 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "HTTP Request.generated-requests | #2.executor": "Run",
     "Java Scratch.Scratch.executor": "Run",
+    "Maven.api-gateway [clean].executor": "Run",
     "Maven.external-api [clean,install,-DskipTests].executor": "Run",
     "Maven.internal-api [clean,install].executor": "Run",
     "Maven.internal-api [org.xolstice.maven.plugins:protobuf-maven-plugin:0.6.1:compile].executor": "Run",
@@ -104,6 +136,8 @@
     "Spring Boot.GameServiceApplication.executor": "Run",
     "Spring Boot.OutboundApplication (1).executor": "Run",
     "Spring Boot.OutboundApplication.executor": "Run",
+    "Spring Boot.SchedulingWorkerApplication (1).executor": "Debug",
+    "Spring Boot.SchedulingWorkerApplication.executor": "Run",
     "Spring Boot.UserServiceApplication.executor": "Run",
     "cidr.known.project.marker": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
@@ -127,6 +161,7 @@
   },
   "keyToStringList": {
     "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "JSON",
       "JAVA"
     ]
   }
@@ -169,6 +204,7 @@
       <command value="mvn " />
       <command value="mvn clean package" />
       <command value="mvn clean install -DskipTests" />
+      <command value="mvn clean" />
     </option>
   </component>
   <component name="RunDashboard">
@@ -182,6 +218,12 @@
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.GameServiceApplication">
+    <configuration default="true" type="AppleRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" IS_LOCATION_SIMULATION_SUPPORTED="false" IS_LOCATION_SIMULATION_ALLOWED="true" APPLICATION_LANGUAGE="IDELaunchSchemeLanguageUseSystemLanguage" APPLICATION_REGION="" MAKE_ACTIVE="TRUE" SHOULD_DEBUG_EXTENSIONS="false">
+      <embedded_app_extension_list />
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="generated-requests | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#2" index="2" runType="Run single request">
       <method v="2" />
     </configuration>
@@ -214,8 +256,28 @@
       </method>
     </configuration>
     <configuration name="OutboundApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="user-service (1)" />
+      <module name="outbound" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.mat.jamr.outbound.OutboundApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SchedulingWorkerApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="scheduling-worker" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.mat.jamr.schedulingworker.SchedulingWorkerApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.mat.jamr.schedulingworker.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SchedulingWorkerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="scheduling-worker" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.mat.jamr.gameservice.SchedulingWorkerApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -230,6 +292,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.GameServiceApplication" />
+        <item itemvalue="Spring Boot.SchedulingWorkerApplication (1)" />
         <item itemvalue="Java Scratch.Scratch" />
         <item itemvalue="HTTP Request.generated-requests | #2" />
       </list>
@@ -266,7 +329,10 @@
       <workItem from="1759955950657" duration="12054000" />
       <workItem from="1760193002996" duration="50447000" />
       <workItem from="1760478125204" duration="151000" />
-      <workItem from="1760558676616" duration="1486000" />
+      <workItem from="1760558676616" duration="4610000" />
+      <workItem from="1760565625853" duration="600000" />
+      <workItem from="1760734671127" duration="2017000" />
+      <workItem from="1760812880509" duration="20279000" />
     </task>
     <task id="LOCAL-00001" summary="Initialize project structure with key backend, frontend, and mobile app components. Added Maven configurations, gRPC setup, and initial service implementation.">
       <option name="closed" value="true" />
@@ -407,6 +473,61 @@
           <url>file://$PROJECT_DIR$/apps/backend/user-service/src/main/java/com/mat/jamr/userservice/user/retrieve/RetrieveUserBeanConfig.java</url>
           <line>20</line>
           <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/java/com/mat/jamr/schedulingworker/WordCountProcessor.java</url>
+          <line>27</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/java/com/mat/jamr/schedulingworker/WordCountProcessor.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/apps/backend/game-service/target/generated-sources/annotations/com/mat/jamr/gameservice/service/common/mapper/MinesMapperImpl.java</url>
+          <line>185</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/apps/backend/game-service/target/generated-sources/annotations/com/mat/jamr/gameservice/service/common/mapper/MinesMapperImpl.java</url>
+          <line>186</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/apps/backend/game-service/target/generated-sources/annotations/com/mat/jamr/gameservice/service/common/mapper/MinesMapperImpl.java</url>
+          <line>181</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/apps/backend/game-service/target/generated-sources/annotations/com/mat/jamr/gameservice/service/common/mapper/MinesMapperImpl.java</url>
+          <line>113</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/apps/backend/game-service/target/generated-sources/annotations/com/mat/jamr/gameservice/service/common/mapper/MinesMapperImpl.java</url>
+          <line>117</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/apps/backend/game-service/target/generated-sources/annotations/com/mat/jamr/gameservice/service/common/mapper/MinesMapperImpl.java</url>
+          <line>27</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/apps/backend/game-service/target/generated-sources/annotations/com/mat/jamr/gameservice/service/common/mapper/MinesMapperImpl.java</url>
+          <line>52</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/apps/backend/game-service/target/generated-sources/annotations/com/mat/jamr/gameservice/service/common/mapper/MinesMapperImpl.java</url>
+          <line>64</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/apps/backend/game-service/target/generated-sources/annotations/com/mat/jamr/gameservice/service/common/mapper/MinesMapperImpl.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

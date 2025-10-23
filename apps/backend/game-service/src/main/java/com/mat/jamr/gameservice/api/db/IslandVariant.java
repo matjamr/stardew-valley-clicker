@@ -4,16 +4,17 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttri
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 
-import java.util.List;
-
 @DynamoDbBean
 public class IslandVariant {
 
     private String id;
-    private IslandVariantType type;
     private String name;
-    private String description;
-    private List<Terrain> startingTerrains;
+    private String ownerId;
+    private String namedVariant;
+    private Farm farmTemplate;
+    private Barn barnTemplate;
+    private Mines minesTemplate;
+    private FishingArea fishingAreaTemplate;
 
     @DynamoDbPartitionKey
     @DynamoDbAttribute("id")
@@ -25,15 +26,6 @@ public class IslandVariant {
         this.id = id;
     }
 
-    @DynamoDbAttribute("type")
-    public String getType() {
-        return type != null ? type.name() : null;
-    }
-
-    public void setType(String type) {
-        this.type = type != null ? IslandVariantType.valueOf(type) : null;
-    }
-
     @DynamoDbAttribute("name")
     public String getName() {
         return name;
@@ -43,21 +35,57 @@ public class IslandVariant {
         this.name = name;
     }
 
-    @DynamoDbAttribute("description")
-    public String getDescription() {
-        return description;
+    @DynamoDbAttribute("ownerId")
+    public String getOwnerId() {
+        return ownerId;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
-    @DynamoDbAttribute("startingTerrains")
-    public List<Terrain> getStartingTerrains() {
-        return startingTerrains;
+    @DynamoDbAttribute("namedVariant")
+    public String getNamedVariant() {
+        return namedVariant;
     }
 
-    public void setStartingTerrains(List<Terrain> startingTerrains) {
-        this.startingTerrains = startingTerrains;
+    public void setNamedVariant(String namedVariant) {
+        this.namedVariant = namedVariant;
+    }
+
+    @DynamoDbAttribute("farmTemplate")
+    public Farm getFarmTemplate() {
+        return farmTemplate;
+    }
+
+    public void setFarmTemplate(Farm farmTemplate) {
+        this.farmTemplate = farmTemplate;
+    }
+
+    @DynamoDbAttribute("barnTemplate")
+    public Barn getBarnTemplate() {
+        return barnTemplate;
+    }
+
+    public void setBarnTemplate(Barn barnTemplate) {
+        this.barnTemplate = barnTemplate;
+    }
+
+    @DynamoDbAttribute("minesTemplate")
+    public Mines getMinesTemplate() {
+        return minesTemplate;
+    }
+
+    public void setMinesTemplate(Mines minesTemplate) {
+        this.minesTemplate = minesTemplate;
+    }
+
+    @DynamoDbAttribute("fishingAreaTemplate")
+    public FishingArea getFishingAreaTemplate() {
+        return fishingAreaTemplate;
+    }
+
+    public void setFishingAreaTemplate(FishingArea fishingAreaTemplate) {
+        this.fishingAreaTemplate = fishingAreaTemplate;
     }
 }

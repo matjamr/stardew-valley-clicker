@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: user-service
+  kafka:
+    bootstrap-servers: localhost:9092

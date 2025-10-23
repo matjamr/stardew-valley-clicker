@@ -11,6 +11,10 @@ service IslandService {
   rpc Read (ReadIslandRequest) returns (ReadIslandResponse) {}
 }
 
+service IslandVariantService {
+  rpc Read (ReadIslandVariantRequest) returns (IslandVariant) {}
+}
+
 message CreateIslandRequest {
   string userId = 1;
   string variantId = 2;
@@ -29,10 +33,6 @@ message ReadIslandResponse {
   Island island = 1;
 }
 
-service IslandVariantService {
-  rpc Read (ReadIslandVariantRequest) returns (IslandVariant) {}
-}
-
 enum IslandVariantType {
   DEFAULT = 0;
   CLASSIC = 1;
@@ -43,6 +43,18 @@ message ReadIslandVariantRequest {
   string id = 1;
 }
 
+message IslandVariant {
+  string id = 1;
+  string name = 2;
+  string ownerId = 3;
+  string namedVariant = 4;
+  Farm farmTemplate = 5;
+  Barn barnTemplate = 6;
+  Mines minesTemplate = 7;
+  FishingArea fishingAreaTemplate = 8;
+
+}
+
 message Island {
   string id = 1;
   string name = 2;
@@ -51,27 +63,115 @@ message Island {
   repeated string allowedPlayers = 5;
   string createdAt = 6;
   string updatedAt = 7;
-  repeated Terrain terrains = 8;
+  Farm farm = 8;
+  Barn barn = 9;
+  Mines mines = 10;
+  FishingArea fishingArea = 11;
 }
 
-message IslandVariant {
-  string id = 1;
-  IslandVariantType type = 2;
-  string name = 3;
-  string description = 4;
-  repeated Terrain startingTerrains = 5;
-}
-
-message Terrain {
+message Farm {
   string id = 1;
   string name = 2;
-  repeated TerrainTile tiles = 3;
-  int32 blockSize = 4;
-  int32 sizeX = 5;
-  int32 sizeY = 6;
+  int32 sizeX = 3;
+  int32 sizeY = 4;
+  int32 blockSize = 5;
+  repeated CropPlot plots = 6;
+  repeated Decoration decorations = 7;
 }
 
-message TerrainTile {
+message CropPlot {
+  int32 x = 1;
+  int32 y = 2;
+  int32 sizeX = 3;
+  int32 sizeY = 4;
+  Asset asset = 5;
+  string cropId = 6;
+  string plantedAt = 7;
+  int32 growthStage = 8;
+  bool isWatered = 9;
+}
+
+message Barn {
+  string id = 1;
+  string name = 2;
+  int32 sizeX = 3;
+  int32 sizeY = 4;
+  int32 blockSize = 5;
+  repeated AnimalPen pens = 6;
+  repeated Storage storageUnits = 7;
+}
+
+message AnimalPen {
+  int32 x = 1;
+  int32 y = 2;
+  int32 sizeX = 3;
+  int32 sizeY = 4;
+  Asset asset = 5;
+  repeated string animalIds = 6;
+  int32 capacity = 7;
+}
+
+message Storage {
+  int32 x = 1;
+  int32 y = 2;
+  int32 sizeX = 3;
+  int32 sizeY = 4;
+  Asset asset = 5;
+  string storageId = 6;
+  int32 capacity = 7;
+}
+
+
+message Mines {
+  string id = 1;
+  string name = 2;
+  int32 currentLevel = 3;
+  int32 maxLevel = 4;
+  repeated MineLevel levels = 5;
+}
+
+message MineLevel {
+  int32 level = 1;
+  int32 sizeX = 2;
+  int32 sizeY = 3;
+  int32 blockSize = 4;
+  repeated MineTile tiles = 5;
+  repeated string resourceIds = 6;
+  int32 difficulty = 7;
+}
+
+message MineTile {
+  int32 x = 1;
+  int32 y = 2;
+  int32 sizeX = 3;
+  int32 sizeY = 4;
+  Asset asset = 5;
+  string resourceId = 6;
+  int32 resourceQuantity = 7;
+  bool discovered = 8;
+}
+
+message FishingArea {
+  string id = 1;
+  string name = 2;
+  int32 sizeX = 3;
+  int32 sizeY = 4;
+  int32 blockSize = 5;
+  repeated FishingSpot spots = 6;
+  repeated string availableFishIds = 7;
+}
+
+message FishingSpot {
+  int32 x = 1;
+  int32 y = 2;
+  int32 sizeX = 3;
+  int32 sizeY = 4;
+  Asset asset = 5;
+  int32 quality = 6;
+  repeated string specificFishIds = 7;
+}
+
+message Decoration {
   int32 x = 1;
   int32 y = 2;
   int32 sizeX = 3;
@@ -79,26 +179,27 @@ message TerrainTile {
   Asset asset = 5;
 }
 
-//message Building {
-//  string id = 1;
-//  string name = 2;
-//  string type = 3;
-//  int32 x = 4;
-//  int32 y = 5;
-//  int32 level = 6;
-//  string ownerId = 7;
-//}
 
-//message IslandBag {
-//  string id = 1;
-//  string islandId = 2;
-//  repeated Item items = 3;
-//  int32 capacity = 4;
-//}
-//
-//message Item {
-//  string id = 1;
-//  string name = 2;
-//  string type = 3;
-//  int32 quantity = 4;
-//}
+message Building {
+  string id = 1;
+  string name = 2;
+  string type = 3;
+  int32 x = 4;
+  int32 y = 5;
+  int32 level = 6;
+  string ownerId = 7;
+}
+
+message IslandBag {
+  string id = 1;
+  string islandId = 2;
+  repeated Item items = 3;
+  int32 capacity = 4;
+}
+
+message Item {
+  string id = 1;
+  string name = 2;
+  string type = 3;
+  int32 quantity = 4;
+}

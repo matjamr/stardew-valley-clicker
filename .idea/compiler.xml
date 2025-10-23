@@ -2,7 +2,15 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile name="Annotation profile for user-service" enabled="true">
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="game-service-api" />
+        <module name="external-api" />
+      </profile>
+      <profile name="Annotation profile for game-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -12,16 +20,22 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.32/lombok-1.18.32.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
         </processorPath>
-        <module name="game-service" />
         <module name="api-gateway" />
         <module name="user-service" />
+        <module name="game-service" />
+        <module name="outbound" />
+        <module name="scheduling-worker" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="api-gateway" options="-parameters" />
+      <module name="external-api" options="-parameters" />
       <module name="game-service" options="-parameters" />
+      <module name="game-service-api" options="-parameters" />
+      <module name="outbound" options="-parameters" />
+      <module name="scheduling-worker" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
   </component>

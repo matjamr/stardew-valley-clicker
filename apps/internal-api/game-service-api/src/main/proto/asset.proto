@@ -70,6 +70,45 @@ enum AssetType {
   DECORATION = 11;
 }
 
+enum ActionType {
+  VOID = 0;
+  START_TIMER = 1;
+  END_TIMER = 2;
+  COLLECT_REWARD = 3;
+  SPEED_UP = 4;
+  FINISH_NOW = 5;
+}
+
+message TimerInfo {
+  int64 duration_seconds = 1;
+  string timer_id = 2;
+}
+
+message RewardInfo {
+  repeated ResourceReward resources = 1;
+  int32 xp_grant = 2;
+}
+
+message ResourceReward {
+  string resource_id = 1;
+  int32 amount = 2;
+}
+
+message EnergyInfo {
+  int32 energy_consumption = 1;
+}
+
+message OnClickAction {
+  ActionType action_type = 1;
+
+  oneof action_data {
+    TimerInfo timer_info = 2;
+    RewardInfo reward_info = 3;
+    EnergyInfo energy_info = 4;
+  }
+}
+
+
 message Asset {
   AssetType type = 1;
   string id = 3;
@@ -77,4 +116,5 @@ message Asset {
   string description = 5;
   bytes content = 6;
   string url = 7;
+  OnClickAction on_click_action = 8;
 }

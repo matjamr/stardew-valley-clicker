@@ -7,8 +7,12 @@
         <option value="$PROJECT_DIR$/apps/backend/api-gateway/pom.xml" />
         <option value="$PROJECT_DIR$/apps/backend/game-service/pom.xml" />
         <option value="$PROJECT_DIR$/apps/backend/user-service/pom.xml" />
+        <option value="$PROJECT_DIR$/apps/external-api/pom.xml" />
+        <option value="$PROJECT_DIR$/apps/internal-api/game-service-api/pom.xml" />
+        <option value="$PROJECT_DIR$/apps/backend/scheduling-worker/pom.xml" />
+        <option value="$PROJECT_DIR$/apps/backend/outbound/pom.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_24" default="true" project-jdk-name="openjdk-24" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="jbr-21" project-jdk-type="JavaSDK" />
 </project>

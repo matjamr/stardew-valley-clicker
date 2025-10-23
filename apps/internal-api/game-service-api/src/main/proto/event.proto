@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+
+option java_multiple_files = true;
+option java_package = "com.mat.jamr.gameservice.scheduler.api";
+option java_outer_classname = "SchedulerGrpc";
+
+service EventService {
+  rpc Create (TriggerEventRequest) returns (TriggerEventResponse) {}
+  rpc Read (ReadByIdParams) returns (ScheduledEvent) {}
+}
+
+message ReadByIdParams {
+  string id = 1;
+}
+
+message TriggerEventRequest {
+  string islandId = 1;
+  string userId = 2;
+  string assetId = 3;
+}
+
+message TriggerEventResponse {
+  string id = 1;
+  string completionTimestamp = 2;
+  string userId = 3;
+  string islandId = 4;
+  string assetId = 5;
+}
+
+message ScheduledEvent {
+  string id = 1;
+  string createdDate = 2;
+  string executionDate = 3;
+  string islandId = 4;
+  string assetId = 5;
+  string status = 6;
+}
