@@ -1,6 +1,8 @@
 spring:
   application:
-    name: user-service
+    name: game-service
+  kafka:
+    bootstrap-servers: localhost:9092
   cloud:
     aws:
       dynamodb:

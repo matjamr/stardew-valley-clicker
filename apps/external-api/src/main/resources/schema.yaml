@@ -471,3 +471,7 @@ components:
           format: int32
         asset:
           $ref: '#/components/schemas/Asset'
+        timeTaken:
+          type: integer
+          format: int32
+          description: Time taken in milliseconds to complete action on this tile (e.g., mining)

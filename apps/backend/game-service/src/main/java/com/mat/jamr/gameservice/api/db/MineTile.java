@@ -13,6 +13,7 @@ public class MineTile {
     private String resourceId;
     private Integer resourceQuantity;
     private Boolean discovered;
+    private Integer timeTaken;
 
     @DynamoDbAttribute("x")
     public Integer getX() { return x; }
@@ -45,4 +46,8 @@ public class MineTile {
     @DynamoDbAttribute("discovered")
     public Boolean getDiscovered() { return discovered; }
     public void setDiscovered(Boolean discovered) { this.discovered = discovered; }
+
+    @DynamoDbAttribute("timeTaken")
+    public Integer getTimeTaken() { return timeTaken; }
+    public void setTimeTaken(Integer timeTaken) { this.timeTaken = timeTaken; }
 }

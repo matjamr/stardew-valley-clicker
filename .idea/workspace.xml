@@ -4,46 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="635becb2-690f-4978-8c96-999695fb46c7" name="Changes" comment="Integrate `game-service` with `api-gateway`: Add gRPC client configurations, mappers, and controllers for Assets, Islands, and Island Variants. Enhance external API with new routes and schemas for game entities. Update IntelliJ project settings and clean up obsolete `.idea` files. Increment `external-api` version to 0.0.4.">
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/AnimalPen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Barn.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/CropPlot.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Decoration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Farm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/FishingArea.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/FishingSpot.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/MineLevel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/MineTile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Mines.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Storage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/BarnMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/FarmMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/FishingAreaMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/MinesMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/resources/schemas/island-variants.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/java/com/mat/jamr/schedulingworker/WordCountProcessor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/java/com/mat/jamr/schedulingworker/config/KafkaConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/event.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="635becb2-690f-4978-8c96-999695fb46c7" name="Changes" comment="implementation for islandVariant details">
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/ScheduledEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/context/EventAware.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/context/EventIdAware.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/context/ReadEventContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/context/TriggerEventContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/ScheduledEventMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/EventService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/common/notification/EventNotificationProducer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/common/notification/KafkaConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/create/CreateEventBeanConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/create/consumers/BuildScheduledEventConsumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/create/consumers/MapTriggerEventResponseConsumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/create/consumers/PersistScheduledEventConsumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/create/consumers/ValidateTriggerEventConsumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/read/ReadEventBeanConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/read/consumers/LoadScheduledEventFromDbConsumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/read/consumers/MapScheduledEventResponseConsumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/resources/schemas/events.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/api-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/api-gateway/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/backend/game-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Asset.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Asset.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/IslandVariant.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/IslandVariant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/IslandVariantMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/IslandVariantMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/TerrainMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/TerrainTileMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/islandvariant/read/consumers/ReadIslandVariantResponseMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/islandvariant/read/consumers/ReadIslandVariantResponseMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/outbound/src/main/java/com/mat/jamr/outbound/OutboundApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/outbound/src/main/java/com/mat/jamr/outbound/OutboundApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/user-service/.dockerignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/user-service/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/user-service/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/user-service/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/user-service/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/MineTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/MineTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/TableConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/TableConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/resources/schemas/island-variants.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/resources/schemas/island-variants.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/external-api/src/main/resources/schema.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/external-api/src/main/resources/schema.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/internal-api/game-service-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/internal-api/game-service-api/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/asset.proto" beforeDir="false" afterPath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/asset.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/event.proto" beforeDir="false" afterPath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/event.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/island.proto" beforeDir="false" afterPath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/island.proto" afterDir="false" />
     </list>
     <list id="8a89aab7-bfc2-4748-9dc5-dafb80757922" name="ignored" comment="">
@@ -154,7 +144,7 @@
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "settings.editor.selected.configurable": "AndroidSdkUpdater",
     "show.migrate.to.gradle.popup": "false",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
@@ -332,7 +322,9 @@
       <workItem from="1760558676616" duration="4610000" />
       <workItem from="1760565625853" duration="600000" />
       <workItem from="1760734671127" duration="2017000" />
-      <workItem from="1760812880509" duration="20279000" />
+      <workItem from="1760812880509" duration="20878000" />
+      <workItem from="1761335965643" duration="5331000" />
+      <workItem from="1761473546262" duration="3342000" />
     </task>
     <task id="LOCAL-00001" summary="Initialize project structure with key backend, frontend, and mobile app components. Added Maven configurations, gRPC setup, and initial service implementation.">
       <option name="closed" value="true" />
@@ -438,7 +430,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760475014276</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="implementation for islandVariant details">
+      <option name="closed" value="true" />
+      <created>1761246436882</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1761246436882</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -459,7 +459,8 @@
     <MESSAGE value="Introduce IslandVariant functionality within `game-service`: Add `ReadIslandVariantContext`, `IslandVariantService`, and mappers for IslandVariants and related entities. Deprecate legacy asset consumers and mappers. Refactor gRPC and DynamoDB configurations. Increment `game-service-api` to version 0.0.9." />
     <MESSAGE value="Add initial implementation of `api-gateway` game-related functionality: introduce controllers and mappers for `Asset`, `Island`, and `IslandVariant`; configure gRPC clients for `game-service`; update `application.yaml` for game-related settings; enhance `external-api` definitions and increment version to 0.0.4." />
     <MESSAGE value="Integrate `game-service` with `api-gateway`: Add gRPC client configurations, mappers, and controllers for Assets, Islands, and Island Variants. Enhance external API with new routes and schemas for game entities. Update IntelliJ project settings and clean up obsolete `.idea` files. Increment `external-api` version to 0.0.4." />
-    <option name="LAST_COMMIT_MESSAGE" value="Integrate `game-service` with `api-gateway`: Add gRPC client configurations, mappers, and controllers for Assets, Islands, and Island Variants. Enhance external API with new routes and schemas for game entities. Update IntelliJ project settings and clean up obsolete `.idea` files. Increment `external-api` version to 0.0.4." />
+    <MESSAGE value="implementation for islandVariant details" />
+    <option name="LAST_COMMIT_MESSAGE" value="implementation for islandVariant details" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

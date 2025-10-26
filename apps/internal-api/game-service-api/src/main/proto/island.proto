@@ -149,6 +149,7 @@ message MineTile {
   string resourceId = 6;
   int32 resourceQuantity = 7;
   bool discovered = 8;
+  int32 timeTaken = 9;
 }
 
 message FishingArea {

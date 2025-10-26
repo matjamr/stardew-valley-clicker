@@ -95,6 +95,13 @@ public class TableConfig {
         return enhancedClient.table("IslandVariants", TableSchema.fromBean(IslandVariant.class));
     }
 
+    @Bean
+    public DynamoDbTable<com.mat.jamr.gameservice.api.db.ScheduledEvent> eventsTable(
+            DynamoDbEnhancedClient enhancedClient
+    ) {
+        return enhancedClient.table("Events", TableSchema.fromBean(ScheduledEvent.class));
+    }
+
 
     @Value("${minio.url}")
     private String url;
