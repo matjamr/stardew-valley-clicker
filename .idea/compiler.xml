@@ -10,7 +10,7 @@
         <module name="game-service-api" />
         <module name="external-api" />
       </profile>
-      <profile name="Annotation profile for game-service" enabled="true">
+      <profile name="Annotation profile for scheduling-worker" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />

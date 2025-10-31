@@ -9,7 +9,7 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 public class BuildScheduledEventConsumer implements Consumer<TriggerEventContext> {
-    private static final long DEFAULT_DURATION_SECONDS = 5; // minimal viable, can be adjusted per type
+    private static final long DEFAULT_DURATION_SECONDS = 5;
 
     @Override
     public void accept(TriggerEventContext context) {

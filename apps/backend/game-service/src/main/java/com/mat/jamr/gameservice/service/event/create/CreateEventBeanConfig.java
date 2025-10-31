@@ -63,8 +63,9 @@ public class CreateEventBeanConfig {
 
     @Bean
     public Consumer<TriggerEventContext> eventNotificationProducerInCreateEvent(
-            final KafkaTemplate<String, String> kafkaTemplate
+            final KafkaTemplate<String, String> kafkaTemplate,
+            final com.fasterxml.jackson.databind.ObjectMapper objectMapper
             ) {
-        return new EventNotificationProducer<>(kafkaTemplate);
+        return new EventNotificationProducer<>(kafkaTemplate, objectMapper);
     }
 }

@@ -16,9 +16,4 @@ public class SchedulingWorkerApplication {
     public static void main(String[] args) {
         SpringApplication.run(SchedulingWorkerApplication.class, args);
     }
-
-    @PostConstruct
-    public void postConstruct() {
-        kafkaTemplate.send("schedule-event", "Tescik");
-    }
 }

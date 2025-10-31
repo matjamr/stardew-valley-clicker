@@ -4,37 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="635becb2-690f-4978-8c96-999695fb46c7" name="Changes" comment="implementation for islandVariant details">
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/ScheduledEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/context/EventAware.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/context/EventIdAware.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/context/ReadEventContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/context/TriggerEventContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/ScheduledEventMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/EventService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/common/notification/EventNotificationProducer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/common/notification/KafkaConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/create/CreateEventBeanConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/create/consumers/BuildScheduledEventConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/create/consumers/MapTriggerEventResponseConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/create/consumers/PersistScheduledEventConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/create/consumers/ValidateTriggerEventConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/read/ReadEventBeanConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/read/consumers/LoadScheduledEventFromDbConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/read/consumers/MapScheduledEventResponseConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/resources/schemas/events.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="635becb2-690f-4978-8c96-999695fb46c7" name="Changes" comment="handle event create / read flow with publishing notifications">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/MineTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/MineTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/TableConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/TableConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/resources/schemas/island-variants.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/resources/schemas/island-variants.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/external-api/src/main/resources/schema.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/external-api/src/main/resources/schema.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/internal-api/game-service-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/internal-api/game-service-api/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/event.proto" beforeDir="false" afterPath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/event.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/island.proto" beforeDir="false" afterPath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/island.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/common/notification/EventNotificationProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/common/notification/EventNotificationProducer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/common/notification/KafkaConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/common/notification/KafkaConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/create/CreateEventBeanConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/create/CreateEventBeanConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/create/consumers/BuildScheduledEventConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/event/create/consumers/BuildScheduledEventConsumer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/scheduling-worker/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/scheduling-worker/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/java/com/mat/jamr/schedulingworker/SchedulingWorkerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/java/com/mat/jamr/schedulingworker/SchedulingWorkerApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/java/com/mat/jamr/schedulingworker/WordCountProcessor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/java/com/mat/jamr/schedulingworker/config/KafkaConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/java/com/mat/jamr/schedulingworker/config/KafkaConfig.java" afterDir="false" />
     </list>
     <list id="8a89aab7-bfc2-4748-9dc5-dafb80757922" name="ignored" comment="">
       <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
@@ -126,7 +106,7 @@
     "Spring Boot.GameServiceApplication.executor": "Run",
     "Spring Boot.OutboundApplication (1).executor": "Run",
     "Spring Boot.OutboundApplication.executor": "Run",
-    "Spring Boot.SchedulingWorkerApplication (1).executor": "Debug",
+    "Spring Boot.SchedulingWorkerApplication (1).executor": "Run",
     "Spring Boot.SchedulingWorkerApplication.executor": "Run",
     "Spring Boot.UserServiceApplication.executor": "Run",
     "cidr.known.project.marker": "true",
@@ -144,7 +124,7 @@
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "AndroidSdkUpdater",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "show.migrate.to.gradle.popup": "false",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
@@ -207,11 +187,10 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.GameServiceApplication">
-    <configuration default="true" type="AppleRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" IS_LOCATION_SIMULATION_SUPPORTED="false" IS_LOCATION_SIMULATION_ALLOWED="true" APPLICATION_LANGUAGE="IDELaunchSchemeLanguageUseSystemLanguage" APPLICATION_REGION="" MAKE_ACTIVE="TRUE" SHOULD_DEBUG_EXTENSIONS="false">
-      <embedded_app_extension_list />
+  <component name="RunManager" selected="Spring Boot.SchedulingWorkerApplication (1)">
+    <configuration default="true" type="Application" factoryName="Application">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="generated-requests | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#2" index="2" runType="Run single request">
@@ -281,8 +260,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.GameServiceApplication" />
         <item itemvalue="Spring Boot.SchedulingWorkerApplication (1)" />
+        <item itemvalue="Spring Boot.GameServiceApplication" />
         <item itemvalue="Java Scratch.Scratch" />
         <item itemvalue="HTTP Request.generated-requests | #2" />
       </list>
@@ -324,7 +303,8 @@
       <workItem from="1760734671127" duration="2017000" />
       <workItem from="1760812880509" duration="20878000" />
       <workItem from="1761335965643" duration="5331000" />
-      <workItem from="1761473546262" duration="3342000" />
+      <workItem from="1761473546262" duration="4601000" />
+      <workItem from="1761764369622" duration="4169000" />
     </task>
     <task id="LOCAL-00001" summary="Initialize project structure with key backend, frontend, and mobile app components. Added Maven configurations, gRPC setup, and initial service implementation.">
       <option name="closed" value="true" />
@@ -438,7 +418,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761246436882</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="handle event create / read flow with publishing notifications">
+      <option name="closed" value="true" />
+      <created>1761477952132</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1761477952132</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -460,7 +448,8 @@
     <MESSAGE value="Add initial implementation of `api-gateway` game-related functionality: introduce controllers and mappers for `Asset`, `Island`, and `IslandVariant`; configure gRPC clients for `game-service`; update `application.yaml` for game-related settings; enhance `external-api` definitions and increment version to 0.0.4." />
     <MESSAGE value="Integrate `game-service` with `api-gateway`: Add gRPC client configurations, mappers, and controllers for Assets, Islands, and Island Variants. Enhance external API with new routes and schemas for game entities. Update IntelliJ project settings and clean up obsolete `.idea` files. Increment `external-api` version to 0.0.4." />
     <MESSAGE value="implementation for islandVariant details" />
-    <option name="LAST_COMMIT_MESSAGE" value="implementation for islandVariant details" />
+    <MESSAGE value="handle event create / read flow with publishing notifications" />
+    <option name="LAST_COMMIT_MESSAGE" value="handle event create / read flow with publishing notifications" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -474,16 +463,6 @@
           <url>file://$PROJECT_DIR$/apps/backend/user-service/src/main/java/com/mat/jamr/userservice/user/retrieve/RetrieveUserBeanConfig.java</url>
           <line>20</line>
           <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/java/com/mat/jamr/schedulingworker/WordCountProcessor.java</url>
-          <line>27</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/java/com/mat/jamr/schedulingworker/WordCountProcessor.java</url>
-          <line>18</line>
-          <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/apps/backend/game-service/target/generated-sources/annotations/com/mat/jamr/gameservice/service/common/mapper/MinesMapperImpl.java</url>
@@ -529,6 +508,12 @@
           <url>file://$PROJECT_DIR$/apps/backend/game-service/target/generated-sources/annotations/com/mat/jamr/gameservice/service/common/mapper/MinesMapperImpl.java</url>
           <line>47</line>
           <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-field">
+          <url>file://$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/java/com/mat/jamr/schedulingworker/config/ScheduledEventStreamConfig.java</url>
+          <line>26</line>
+          <properties field="filterProcessor" class="com.mat.jamr.schedulingworker.config.ScheduledEventStreamConfig" />
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
