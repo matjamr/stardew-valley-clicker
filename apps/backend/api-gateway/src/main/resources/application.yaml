@@ -36,13 +36,13 @@ opentracing:
 grpc:
   client:
     user-service:
-      address: ${GRPC_CLIENT_USER_SERVICE_ADDRESS:localhost:8081}
+      address: ${GRPC_CLIENT_USER_SERVICE_ADDRESS:localhost:5444}
       enableKeepAlive: ${GRPC_CLIENT_USER_SERVICE_ENABLE_KEEP_ALIVE:true}
       keepAliveWithoutCalls: ${GRPC_CLIENT_USER_SERVICE_KEEP_ALIVE_WITHOUT_CALLS:true}
       negotiationType: ${GRPC_CLIENT_USER_SERVICE_NEGOTIATION_TYPE:plaintext}
 
     security-service:
-      address: ${GRPC_CLIENT_USER_SERVICE_ADDRESS:localhost:8081}
+      address: ${GRPC_CLIENT_USER_SERVICE_ADDRESS:localhost:5444}
       enableKeepAlive: ${GRPC_CLIENT_USER_SERVICE_ENABLE_KEEP_ALIVE:true}
       keepAliveWithoutCalls: ${GRPC_CLIENT_USER_SERVICE_KEEP_ALIVE_WITHOUT_CALLS:true}
       negotiationType: ${GRPC_CLIENT_USER_SERVICE_NEGOTIATION_TYPE:plaintext}

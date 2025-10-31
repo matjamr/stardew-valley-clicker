@@ -10,6 +10,7 @@ spring:
         secret-key: ${SPRING_CLOUD_AWS_CREDENTIALS_SECRET_KEY:fake}
   grpc:
     server:
+
       reflection:
         enabled: ${SPRING_GRPC_SERVER_REFLECTION_ENABLED:true}
       ssl:
@@ -37,3 +38,7 @@ aws:
   dynamo:
     sessionToken: ${AWS_DYNAMO_SESSION_TOKEN:fake-token}
 
+grpc:
+  server:
+    port: 5444
+    reflection-service-enabled: true
