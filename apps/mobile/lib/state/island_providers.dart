@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:stardew_valley_api/stardew_valley_api.dart';
+import 'package:mobile/state/app_providers.dart';
 
 // Simple models for islands and variants (mocked)
 class IslandSummary {
@@ -63,8 +65,11 @@ class IslandVariant {
   });
 }
 
-// Mock repository that simulates network calls with small delays
+// Repository for island and event operations
 class IslandRepository {
+  final EventsApi _eventsApi;
+
+  IslandRepository({required EventsApi eventsApi}) : _eventsApi = eventsApi;
   // pretend we have some existing islands
   final List<IslandSummary> _islands = [
     IslandSummary(id: 'isl-001', name: 'Pelican Farm', variantKey: 'standard'),
@@ -333,30 +338,103 @@ class IslandRepository {
     return _islands.any((e) => e.id == islandId);
   }
 
-  // Mocked collection API: returns gold amount
-  Future<int> collectField({
+  // Create an event when a field is clicked
+  // Returns the event details including ID and execution time
+  Future<FieldEventResult> startFieldEvent({
+    required String islandId,
+    required String userId,
     required String terrainId,
     required int x,
     required int y,
+    required Duration duration,
   }) async {
-    // pretend to send request
-    await Future<void>.delayed(const Duration(milliseconds: 300));
-    // basic heuristic: different tiles give different ranges
-    final base = (x + y) % 3;
-    switch (base) {
-      case 0:
-        return 5;
-      case 1:
-        return 8;
-      default:
-        return 12;
+    // Create unique resource ID from terrain and coordinates
+    final resourceId = '$terrainId:$x:$y';
+
+    final now = DateTime.now();
+    final executionDate = now.add(duration);
+
+    // Create event request
+    final request = CreateEventRequestBuilder()
+      ..islandId = islandId
+      ..userId = userId
+      ..resourceId = resourceId
+      ..type = EventRequestTriggerType.MINES_TYPE;
+
+    try {
+      final response = await _eventsApi.createEvent(
+        createEventRequest: request.build(),
+      );
+
+      final event = response.data;
+      if (event?.id == null) {
+        throw Exception('Failed to create event: no ID returned');
+      }
+
+      return FieldEventResult(
+        eventId: event!.id!,
+        executionDate: executionDate,
+      );
+    } catch (e) {
+      throw Exception('Failed to create field event: $e');
+    }
+  }
+
+  // Check event status (optional - can be used for polling)
+  Future<ScheduledEvent?> getEventStatus(String eventId) async {
+    try {
+      final response = await _eventsApi.readEvent(id: eventId);
+      return response.data?.event;
+    } catch (e) {
+      throw Exception('Failed to get event status: $e');
+    }
+  }
+
+  // Collect field - verify event is completed and return reward
+  Future<int> collectField({
+    required String eventId,
+  }) async {
+    try {
+      // Verify event is completed
+      final event = await getEventStatus(eventId);
+
+      if (event?.status != ScheduledEventStatusEnum.COMPLETED) {
+        throw Exception('Event not completed yet');
+      }
+
+      // In real implementation, the reward would come from the server
+      // For now, return a mock amount based on event creation time
+      final base = (event?.id?.hashCode ?? 0) % 3;
+      switch (base) {
+        case 0:
+          return 5;
+        case 1:
+          return 8;
+        default:
+          return 12;
+      }
+    } catch (e) {
+      throw Exception('Failed to collect field: $e');
     }
   }
 }
 
+class FieldEventResult {
+  final String eventId;
+  final DateTime executionDate;
+
+  FieldEventResult({
+    required this.eventId,
+    required this.executionDate,
+  });
+}
+
 // Providers
 final islandRepositoryProvider = Provider<IslandRepository>(
-  (ref) => IslandRepository(),
+  (ref) {
+    final eventsApi = ref.watch(eventsApiProvider);
+    return IslandRepository(eventsApi: eventsApi);
+  },
 );
 
 final islandsProvider = FutureProvider<List<IslandSummary>>((ref) async {

@@ -1,9 +1,13 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile/game/model/location.dart';
+import 'package:stardew_valley_api/stardew_valley_api.dart';
 
 // Location selection for the game scene
 final locationProvider = StateProvider<LocationArea>(
@@ -35,6 +39,72 @@ final timeProvider = StreamProvider<TimeOfDay>((ref) {
 
 // HTTP client provider for network requests
 final httpClientProvider = Provider<http.Client>((ref) => http.Client());
+
+// API base URL - configure this based on environment and platform
+final apiBaseUrlProvider = Provider<String>((ref) {
+  // Backend server runs at http://localhost:8080
+  // API endpoints are under /api path (servlet context path)
+
+  if (kIsWeb) {
+    // Web: use localhost
+    return 'http://localhost:8080/api';
+  }
+
+  // Mobile platforms
+  if (Platform.isAndroid) {
+    // Android emulator: 10.0.2.2 maps to host machine's localhost
+    // For physical device, use actual IP address (e.g., 'http://192.168.1.100:8080/api')
+    return 'http://10.0.2.2:8080/api';
+  } else if (Platform.isIOS) {
+    // iOS simulator: localhost works fine
+    // For physical device, use actual IP address (e.g., 'http://192.168.1.100:8080/api')
+    return 'http://localhost:8080/api';
+  }
+
+  // Default fallback
+  return 'http://localhost:8080/api';
+});
+
+// Dio client for Stardew Valley API
+final dioClientProvider = Provider<Dio>((ref) {
+  final baseUrl = ref.watch(apiBaseUrlProvider);
+  final dio = Dio(BaseOptions(
+    baseUrl: baseUrl,
+    connectTimeout: const Duration(seconds: 10),
+    receiveTimeout: const Duration(seconds: 10),
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+  ));
+
+  // Add logging interceptor in debug mode
+  if (kDebugMode) {
+    dio.interceptors.add(LogInterceptor(
+      request: true,
+      requestHeader: true,
+      requestBody: true,
+      responseHeader: false,
+      responseBody: true,
+      error: true,
+      logPrint: (obj) => debugPrint(obj.toString()),
+    ));
+  }
+
+  return dio;
+});
+
+// Stardew Valley API instance
+final stardewApiProvider = Provider<StardewValleyApi>((ref) {
+  final dio = ref.watch(dioClientProvider);
+  return StardewValleyApi(dio: dio);
+});
+
+// Events API
+final eventsApiProvider = Provider<EventsApi>((ref) {
+  final api = ref.watch(stardewApiProvider);
+  return api.getEventsApi();
+});
 
 // Example of a future provider to fetch some profile or game data later.
 // Keeping it simple and unused in UI for now; shows how HTTP would be composed.

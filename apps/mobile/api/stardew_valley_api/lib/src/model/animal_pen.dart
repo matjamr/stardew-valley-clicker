@@ -1,0 +1,219 @@
+//
+// AUTO-GENERATED FILE, DO NOT MODIFY!
+//
+
+// ignore_for_file: unused_element
+import 'package:stardew_valley_api/src/model/asset.dart';
+import 'package:built_collection/built_collection.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
+
+part 'animal_pen.g.dart';
+
+/// AnimalPen
+///
+/// Properties:
+/// * [x]
+/// * [y]
+/// * [sizeX]
+/// * [sizeY]
+/// * [asset]
+/// * [animalIds]
+/// * [capacity]
+@BuiltValue()
+abstract class AnimalPen implements Built<AnimalPen, AnimalPenBuilder> {
+  @BuiltValueField(wireName: r'x')
+  int? get x;
+
+  @BuiltValueField(wireName: r'y')
+  int? get y;
+
+  @BuiltValueField(wireName: r'sizeX')
+  int? get sizeX;
+
+  @BuiltValueField(wireName: r'sizeY')
+  int? get sizeY;
+
+  @BuiltValueField(wireName: r'asset')
+  Asset? get asset;
+
+  @BuiltValueField(wireName: r'animalIds')
+  BuiltList<String>? get animalIds;
+
+  @BuiltValueField(wireName: r'capacity')
+  int? get capacity;
+
+  AnimalPen._();
+
+  factory AnimalPen([void updates(AnimalPenBuilder b)]) = _$AnimalPen;
+
+  @BuiltValueHook(initializeBuilder: true)
+  static void _defaults(AnimalPenBuilder b) => b;
+
+  @BuiltValueSerializer(custom: true)
+  static Serializer<AnimalPen> get serializer => _$AnimalPenSerializer();
+}
+
+class _$AnimalPenSerializer implements PrimitiveSerializer<AnimalPen> {
+  @override
+  final Iterable<Type> types = const [AnimalPen, _$AnimalPen];
+
+  @override
+  final String wireName = r'AnimalPen';
+
+  Iterable<Object?> _serializeProperties(
+    Serializers serializers,
+    AnimalPen object, {
+    FullType specifiedType = FullType.unspecified,
+  }) sync* {
+    if (object.x != null) {
+      yield r'x';
+      yield serializers.serialize(
+        object.x,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.y != null) {
+      yield r'y';
+      yield serializers.serialize(
+        object.y,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.sizeX != null) {
+      yield r'sizeX';
+      yield serializers.serialize(
+        object.sizeX,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.sizeY != null) {
+      yield r'sizeY';
+      yield serializers.serialize(
+        object.sizeY,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.asset != null) {
+      yield r'asset';
+      yield serializers.serialize(
+        object.asset,
+        specifiedType: const FullType(Asset),
+      );
+    }
+    if (object.animalIds != null) {
+      yield r'animalIds';
+      yield serializers.serialize(
+        object.animalIds,
+        specifiedType: const FullType(BuiltList, [FullType(String)]),
+      );
+    }
+    if (object.capacity != null) {
+      yield r'capacity';
+      yield serializers.serialize(
+        object.capacity,
+        specifiedType: const FullType(int),
+      );
+    }
+  }
+
+  @override
+  Object serialize(
+    Serializers serializers,
+    AnimalPen object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
+  }
+
+  void _deserializeProperties(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+    required List<Object?> serializedList,
+    required AnimalPenBuilder result,
+    required List<Object?> unhandled,
+  }) {
+    for (var i = 0; i < serializedList.length; i += 2) {
+      final key = serializedList[i] as String;
+      final value = serializedList[i + 1];
+      switch (key) {
+        case r'x':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.x = valueDes;
+          break;
+        case r'y':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.y = valueDes;
+          break;
+        case r'sizeX':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.sizeX = valueDes;
+          break;
+        case r'sizeY':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.sizeY = valueDes;
+          break;
+        case r'asset':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(Asset),
+          ) as Asset;
+          result.asset.replace(valueDes);
+          break;
+        case r'animalIds':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(String)]),
+          ) as BuiltList<String>;
+          result.animalIds.replace(valueDes);
+          break;
+        case r'capacity':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.capacity = valueDes;
+          break;
+        default:
+          unhandled.add(key);
+          unhandled.add(value);
+          break;
+      }
+    }
+  }
+
+  @override
+  AnimalPen deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = AnimalPenBuilder();
+    final serializedList = (serialized as Iterable<Object?>).toList();
+    final unhandled = <Object?>[];
+    _deserializeProperties(
+      serializers,
+      serialized,
+      specifiedType: specifiedType,
+      serializedList: serializedList,
+      unhandled: unhandled,
+      result: result,
+    );
+    return result.build();
+  }
+}

@@ -11,12 +11,14 @@ class TileTimerState {
   final DateTime? startAt;
   final Duration? duration;
   final DateTime? showExactUntil; // 2s after tap
+  final String? eventId; // Server-side event ID
 
   const TileTimerState({
     this.status = TileTimerStatus.idle,
     this.startAt,
     this.duration,
     this.showExactUntil,
+    this.eventId,
   });
 
   TileTimerState copyWith({
@@ -24,11 +26,13 @@ class TileTimerState {
     DateTime? startAt,
     Duration? duration,
     DateTime? showExactUntil,
+    String? eventId,
   }) => TileTimerState(
     status: status ?? this.status,
     startAt: startAt ?? this.startAt,
     duration: duration ?? this.duration,
     showExactUntil: showExactUntil ?? this.showExactUntil,
+    eventId: eventId ?? this.eventId,
   );
 
   double get progress {
@@ -65,6 +69,7 @@ class TileTimersNotifier extends StateNotifier<Map<String, TileTimerState>> {
     required int x,
     required int y,
     Duration? duration,
+    String? eventId,
   }) {
     final key = keyFor(terrainId, x, y);
     final rng = Random();
@@ -77,6 +82,7 @@ class TileTimersNotifier extends StateNotifier<Map<String, TileTimerState>> {
         startAt: now,
         duration: dur,
         showExactUntil: now.add(const Duration(seconds: 2)),
+        eventId: eventId,
       ),
     };
   }

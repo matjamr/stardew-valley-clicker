@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -115,39 +116,89 @@ class _InteractiveTerrainState extends ConsumerState<InteractiveTerrain> {
           width: w,
           height: h,
           child: _TapLayer(
-            onTapDown: (_) {
+            onTapDown: (_) async {
               final current = ref.read(tileTimersProvider)[key];
               if (current == null) {
-                // Start immediately and force an instant repaint for feedback
-                ref
-                    .read(tileTimersProvider.notifier)
-                    .startTimer(terrainId: terrain.id, x: t.x, y: t.y);
+                // Generate duration for this tile
+                final rng = Random();
+                final duration = Duration(seconds: 10 + rng.nextInt(51)); // 10..60s
+
+                // Start timer immediately for UI feedback
                 setState(() {
                   _bumpKey = key;
                 });
+                ref
+                    .read(tileTimersProvider.notifier)
+                    .startTimer(terrainId: terrain.id, x: t.x, y: t.y, duration: duration);
+
                 Future.delayed(const Duration(milliseconds: 140), () {
                   if (!mounted) return;
                   if (_bumpKey == key) {
                     setState(() => _bumpKey = null);
                   }
                 });
-              } else if (current.status == TileTimerStatus.ready) {
-                // Optimistic collect: compute amount instantly and update UI, fire mock API in background
-                final base = (t.x + t.y) % 3;
-                final amount = base == 0 ? 5 : (base == 1 ? 8 : 12);
-                ref.read(profileProvider.notifier).earnGold(amount);
-                if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Collected +$amount gold')),
-                  );
+
+                // Create event on server (fire and forget - eventId will be stored if needed for polling)
+                try {
+                  final selectedIslandId = ref.read(selectedIslandIdProvider);
+                  if (selectedIslandId != null) {
+                    final result = await repo.startFieldEvent(
+                      islandId: selectedIslandId,
+                      userId: 'user-001', // TODO: Get from auth context
+                      terrainId: terrain.id,
+                      x: t.x,
+                      y: t.y,
+                      duration: duration,
+                    );
+
+                    // Update timer with eventId
+                    ref.read(tileTimersProvider.notifier).startTimer(
+                      terrainId: terrain.id,
+                      x: t.x,
+                      y: t.y,
+                      duration: duration,
+                      eventId: result.eventId,
+                    );
+                  }
+                } catch (e) {
+                  // If API fails, timer still runs locally
+                  debugPrint('Failed to create field event: $e');
                 }
-                ref
-                    .read(tileTimersProvider.notifier)
-                    .reset(terrain.id, t.x, t.y);
-                // Fire and forget mocked API to keep behavior consistent
-                unawaited(
-                  repo.collectField(terrainId: terrain.id, x: t.x, y: t.y),
-                );
+              } else if (current.status == TileTimerStatus.ready) {
+                // Collect field - verify with server
+                if (current.eventId != null) {
+                  try {
+                    final amount = await repo.collectField(eventId: current.eventId!);
+                    ref.read(profileProvider.notifier).earnGold(amount);
+                    if (mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Collected +$amount gold')),
+                      );
+                    }
+                    ref
+                        .read(tileTimersProvider.notifier)
+                        .reset(terrain.id, t.x, t.y);
+                  } catch (e) {
+                    if (mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Failed to collect: $e')),
+                      );
+                    }
+                  }
+                } else {
+                  // Fallback for tiles without eventId (shouldn't happen in normal flow)
+                  final base = (t.x + t.y) % 3;
+                  final amount = base == 0 ? 5 : (base == 1 ? 8 : 12);
+                  ref.read(profileProvider.notifier).earnGold(amount);
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Collected +$amount gold (offline)')),
+                    );
+                  }
+                  ref
+                      .read(tileTimersProvider.notifier)
+                      .reset(terrain.id, t.x, t.y);
+                }
               } else {
                 // running: do nothing
               }

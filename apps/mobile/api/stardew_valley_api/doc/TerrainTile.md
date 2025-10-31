@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **sizeX** | **int** |  | [optional] 
 **sizeY** | **int** |  | [optional] 
 **asset** | [**Asset**](Asset.md) |  | [optional] 
+**timeTaken** | **int** | Time taken in milliseconds to complete action on this tile (e.g., mining) | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

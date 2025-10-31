@@ -23,6 +23,14 @@ class _$Island extends Island {
   final String? updatedAt;
   @override
   final BuiltList<Terrain>? terrains;
+  @override
+  final Farm? farm;
+  @override
+  final Barn? barn;
+  @override
+  final Mines? mines;
+  @override
+  final FishingArea? fishingArea;
 
   factory _$Island([void Function(IslandBuilder)? updates]) =>
       (IslandBuilder()..update(updates))._build();
@@ -35,7 +43,11 @@ class _$Island extends Island {
       this.allowedPlayers,
       this.createdAt,
       this.updatedAt,
-      this.terrains})
+      this.terrains,
+      this.farm,
+      this.barn,
+      this.mines,
+      this.fishingArea})
       : super._();
   @override
   Island rebuild(void Function(IslandBuilder) updates) =>
@@ -55,7 +67,11 @@ class _$Island extends Island {
         allowedPlayers == other.allowedPlayers &&
         createdAt == other.createdAt &&
         updatedAt == other.updatedAt &&
-        terrains == other.terrains;
+        terrains == other.terrains &&
+        farm == other.farm &&
+        barn == other.barn &&
+        mines == other.mines &&
+        fishingArea == other.fishingArea;
   }
 
   @override
@@ -69,6 +85,10 @@ class _$Island extends Island {
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, updatedAt.hashCode);
     _$hash = $jc(_$hash, terrains.hashCode);
+    _$hash = $jc(_$hash, farm.hashCode);
+    _$hash = $jc(_$hash, barn.hashCode);
+    _$hash = $jc(_$hash, mines.hashCode);
+    _$hash = $jc(_$hash, fishingArea.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -83,7 +103,11 @@ class _$Island extends Island {
           ..add('allowedPlayers', allowedPlayers)
           ..add('createdAt', createdAt)
           ..add('updatedAt', updatedAt)
-          ..add('terrains', terrains))
+          ..add('terrains', terrains)
+          ..add('farm', farm)
+          ..add('barn', barn)
+          ..add('mines', mines)
+          ..add('fishingArea', fishingArea))
         .toString();
   }
 }
@@ -126,6 +150,24 @@ class IslandBuilder implements Builder<Island, IslandBuilder> {
       _$this._terrains ??= ListBuilder<Terrain>();
   set terrains(ListBuilder<Terrain>? terrains) => _$this._terrains = terrains;
 
+  FarmBuilder? _farm;
+  FarmBuilder get farm => _$this._farm ??= FarmBuilder();
+  set farm(FarmBuilder? farm) => _$this._farm = farm;
+
+  BarnBuilder? _barn;
+  BarnBuilder get barn => _$this._barn ??= BarnBuilder();
+  set barn(BarnBuilder? barn) => _$this._barn = barn;
+
+  MinesBuilder? _mines;
+  MinesBuilder get mines => _$this._mines ??= MinesBuilder();
+  set mines(MinesBuilder? mines) => _$this._mines = mines;
+
+  FishingAreaBuilder? _fishingArea;
+  FishingAreaBuilder get fishingArea =>
+      _$this._fishingArea ??= FishingAreaBuilder();
+  set fishingArea(FishingAreaBuilder? fishingArea) =>
+      _$this._fishingArea = fishingArea;
+
   IslandBuilder() {
     Island._defaults(this);
   }
@@ -141,6 +183,10 @@ class IslandBuilder implements Builder<Island, IslandBuilder> {
       _createdAt = $v.createdAt;
       _updatedAt = $v.updatedAt;
       _terrains = $v.terrains?.toBuilder();
+      _farm = $v.farm?.toBuilder();
+      _barn = $v.barn?.toBuilder();
+      _mines = $v.mines?.toBuilder();
+      _fishingArea = $v.fishingArea?.toBuilder();
       _$v = null;
     }
     return this;
@@ -172,6 +218,10 @@ class IslandBuilder implements Builder<Island, IslandBuilder> {
             createdAt: createdAt,
             updatedAt: updatedAt,
             terrains: _terrains?.build(),
+            farm: _farm?.build(),
+            barn: _barn?.build(),
+            mines: _mines?.build(),
+            fishingArea: _fishingArea?.build(),
           );
     } catch (_) {
       late String _$failedField;
@@ -181,6 +231,14 @@ class IslandBuilder implements Builder<Island, IslandBuilder> {
 
         _$failedField = 'terrains';
         _terrains?.build();
+        _$failedField = 'farm';
+        _farm?.build();
+        _$failedField = 'barn';
+        _barn?.build();
+        _$failedField = 'mines';
+        _mines?.build();
+        _$failedField = 'fishingArea';
+        _fishingArea?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
             r'Island', _$failedField, e.toString());

@@ -5,7 +5,7 @@
 import 'package:stardew_valley_api/api.dart';
 ```
 
-All URIs are relative to */api/v1*
+All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

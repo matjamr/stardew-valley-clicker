@@ -8,9 +8,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="game-service-api" />
-        <module name="external-api" />
       </profile>
-      <profile name="Annotation profile for scheduling-worker" enabled="true">
+      <profile name="Annotation profile for user-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -27,6 +26,9 @@
         <module name="scheduling-worker" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="external-api" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

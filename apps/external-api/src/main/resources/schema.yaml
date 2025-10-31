@@ -4,7 +4,7 @@ info:
   description: API for user management, security operations and game operations (assets, islands)
   version: 1.0.0
 servers:
-  - url: /api/v1
+  - url: /api
 paths:
   /users:
     post:
@@ -220,6 +220,50 @@ paths:
                 $ref: '#/components/schemas/IslandVariant'
         '404':
           description: Island variant not found
+
+  # Game - Events
+  /events:
+    post:
+      summary: Create a new scheduled event (trigger event execution)
+      operationId: createEvent
+      tags:
+        - events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEventRequest'
+      responses:
+        '200':
+          description: Event created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateEventResponse'
+        '400':
+          description: Invalid input
+  /events/{id}:
+    get:
+      summary: Read event by ID
+      operationId: readEvent
+      tags:
+        - events
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Event found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadEventResponse'
+        '404':
+          description: Event not found
 components:
   schemas:
     SaveUserRequest:
@@ -415,6 +459,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Terrain'
+        farm:
+          $ref: '#/components/schemas/Farm'
+        barn:
+          $ref: '#/components/schemas/Barn'
+        mines:
+          $ref: '#/components/schemas/Mines'
+        fishingArea:
+          $ref: '#/components/schemas/FishingArea'
 
     # Island Variant
     IslandVariant:
@@ -422,17 +474,287 @@ components:
       properties:
         id:
           type: string
-        type:
-          type: string
-          enum: [DEFAULT, CLASSIC, FOREST]
         name:
           type: string
-        description:
+        ownerId:
           type: string
-        startingTerrains:
+        namedVariant:
+          type: string
+        farmTemplate:
+          $ref: '#/components/schemas/Farm'
+        barnTemplate:
+          $ref: '#/components/schemas/Barn'
+        minesTemplate:
+          $ref: '#/components/schemas/Mines'
+        fishingAreaTemplate:
+          $ref: '#/components/schemas/FishingArea'
+
+    # Farm structures
+    Farm:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        sizeX:
+          type: integer
+          format: int32
+        sizeY:
+          type: integer
+          format: int32
+        blockSize:
+          type: integer
+          format: int32
+        plots:
           type: array
           items:
-            $ref: '#/components/schemas/Terrain'
+            $ref: '#/components/schemas/CropPlot'
+        decorations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Decoration'
+
+    CropPlot:
+      type: object
+      properties:
+        x:
+          type: integer
+          format: int32
+        y:
+          type: integer
+          format: int32
+        sizeX:
+          type: integer
+          format: int32
+        sizeY:
+          type: integer
+          format: int32
+        asset:
+          $ref: '#/components/schemas/Asset'
+        cropId:
+          type: string
+        plantedAt:
+          type: string
+        growthStage:
+          type: integer
+          format: int32
+        isWatered:
+          type: boolean
+
+    Barn:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        sizeX:
+          type: integer
+          format: int32
+        sizeY:
+          type: integer
+          format: int32
+        blockSize:
+          type: integer
+          format: int32
+        pens:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnimalPen'
+        storageUnits:
+          type: array
+          items:
+            $ref: '#/components/schemas/Storage'
+
+    AnimalPen:
+      type: object
+      properties:
+        x:
+          type: integer
+          format: int32
+        y:
+          type: integer
+          format: int32
+        sizeX:
+          type: integer
+          format: int32
+        sizeY:
+          type: integer
+          format: int32
+        asset:
+          $ref: '#/components/schemas/Asset'
+        animalIds:
+          type: array
+          items:
+            type: string
+        capacity:
+          type: integer
+          format: int32
+
+    Storage:
+      type: object
+      properties:
+        x:
+          type: integer
+          format: int32
+        y:
+          type: integer
+          format: int32
+        sizeX:
+          type: integer
+          format: int32
+        sizeY:
+          type: integer
+          format: int32
+        asset:
+          $ref: '#/components/schemas/Asset'
+        storageId:
+          type: string
+        capacity:
+          type: integer
+          format: int32
+
+    Mines:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        currentLevel:
+          type: integer
+          format: int32
+        maxLevel:
+          type: integer
+          format: int32
+        levels:
+          type: array
+          items:
+            $ref: '#/components/schemas/MineLevel'
+
+    MineLevel:
+      type: object
+      properties:
+        level:
+          type: integer
+          format: int32
+        sizeX:
+          type: integer
+          format: int32
+        sizeY:
+          type: integer
+          format: int32
+        blockSize:
+          type: integer
+          format: int32
+        tiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/MineTile'
+        resourceIds:
+          type: array
+          items:
+            type: string
+        difficulty:
+          type: integer
+          format: int32
+
+    MineTile:
+      type: object
+      properties:
+        x:
+          type: integer
+          format: int32
+        y:
+          type: integer
+          format: int32
+        sizeX:
+          type: integer
+          format: int32
+        sizeY:
+          type: integer
+          format: int32
+        asset:
+          $ref: '#/components/schemas/Asset'
+        resourceId:
+          type: string
+        resourceQuantity:
+          type: integer
+          format: int32
+        discovered:
+          type: boolean
+        timeTaken:
+          type: integer
+          format: int32
+
+    FishingArea:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        sizeX:
+          type: integer
+          format: int32
+        sizeY:
+          type: integer
+          format: int32
+        blockSize:
+          type: integer
+          format: int32
+        spots:
+          type: array
+          items:
+            $ref: '#/components/schemas/FishingSpot'
+        availableFishIds:
+          type: array
+          items:
+            type: string
+
+    FishingSpot:
+      type: object
+      properties:
+        x:
+          type: integer
+          format: int32
+        y:
+          type: integer
+          format: int32
+        sizeX:
+          type: integer
+          format: int32
+        sizeY:
+          type: integer
+          format: int32
+        asset:
+          $ref: '#/components/schemas/Asset'
+        quality:
+          type: integer
+          format: int32
+        specificFishIds:
+          type: array
+          items:
+            type: string
+
+    Decoration:
+      type: object
+      properties:
+        x:
+          type: integer
+          format: int32
+        y:
+          type: integer
+          format: int32
+        sizeX:
+          type: integer
+          format: int32
+        sizeY:
+          type: integer
+          format: int32
+        asset:
+          $ref: '#/components/schemas/Asset'
 
     Terrain:
       type: object
@@ -475,3 +797,66 @@ components:
           type: integer
           format: int32
           description: Time taken in milliseconds to complete action on this tile (e.g., mining)
+
+    # Events
+    CreateEventRequest:
+      type: object
+      required: [islandId, userId, resourceId, type]
+      properties:
+        islandId:
+          type: string
+          description: ID of the island where the event occurs
+        userId:
+          type: string
+          description: ID of the user triggering the event
+        resourceId:
+          type: string
+          description: ID of the resource/asset being interacted with
+        type:
+          $ref: '#/components/schemas/EventRequestTriggerType'
+    CreateEventResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the created event
+        completionTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the event will complete
+    ReadEventResponse:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/ScheduledEvent'
+    ScheduledEvent:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the event
+        createdDate:
+          type: string
+          format: date-time
+          description: When the event was created
+        executionDate:
+          type: string
+          format: date-time
+          description: When the event will execute
+        islandId:
+          type: string
+          description: ID of the island
+        assetId:
+          type: string
+          description: ID of the asset/resource
+        status:
+          type: string
+          enum: [PENDING, COMPLETED, FAILED]
+          description: Current status of the event
+        userId:
+          type: string
+          description: ID of the user who created the event
+    EventRequestTriggerType:
+      type: string
+      enum: [UNKNOWN_TYPE, MINES_TYPE]
+      description: Type of event being triggered

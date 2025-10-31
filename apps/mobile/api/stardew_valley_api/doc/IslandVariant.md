@@ -9,10 +9,13 @@ import 'package:stardew_valley_api/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | [optional] 
-**type** | **String** |  | [optional] 
 **name** | **String** |  | [optional] 
-**description** | **String** |  | [optional] 
-**startingTerrains** | [**BuiltList&lt;Terrain&gt;**](Terrain.md) |  | [optional] 
+**ownerId** | **String** |  | [optional] 
+**namedVariant** | **String** |  | [optional] 
+**farmTemplate** | [**Farm**](Farm.md) |  | [optional] 
+**barnTemplate** | [**Barn**](Barn.md) |  | [optional] 
+**minesTemplate** | [**Mines**](Mines.md) |  | [optional] 
+**fishingAreaTemplate** | [**FishingArea**](FishingArea.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

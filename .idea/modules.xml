@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/apps/backend/api-gateway/api-gateway.iml" filepath="$PROJECT_DIR$/apps/backend/api-gateway/api-gateway.iml" />
-      <module fileurl="file://$PROJECT_DIR$/apps/external-api/external-api.iml" filepath="$PROJECT_DIR$/apps/external-api/external-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/apps/backend/game-service/game-service.iml" filepath="$PROJECT_DIR$/apps/backend/game-service/game-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/apps/internal-api/game-service-api/game-service-api.iml" filepath="$PROJECT_DIR$/apps/internal-api/game-service-api/game-service-api.iml" />
     </modules>

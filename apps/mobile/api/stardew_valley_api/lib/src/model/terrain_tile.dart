@@ -17,6 +17,7 @@ part 'terrain_tile.g.dart';
 /// * [sizeX]
 /// * [sizeY]
 /// * [asset]
+/// * [timeTaken] - Time taken in milliseconds to complete action on this tile (e.g., mining)
 @BuiltValue()
 abstract class TerrainTile implements Built<TerrainTile, TerrainTileBuilder> {
   @BuiltValueField(wireName: r'x')
@@ -33,6 +34,10 @@ abstract class TerrainTile implements Built<TerrainTile, TerrainTileBuilder> {
 
   @BuiltValueField(wireName: r'asset')
   Asset? get asset;
+
+  /// Time taken in milliseconds to complete action on this tile (e.g., mining)
+  @BuiltValueField(wireName: r'timeTaken')
+  int? get timeTaken;
 
   TerrainTile._();
 
@@ -90,6 +95,13 @@ class _$TerrainTileSerializer implements PrimitiveSerializer<TerrainTile> {
       yield serializers.serialize(
         object.asset,
         specifiedType: const FullType(Asset),
+      );
+    }
+    if (object.timeTaken != null) {
+      yield r'timeTaken';
+      yield serializers.serialize(
+        object.timeTaken,
+        specifiedType: const FullType(int),
       );
     }
   }
@@ -151,6 +163,13 @@ class _$TerrainTileSerializer implements PrimitiveSerializer<TerrainTile> {
             specifiedType: const FullType(Asset),
           ) as Asset;
           result.asset.replace(valueDes);
+          break;
+        case r'timeTaken':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.timeTaken = valueDes;
           break;
         default:
           unhandled.add(key);

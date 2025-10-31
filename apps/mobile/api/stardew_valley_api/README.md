@@ -61,12 +61,14 @@ try {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to */api/v1*
+All URIs are relative to */api*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 [*AssetsApi*](doc/AssetsApi.md) | [**createAsset**](doc/AssetsApi.md#createasset) | **POST** /assets | Create a new asset
 [*AssetsApi*](doc/AssetsApi.md) | [**readAsset**](doc/AssetsApi.md#readasset) | **GET** /assets/{id} | Read an asset by ID
+[*EventsApi*](doc/EventsApi.md) | [**createEvent**](doc/EventsApi.md#createevent) | **POST** /events | Create a new scheduled event (trigger event execution)
+[*EventsApi*](doc/EventsApi.md) | [**readEvent**](doc/EventsApi.md#readevent) | **GET** /events/{id} | Read event by ID
 [*IslandVariantsApi*](doc/IslandVariantsApi.md) | [**readIslandVariant**](doc/IslandVariantsApi.md#readislandvariant) | **GET** /island-variants/{id} | Read island variant by ID
 [*IslandsApi*](doc/IslandsApi.md) | [**createIsland**](doc/IslandsApi.md#createisland) | **POST** /islands | Create a new island
 [*IslandsApi*](doc/IslandsApi.md) | [**readIsland**](doc/IslandsApi.md#readisland) | **GET** /islands/{id} | Read island by ID
@@ -79,18 +81,32 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [AnimalPen](doc/AnimalPen.md)
  - [Asset](doc/Asset.md)
  - [AssetType](doc/AssetType.md)
+ - [Barn](doc/Barn.md)
  - [CreateAssetRequest](doc/CreateAssetRequest.md)
  - [CreateAssetResponse](doc/CreateAssetResponse.md)
+ - [CreateEventRequest](doc/CreateEventRequest.md)
+ - [CreateEventResponse](doc/CreateEventResponse.md)
  - [CreateIslandRequest](doc/CreateIslandRequest.md)
  - [CreateIslandResponse](doc/CreateIslandResponse.md)
+ - [CropPlot](doc/CropPlot.md)
+ - [Decoration](doc/Decoration.md)
  - [Error](doc/Error.md)
+ - [EventRequestTriggerType](doc/EventRequestTriggerType.md)
+ - [Farm](doc/Farm.md)
+ - [FishingArea](doc/FishingArea.md)
+ - [FishingSpot](doc/FishingSpot.md)
  - [Island](doc/Island.md)
  - [IslandVariant](doc/IslandVariant.md)
  - [LoginUserRequest](doc/LoginUserRequest.md)
  - [LoginUserResponse](doc/LoginUserResponse.md)
+ - [MineLevel](doc/MineLevel.md)
+ - [MineTile](doc/MineTile.md)
+ - [Mines](doc/Mines.md)
  - [ReadAssetResponse](doc/ReadAssetResponse.md)
+ - [ReadEventResponse](doc/ReadEventResponse.md)
  - [ReadIslandResponse](doc/ReadIslandResponse.md)
  - [RefreshTokenRequest](doc/RefreshTokenRequest.md)
  - [RefreshTokenResponse](doc/RefreshTokenResponse.md)
@@ -98,6 +114,8 @@ Class | Method | HTTP request | Description
  - [RetrieveUserResponse](doc/RetrieveUserResponse.md)
  - [SaveUserRequest](doc/SaveUserRequest.md)
  - [SaveUserResponse](doc/SaveUserResponse.md)
+ - [ScheduledEvent](doc/ScheduledEvent.md)
+ - [Storage](doc/Storage.md)
  - [Terrain](doc/Terrain.md)
  - [TerrainTile](doc/TerrainTile.md)
  - [VerifyUserRequest](doc/VerifyUserRequest.md)

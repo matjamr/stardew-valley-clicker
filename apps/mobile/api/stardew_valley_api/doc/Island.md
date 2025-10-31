@@ -16,6 +16,10 @@ Name | Type | Description | Notes
 **createdAt** | **String** |  | [optional] 
 **updatedAt** | **String** |  | [optional] 
 **terrains** | [**BuiltList&lt;Terrain&gt;**](Terrain.md) |  | [optional] 
+**farm** | [**Farm**](Farm.md) |  | [optional] 
+**barn** | [**Barn**](Barn.md) |  | [optional] 
+**mines** | [**Mines**](Mines.md) |  | [optional] 
+**fishingArea** | [**FishingArea**](FishingArea.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

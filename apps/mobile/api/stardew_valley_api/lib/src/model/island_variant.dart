@@ -3,8 +3,10 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:built_collection/built_collection.dart';
-import 'package:stardew_valley_api/src/model/terrain.dart';
+import 'package:stardew_valley_api/src/model/barn.dart';
+import 'package:stardew_valley_api/src/model/farm.dart';
+import 'package:stardew_valley_api/src/model/fishing_area.dart';
+import 'package:stardew_valley_api/src/model/mines.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -14,28 +16,39 @@ part 'island_variant.g.dart';
 ///
 /// Properties:
 /// * [id]
-/// * [type]
 /// * [name]
-/// * [description]
-/// * [startingTerrains]
+/// * [ownerId]
+/// * [namedVariant]
+/// * [farmTemplate]
+/// * [barnTemplate]
+/// * [minesTemplate]
+/// * [fishingAreaTemplate]
 @BuiltValue()
 abstract class IslandVariant
     implements Built<IslandVariant, IslandVariantBuilder> {
   @BuiltValueField(wireName: r'id')
   String? get id;
 
-  @BuiltValueField(wireName: r'type')
-  IslandVariantTypeEnum? get type;
-  // enum typeEnum {  DEFAULT,  CLASSIC,  FOREST,  };
-
   @BuiltValueField(wireName: r'name')
   String? get name;
 
-  @BuiltValueField(wireName: r'description')
-  String? get description;
+  @BuiltValueField(wireName: r'ownerId')
+  String? get ownerId;
 
-  @BuiltValueField(wireName: r'startingTerrains')
-  BuiltList<Terrain>? get startingTerrains;
+  @BuiltValueField(wireName: r'namedVariant')
+  String? get namedVariant;
+
+  @BuiltValueField(wireName: r'farmTemplate')
+  Farm? get farmTemplate;
+
+  @BuiltValueField(wireName: r'barnTemplate')
+  Barn? get barnTemplate;
+
+  @BuiltValueField(wireName: r'minesTemplate')
+  Mines? get minesTemplate;
+
+  @BuiltValueField(wireName: r'fishingAreaTemplate')
+  FishingArea? get fishingAreaTemplate;
 
   IslandVariant._();
 
@@ -69,13 +82,6 @@ class _$IslandVariantSerializer implements PrimitiveSerializer<IslandVariant> {
         specifiedType: const FullType(String),
       );
     }
-    if (object.type != null) {
-      yield r'type';
-      yield serializers.serialize(
-        object.type,
-        specifiedType: const FullType(IslandVariantTypeEnum),
-      );
-    }
     if (object.name != null) {
       yield r'name';
       yield serializers.serialize(
@@ -83,18 +89,46 @@ class _$IslandVariantSerializer implements PrimitiveSerializer<IslandVariant> {
         specifiedType: const FullType(String),
       );
     }
-    if (object.description != null) {
-      yield r'description';
+    if (object.ownerId != null) {
+      yield r'ownerId';
       yield serializers.serialize(
-        object.description,
+        object.ownerId,
         specifiedType: const FullType(String),
       );
     }
-    if (object.startingTerrains != null) {
-      yield r'startingTerrains';
+    if (object.namedVariant != null) {
+      yield r'namedVariant';
       yield serializers.serialize(
-        object.startingTerrains,
-        specifiedType: const FullType(BuiltList, [FullType(Terrain)]),
+        object.namedVariant,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.farmTemplate != null) {
+      yield r'farmTemplate';
+      yield serializers.serialize(
+        object.farmTemplate,
+        specifiedType: const FullType(Farm),
+      );
+    }
+    if (object.barnTemplate != null) {
+      yield r'barnTemplate';
+      yield serializers.serialize(
+        object.barnTemplate,
+        specifiedType: const FullType(Barn),
+      );
+    }
+    if (object.minesTemplate != null) {
+      yield r'minesTemplate';
+      yield serializers.serialize(
+        object.minesTemplate,
+        specifiedType: const FullType(Mines),
+      );
+    }
+    if (object.fishingAreaTemplate != null) {
+      yield r'fishingAreaTemplate';
+      yield serializers.serialize(
+        object.fishingAreaTemplate,
+        specifiedType: const FullType(FishingArea),
       );
     }
   }
@@ -129,13 +163,6 @@ class _$IslandVariantSerializer implements PrimitiveSerializer<IslandVariant> {
           ) as String;
           result.id = valueDes;
           break;
-        case r'type':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(IslandVariantTypeEnum),
-          ) as IslandVariantTypeEnum;
-          result.type = valueDes;
-          break;
         case r'name':
           final valueDes = serializers.deserialize(
             value,
@@ -143,19 +170,47 @@ class _$IslandVariantSerializer implements PrimitiveSerializer<IslandVariant> {
           ) as String;
           result.name = valueDes;
           break;
-        case r'description':
+        case r'ownerId':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.description = valueDes;
+          result.ownerId = valueDes;
           break;
-        case r'startingTerrains':
+        case r'namedVariant':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(BuiltList, [FullType(Terrain)]),
-          ) as BuiltList<Terrain>;
-          result.startingTerrains.replace(valueDes);
+            specifiedType: const FullType(String),
+          ) as String;
+          result.namedVariant = valueDes;
+          break;
+        case r'farmTemplate':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(Farm),
+          ) as Farm;
+          result.farmTemplate.replace(valueDes);
+          break;
+        case r'barnTemplate':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(Barn),
+          ) as Barn;
+          result.barnTemplate.replace(valueDes);
+          break;
+        case r'minesTemplate':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(Mines),
+          ) as Mines;
+          result.minesTemplate.replace(valueDes);
+          break;
+        case r'fishingAreaTemplate':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(FishingArea),
+          ) as FishingArea;
+          result.fishingAreaTemplate.replace(valueDes);
           break;
         default:
           unhandled.add(key);
@@ -184,23 +239,4 @@ class _$IslandVariantSerializer implements PrimitiveSerializer<IslandVariant> {
     );
     return result.build();
   }
-}
-
-class IslandVariantTypeEnum extends EnumClass {
-  @BuiltValueEnumConst(wireName: r'DEFAULT')
-  static const IslandVariantTypeEnum DEFAULT = _$islandVariantTypeEnum_DEFAULT;
-  @BuiltValueEnumConst(wireName: r'CLASSIC')
-  static const IslandVariantTypeEnum CLASSIC = _$islandVariantTypeEnum_CLASSIC;
-  @BuiltValueEnumConst(wireName: r'FOREST')
-  static const IslandVariantTypeEnum FOREST = _$islandVariantTypeEnum_FOREST;
-
-  static Serializer<IslandVariantTypeEnum> get serializer =>
-      _$islandVariantTypeEnumSerializer;
-
-  const IslandVariantTypeEnum._(String name) : super(name);
-
-  static BuiltSet<IslandVariantTypeEnum> get values =>
-      _$islandVariantTypeEnumValues;
-  static IslandVariantTypeEnum valueOf(String name) =>
-      _$islandVariantTypeEnumValueOf(name);
 }

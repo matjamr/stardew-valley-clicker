@@ -10,13 +10,14 @@ import 'package:stardew_valley_api/src/auth/basic_auth.dart';
 import 'package:stardew_valley_api/src/auth/bearer_auth.dart';
 import 'package:stardew_valley_api/src/auth/oauth.dart';
 import 'package:stardew_valley_api/src/api/assets_api.dart';
+import 'package:stardew_valley_api/src/api/events_api.dart';
 import 'package:stardew_valley_api/src/api/island_variants_api.dart';
 import 'package:stardew_valley_api/src/api/islands_api.dart';
 import 'package:stardew_valley_api/src/api/security_api.dart';
 import 'package:stardew_valley_api/src/api/users_api.dart';
 
 class StardewValleyApi {
-  static const String basePath = r'/api/v1';
+  static const String basePath = r'/api';
 
   final Dio dio;
   final Serializers serializers;
@@ -84,6 +85,12 @@ class StardewValleyApi {
   /// by doing that all interceptors will not be executed
   AssetsApi getAssetsApi() {
     return AssetsApi(dio, serializers);
+  }
+
+  /// Get EventsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  EventsApi getEventsApi() {
+    return EventsApi(dio, serializers);
   }
 
   /// Get IslandVariantsApi instance, base route and serializer can be overridden by a given but be careful,

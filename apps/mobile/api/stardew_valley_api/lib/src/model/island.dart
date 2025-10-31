@@ -3,8 +3,12 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:stardew_valley_api/src/model/barn.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:stardew_valley_api/src/model/farm.dart';
 import 'package:stardew_valley_api/src/model/terrain.dart';
+import 'package:stardew_valley_api/src/model/fishing_area.dart';
+import 'package:stardew_valley_api/src/model/mines.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -21,6 +25,10 @@ part 'island.g.dart';
 /// * [createdAt]
 /// * [updatedAt]
 /// * [terrains]
+/// * [farm]
+/// * [barn]
+/// * [mines]
+/// * [fishingArea]
 @BuiltValue()
 abstract class Island implements Built<Island, IslandBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -46,6 +54,18 @@ abstract class Island implements Built<Island, IslandBuilder> {
 
   @BuiltValueField(wireName: r'terrains')
   BuiltList<Terrain>? get terrains;
+
+  @BuiltValueField(wireName: r'farm')
+  Farm? get farm;
+
+  @BuiltValueField(wireName: r'barn')
+  Barn? get barn;
+
+  @BuiltValueField(wireName: r'mines')
+  Mines? get mines;
+
+  @BuiltValueField(wireName: r'fishingArea')
+  FishingArea? get fishingArea;
 
   Island._();
 
@@ -124,6 +144,34 @@ class _$IslandSerializer implements PrimitiveSerializer<Island> {
       yield serializers.serialize(
         object.terrains,
         specifiedType: const FullType(BuiltList, [FullType(Terrain)]),
+      );
+    }
+    if (object.farm != null) {
+      yield r'farm';
+      yield serializers.serialize(
+        object.farm,
+        specifiedType: const FullType(Farm),
+      );
+    }
+    if (object.barn != null) {
+      yield r'barn';
+      yield serializers.serialize(
+        object.barn,
+        specifiedType: const FullType(Barn),
+      );
+    }
+    if (object.mines != null) {
+      yield r'mines';
+      yield serializers.serialize(
+        object.mines,
+        specifiedType: const FullType(Mines),
+      );
+    }
+    if (object.fishingArea != null) {
+      yield r'fishingArea';
+      yield serializers.serialize(
+        object.fishingArea,
+        specifiedType: const FullType(FishingArea),
       );
     }
   }
@@ -206,6 +254,34 @@ class _$IslandSerializer implements PrimitiveSerializer<Island> {
             specifiedType: const FullType(BuiltList, [FullType(Terrain)]),
           ) as BuiltList<Terrain>;
           result.terrains.replace(valueDes);
+          break;
+        case r'farm':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(Farm),
+          ) as Farm;
+          result.farm.replace(valueDes);
+          break;
+        case r'barn':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(Barn),
+          ) as Barn;
+          result.barn.replace(valueDes);
+          break;
+        case r'mines':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(Mines),
+          ) as Mines;
+          result.mines.replace(valueDes);
+          break;
+        case r'fishingArea':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(FishingArea),
+          ) as FishingArea;
+          result.fishingArea.replace(valueDes);
           break;
         default:
           unhandled.add(key);

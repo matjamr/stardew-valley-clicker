@@ -6,7 +6,6 @@
     <file url="file://$PROJECT_DIR$/apps/backend/outbound/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/apps/backend/user-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/apps/external-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/java" charset="UTF-8" />
   </component>
 </project>
