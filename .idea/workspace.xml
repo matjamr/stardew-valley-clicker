@@ -4,13 +4,46 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="635becb2-690f-4978-8c96-999695fb46c7" name="Changes" comment="Slowly beginning e2e">
+    <list default="true" id="635becb2-690f-4978-8c96-999695fb46c7" name="Changes" comment="working e2e fully for events">
+      <change afterPath="$PROJECT_DIR$/apps/mobile/assets/images/riverside_background.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/backend/api-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/api-gateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/user-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/user-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/game/IslandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/game/IslandController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/game/IslandVariantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/game/IslandVariantController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/game/mapper/AssetApiMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/game/mapper/AssetApiMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/game/mapper/IslandApiMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/game/mapper/IslandApiMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/game/mapper/IslandVariantApiMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/game/mapper/IslandVariantApiMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Asset.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Asset.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Island.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Island.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/AssetMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/AssetMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/islands/create/CreateIslandBeanConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/islands/create/CreateIslandBeanConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/islandvariant/IslandVariantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/islandvariant/IslandVariantService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/external-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/external-api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/external-api/src/main/resources/schema.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/external-api/src/main/resources/schema.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/island.proto" beforeDir="false" afterPath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/island.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/.openapi-generator/FILES" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/.openapi-generator/FILES" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/doc/Asset.md" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/doc/Asset.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/doc/Island.md" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/doc/Island.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/doc/IslandVariantsApi.md" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/doc/IslandVariantsApi.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/api/island_variants_api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/api/island_variants_api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/asset.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/asset.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/asset.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/asset.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/island.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/island.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/island.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/island.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/serializers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/serializers.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/serializers.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/serializers.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/stardew_valley_api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/stardew_valley_api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/assets/openapi/schema.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/assets/openapi/schema.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/api/openapi_generator_config.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/api/openapi_generator_config.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/game_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/game_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/state/app_providers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/state/app_providers.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/state/island_providers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/state/island_providers.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/ui/islands/island_details_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/ui/islands/island_details_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/ui/islands/island_variant_select_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/ui/islands/island_variant_select_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/ui/widgets/terrain_grid.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/ui/widgets/terrain_grid.dart" afterDir="false" />
     </list>
-    <list id="8a89aab7-bfc2-4748-9dc5-dafb80757922" name="ignored" comment="">
+    <list id="8a89aab7-bfc2-4748-9dc5-dafb80757922" name="ignored" comment="ignored">
       <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/docker/backend/settings.xml" afterDir="false" />
     </list>
@@ -42,6 +75,9 @@
     &quot;accountId&quot;: &quot;09b59a6f-0ead-4a20-9cbb-ba698d97b611&quot;
   }
 }</component>
+  <component name="HttpClientEndpointsTabState">
+    <option name="cachedRequestData" value="&lt;CachedHttpClientTabRequests&gt;&#10;  &lt;entry key=&quot;820e738e100ebe44debb4c00ec3f0375f3dcaea0&quot; value=&quot;###&amp;#10;POST http://localhost:8080/api/events&amp;#10;Content-Type: application/json&amp;#10;&amp;#10;{&amp;#10;  &amp;quot;islandId&amp;quot;: &amp;quot;21312&amp;quot;,&amp;#10;  &amp;quot;userId&amp;quot;: &amp;quot;2132&amp;quot;,&amp;#10;  &amp;quot;resourceId&amp;quot;: &amp;quot;1231&amp;quot;,&amp;#10;  &amp;quot;type&amp;quot;: &amp;quot;UNKNOWN_TYPE&amp;quot;&amp;#10;}&quot; /&gt;&#10;&lt;/CachedHttpClientTabRequests&gt;" />
+  </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -181,7 +217,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.SchedulingWorkerApplication (1)">
+  <component name="RunManager" selected="Spring Boot.GameServiceApplication">
     <configuration default="true" type="Application" factoryName="Application">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -254,8 +290,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.SchedulingWorkerApplication (1)" />
         <item itemvalue="Spring Boot.GameServiceApplication" />
+        <item itemvalue="Spring Boot.SchedulingWorkerApplication (1)" />
         <item itemvalue="Java Scratch.Scratch" />
         <item itemvalue="HTTP Request.generated-requests | #2" />
       </list>
@@ -298,7 +334,7 @@
       <workItem from="1760812880509" duration="20878000" />
       <workItem from="1761335965643" duration="5331000" />
       <workItem from="1761473546262" duration="4601000" />
-      <workItem from="1761764369622" duration="8422000" />
+      <workItem from="1761764369622" duration="17911000" />
     </task>
     <task id="LOCAL-00001" summary="Initialize project structure with key backend, frontend, and mobile app components. Added Maven configurations, gRPC setup, and initial service implementation.">
       <option name="closed" value="true" />
@@ -436,7 +472,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761948833577</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="working e2e fully for events">
+      <option name="closed" value="true" />
+      <created>1761950479161</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1761950479161</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -461,7 +505,8 @@
     <MESSAGE value="handle event create / read flow with publishing notifications" />
     <MESSAGE value="Implement further changes" />
     <MESSAGE value="Slowly beginning e2e" />
-    <option name="LAST_COMMIT_MESSAGE" value="Slowly beginning e2e" />
+    <MESSAGE value="working e2e fully for events" />
+    <option name="LAST_COMMIT_MESSAGE" value="working e2e fully for events" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

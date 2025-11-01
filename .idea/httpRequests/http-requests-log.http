@@ -1,0 +1,36 @@
+POST http://localhost:8080/api/events
+Content-Type: application/json
+Content-Length: 95
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "islandId": "21312",
+  "userId": "2132",
+  "resourceId": "1231",
+  "type": "UNKNOWN_TYPE"
+}
+
+<> 2025-10-31T233554.200.json
+
+###
+
+POST http://localhost:8080/events
+Content-Type: application/json
+Content-Length: 95
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1.2
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "islandId": "21312",
+  "userId": "2132",
+  "resourceId": "1231",
+  "type": "UNKNOWN_TYPE"
+}
+
+<> 2025-10-31T233538.404.json
+
+###
+

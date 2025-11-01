@@ -1,0 +1,624 @@
+[
+  {
+    "PutRequest": {
+      "Item": {
+        "id": {
+          "S": "variant-standard"
+        },
+        "name": {
+          "S": "Standard Farm"
+        },
+        "ownerId": {
+          "S": "system"
+        },
+        "namedVariant": {
+          "S": "STANDARD"
+        },
+        "farmTemplate": {
+          "M": {
+            "id": {
+              "S": "farm-standard"
+            },
+            "name": {
+              "S": "Standard Farm"
+            },
+            "sizeX": {
+              "N": "12"
+            },
+            "sizeY": {
+              "N": "8"
+            },
+            "blockSize": {
+              "N": "16"
+            },
+            "plots": {
+              "L": [
+                {
+                  "M": {
+                    "x": {"N": "2"},
+                    "y": {"N": "2"},
+                    "sizeX": {"N": "2"},
+                    "sizeY": {"N": "2"}
+                  }
+                },
+                {
+                  "M": {
+                    "x": {"N": "5"},
+                    "y": {"N": "2"},
+                    "sizeX": {"N": "2"},
+                    "sizeY": {"N": "2"}
+                  }
+                },
+                {
+                  "M": {
+                    "x": {"N": "8"},
+                    "y": {"N": "2"},
+                    "sizeX": {"N": "2"},
+                    "sizeY": {"N": "2"}
+                  }
+                }
+              ]
+            },
+            "decorations": {
+              "L": []
+            }
+          }
+        },
+        "barnTemplate": {
+          "M": {
+            "id": {
+              "S": "barn-standard"
+            },
+            "name": {
+              "S": "Standard Barn"
+            },
+            "sizeX": {
+              "N": "10"
+            },
+            "sizeY": {
+              "N": "6"
+            },
+            "blockSize": {
+              "N": "16"
+            },
+            "pens": {
+              "L": [
+                {
+                  "M": {
+                    "x": {"N": "2"},
+                    "y": {"N": "2"},
+                    "sizeX": {"N": "3"},
+                    "sizeY": {"N": "3"},
+                    "capacity": {"N": "4"}
+                  }
+                }
+              ]
+            },
+            "storageUnits": {
+              "L": [
+                {
+                  "M": {
+                    "x": {"N": "7"},
+                    "y": {"N": "2"},
+                    "sizeX": {"N": "2"},
+                    "sizeY": {"N": "2"},
+                    "capacity": {"N": "20"}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "minesTemplate": {
+          "M": {
+            "id": {
+              "S": "mines-standard"
+            },
+            "name": {
+              "S": "Standard Mines"
+            },
+            "currentLevel": {
+              "N": "1"
+            },
+            "maxLevel": {
+              "N": "120"
+            },
+            "levels": {
+              "L": [
+                {
+                  "M": {
+                    "level": {"N": "1"},
+                    "sizeX": {"N": "12"},
+                    "sizeY": {"N": "8"},
+                    "blockSize": {"N": "16"},
+                    "difficulty": {"N": "1"},
+                    "tiles": {
+                      "L": [
+                        {
+                          "M": {
+                            "x": {"N": "3"},
+                            "y": {"N": "3"},
+                            "sizeX": {"N": "1"},
+                            "sizeY": {"N": "1"},
+                            "discovered": {"BOOL": false},
+                            "timeTaken": {"N": "10"}
+                          }
+                        },
+                        {
+                          "M": {
+                            "x": {"N": "5"},
+                            "y": {"N": "4"},
+                            "sizeX": {"N": "1"},
+                            "sizeY": {"N": "1"},
+                            "discovered": {"BOOL": false},
+                            "timeTaken": {"N": "15"}
+                          }
+                        }
+                      ]
+                    },
+                    "resourceIds": {
+                      "L": []
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "fishingAreaTemplate": {
+          "M": {
+            "id": {
+              "S": "fishing-standard"
+            },
+            "name": {
+              "S": "Standard Pond"
+            },
+            "sizeX": {
+              "N": "10"
+            },
+            "sizeY": {
+              "N": "8"
+            },
+            "blockSize": {
+              "N": "16"
+            },
+            "spots": {
+              "L": [
+                {
+                  "M": {
+                    "x": {"N": "3"},
+                    "y": {"N": "4"},
+                    "sizeX": {"N": "2"},
+                    "sizeY": {"N": "2"},
+                    "quality": {"N": "2"}
+                  }
+                }
+              ]
+            },
+            "availableFishIds": {
+              "L": []
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "PutRequest": {
+      "Item": {
+        "id": {
+          "S": "variant-riverland"
+        },
+        "name": {
+          "S": "Riverland Farm"
+        },
+        "ownerId": {
+          "S": "system"
+        },
+        "namedVariant": {
+          "S": "RIVERLAND"
+        },
+        "farmTemplate": {
+          "M": {
+            "id": {
+              "S": "farm-riverland"
+            },
+            "name": {
+              "S": "Riverland Farm"
+            },
+            "sizeX": {
+              "N": "12"
+            },
+            "sizeY": {
+              "N": "8"
+            },
+            "blockSize": {
+              "N": "16"
+            },
+            "plots": {
+              "L": [
+                {
+                  "M": {
+                    "x": {"N": "1"},
+                    "y": {"N": "2"},
+                    "sizeX": {"N": "2"},
+                    "sizeY": {"N": "2"}
+                  }
+                },
+                {
+                  "M": {
+                    "x": {"N": "9"},
+                    "y": {"N": "2"},
+                    "sizeX": {"N": "2"},
+                    "sizeY": {"N": "2"}
+                  }
+                }
+              ]
+            },
+            "decorations": {
+              "L": []
+            }
+          }
+        },
+        "barnTemplate": {
+          "M": {
+            "id": {
+              "S": "barn-riverland"
+            },
+            "name": {
+              "S": "Riverland Barn"
+            },
+            "sizeX": {
+              "N": "10"
+            },
+            "sizeY": {
+              "N": "6"
+            },
+            "blockSize": {
+              "N": "16"
+            },
+            "pens": {
+              "L": [
+                {
+                  "M": {
+                    "x": {"N": "2"},
+                    "y": {"N": "1"},
+                    "sizeX": {"N": "3"},
+                    "sizeY": {"N": "3"},
+                    "capacity": {"N": "6"}
+                  }
+                }
+              ]
+            },
+            "storageUnits": {
+              "L": [
+                {
+                  "M": {
+                    "x": {"N": "6"},
+                    "y": {"N": "1"},
+                    "sizeX": {"N": "2"},
+                    "sizeY": {"N": "2"},
+                    "capacity": {"N": "25"}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "minesTemplate": {
+          "M": {
+            "id": {
+              "S": "mines-riverland"
+            },
+            "name": {
+              "S": "Riverland Mines"
+            },
+            "currentLevel": {
+              "N": "1"
+            },
+            "maxLevel": {
+              "N": "120"
+            },
+            "levels": {
+              "L": [
+                {
+                  "M": {
+                    "level": {"N": "1"},
+                    "sizeX": {"N": "12"},
+                    "sizeY": {"N": "8"},
+                    "blockSize": {"N": "16"},
+                    "difficulty": {"N": "1"},
+                    "tiles": {
+                      "L": [
+                        {
+                          "M": {
+                            "x": {"N": "4"},
+                            "y": {"N": "3"},
+                            "sizeX": {"N": "1"},
+                            "sizeY": {"N": "1"},
+                            "discovered": {"BOOL": false},
+                            "timeTaken": {"N": "12"}
+                          }
+                        }
+                      ]
+                    },
+                    "resourceIds": {
+                      "L": []
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "fishingAreaTemplate": {
+          "M": {
+            "id": {
+              "S": "fishing-riverland"
+            },
+            "name": {
+              "S": "Riverland Waters"
+            },
+            "sizeX": {
+              "N": "12"
+            },
+            "sizeY": {
+              "N": "10"
+            },
+            "blockSize": {
+              "N": "16"
+            },
+            "spots": {
+              "L": [
+                {
+                  "M": {
+                    "x": {"N": "2"},
+                    "y": {"N": "3"},
+                    "sizeX": {"N": "2"},
+                    "sizeY": {"N": "2"},
+                    "quality": {"N": "3"}
+                  }
+                },
+                {
+                  "M": {
+                    "x": {"N": "7"},
+                    "y": {"N": "5"},
+                    "sizeX": {"N": "2"},
+                    "sizeY": {"N": "2"},
+                    "quality": {"N": "3"}
+                  }
+                }
+              ]
+            },
+            "availableFishIds": {
+              "L": []
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "PutRequest": {
+      "Item": {
+        "id": {
+          "S": "variant-forest"
+        },
+        "name": {
+          "S": "Forest Farm"
+        },
+        "ownerId": {
+          "S": "system"
+        },
+        "namedVariant": {
+          "S": "FOREST"
+        },
+        "farmTemplate": {
+          "M": {
+            "id": {
+              "S": "farm-forest"
+            },
+            "name": {
+              "S": "Forest Farm"
+            },
+            "sizeX": {
+              "N": "12"
+            },
+            "sizeY": {
+              "N": "8"
+            },
+            "blockSize": {
+              "N": "16"
+            },
+            "plots": {
+              "L": [
+                {
+                  "M": {
+                    "x": {"N": "2"},
+                    "y": {"N": "1"},
+                    "sizeX": {"N": "2"},
+                    "sizeY": {"N": "2"}
+                  }
+                },
+                {
+                  "M": {
+                    "x": {"N": "5"},
+                    "y": {"N": "3"},
+                    "sizeX": {"N": "2"},
+                    "sizeY": {"N": "2"}
+                  }
+                }
+              ]
+            },
+            "decorations": {
+              "L": [
+                {
+                  "M": {
+                    "x": {"N": "8"},
+                    "y": {"N": "3"},
+                    "sizeX": {"N": "1"},
+                    "sizeY": {"N": "1"}
+                  }
+                },
+                {
+                  "M": {
+                    "x": {"N": "9"},
+                    "y": {"N": "3"},
+                    "sizeX": {"N": "1"},
+                    "sizeY": {"N": "1"}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "barnTemplate": {
+          "M": {
+            "id": {
+              "S": "barn-forest"
+            },
+            "name": {
+              "S": "Forest Barn"
+            },
+            "sizeX": {
+              "N": "10"
+            },
+            "sizeY": {
+              "N": "6"
+            },
+            "blockSize": {
+              "N": "16"
+            },
+            "pens": {
+              "L": [
+                {
+                  "M": {
+                    "x": {"N": "1"},
+                    "y": {"N": "1"},
+                    "sizeX": {"N": "4"},
+                    "sizeY": {"N": "4"},
+                    "capacity": {"N": "8"}
+                  }
+                }
+              ]
+            },
+            "storageUnits": {
+              "L": [
+                {
+                  "M": {
+                    "x": {"N": "6"},
+                    "y": {"N": "2"},
+                    "sizeX": {"N": "2"},
+                    "sizeY": {"N": "2"},
+                    "capacity": {"N": "30"}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "minesTemplate": {
+          "M": {
+            "id": {
+              "S": "mines-forest"
+            },
+            "name": {
+              "S": "Forest Mines"
+            },
+            "currentLevel": {
+              "N": "1"
+            },
+            "maxLevel": {
+              "N": "120"
+            },
+            "levels": {
+              "L": [
+                {
+                  "M": {
+                    "level": {"N": "1"},
+                    "sizeX": {"N": "12"},
+                    "sizeY": {"N": "8"},
+                    "blockSize": {"N": "16"},
+                    "difficulty": {"N": "2"},
+                    "tiles": {
+                      "L": [
+                        {
+                          "M": {
+                            "x": {"N": "3"},
+                            "y": {"N": "2"},
+                            "sizeX": {"N": "1"},
+                            "sizeY": {"N": "1"},
+                            "discovered": {"BOOL": false},
+                            "timeTaken": {"N": "8"}
+                          }
+                        },
+                        {
+                          "M": {
+                            "x": {"N": "6"},
+                            "y": {"N": "4"},
+                            "sizeX": {"N": "1"},
+                            "sizeY": {"N": "1"},
+                            "discovered": {"BOOL": false},
+                            "timeTaken": {"N": "12"}
+                          }
+                        },
+                        {
+                          "M": {
+                            "x": {"N": "9"},
+                            "y": {"N": "5"},
+                            "sizeX": {"N": "1"},
+                            "sizeY": {"N": "1"},
+                            "discovered": {"BOOL": false},
+                            "timeTaken": {"N": "15"}
+                          }
+                        }
+                      ]
+                    },
+                    "resourceIds": {
+                      "L": []
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "fishingAreaTemplate": {
+          "M": {
+            "id": {
+              "S": "fishing-forest"
+            },
+            "name": {
+              "S": "Forest Pond"
+            },
+            "sizeX": {
+              "N": "8"
+            },
+            "sizeY": {
+              "N": "6"
+            },
+            "blockSize": {
+              "N": "16"
+            },
+            "spots": {
+              "L": [
+                {
+                  "M": {
+                    "x": {"N": "3"},
+                    "y": {"N": "3"},
+                    "sizeX": {"N": "2"},
+                    "sizeY": {"N": "2"},
+                    "quality": {"N": "2"}
+                  }
+                }
+              ]
+            },
+            "availableFishIds": {
+              "L": []
+            }
+          }
+        }
+      }
+    }
+  }
+]

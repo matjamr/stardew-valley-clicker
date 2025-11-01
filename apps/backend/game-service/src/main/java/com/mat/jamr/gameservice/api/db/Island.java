@@ -16,7 +16,10 @@ public class Island {
     private List<String> allowedPlayers;
     private String createdAt;
     private String updatedAt;
-    private List<Terrain> terrains;
+    private Farm farm;
+    private Barn barn;
+    private Mines mines;
+    private FishingArea fishingArea;
 
     @DynamoDbPartitionKey
     @DynamoDbAttribute("id")
@@ -82,12 +85,39 @@ public class Island {
         this.updatedAt = updatedAt;
     }
 
-    @DynamoDbAttribute("terrains")
-    public List<Terrain> getTerrains() {
-        return terrains;
+    @DynamoDbAttribute("farm")
+    public Farm getFarm() {
+        return farm;
     }
 
-    public void setTerrains(List<Terrain> terrains) {
-        this.terrains = terrains;
+    public void setFarm(Farm farm) {
+        this.farm = farm;
+    }
+
+    @DynamoDbAttribute("barn")
+    public Barn getBarn() {
+        return barn;
+    }
+
+    public void setBarn(Barn barn) {
+        this.barn = barn;
+    }
+
+    @DynamoDbAttribute("mines")
+    public Mines getMines() {
+        return mines;
+    }
+
+    public void setMines(Mines mines) {
+        this.mines = mines;
+    }
+
+    @DynamoDbAttribute("fishingArea")
+    public FishingArea getFishingArea() {
+        return fishingArea;
+    }
+
+    public void setFishingArea(FishingArea fishingArea) {
+        this.fishingArea = fishingArea;
     }
 }

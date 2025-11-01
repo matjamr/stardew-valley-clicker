@@ -9,6 +9,9 @@ import 'package:http/http.dart' as http;
 import 'package:mobile/game/model/location.dart';
 import 'package:stardew_valley_api/stardew_valley_api.dart';
 
+// Mock user ID for development
+final userIdProvider = Provider<String>((ref) => 'user-001');
+
 // Location selection for the game scene
 final locationProvider = StateProvider<LocationArea>(
   (ref) => LocationArea.farm,
@@ -104,6 +107,18 @@ final stardewApiProvider = Provider<StardewValleyApi>((ref) {
 final eventsApiProvider = Provider<EventsApi>((ref) {
   final api = ref.watch(stardewApiProvider);
   return api.getEventsApi();
+});
+
+// Island Variants API
+final islandVariantsApiProvider = Provider<IslandVariantsApi>((ref) {
+  final api = ref.watch(stardewApiProvider);
+  return api.getIslandVariantsApi();
+});
+
+// Islands API
+final islandsApiProvider = Provider<IslandsApi>((ref) {
+  final api = ref.watch(stardewApiProvider);
+  return api.getIslandsApi();
 });
 
 // Example of a future provider to fetch some profile or game data later.

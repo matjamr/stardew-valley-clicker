@@ -34,6 +34,11 @@ public interface AssetApiMapper {
     })
     com.mat.jamr.externalapi.model.AssetType mapAssetType(com.mat.jamr.gameservice.api.AssetType src);
 
+    @ValueMappings({
+        @ValueMapping(source = "UNRECOGNIZED", target = MappingConstants.NULL)
+    })
+    com.mat.jamr.externalapi.model.ActionType mapActionType(com.mat.jamr.gameservice.api.ActionType src);
+
     @Named("bytesToByteString")
     default ByteString bytesToByteString(byte[] bytes) {
         return (bytes == null || bytes.length == 0) ? ByteString.EMPTY : ByteString.copyFrom(bytes);

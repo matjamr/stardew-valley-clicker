@@ -1,0 +1,237 @@
+{
+  "id": "variant-forest",
+  "name": "Forest Farm",
+  "ownerId": "system",
+  "namedVariant": "FOREST",
+  "farmTemplate": {
+    "id": "farm-forest",
+    "name": "Forest Farm",
+    "sizeX": 12,
+    "sizeY": 8,
+    "blockSize": 16,
+    "plots": [
+      {
+        "x": 2,
+        "y": 1,
+        "sizeX": 2,
+        "sizeY": 2,
+        "asset": {
+          "id": "asset-crop-plot-forest-1",
+          "name": "Forest Crop Plot",
+          "type": "GROUND",
+          "onClickAction": {
+            "actionType": "START_TIMER",
+            "timerInfo": {
+              "durationSeconds": 320,
+              "timerId": "crop-growth"
+            }
+          }
+        }
+      },
+      {
+        "x": 5,
+        "y": 3,
+        "sizeX": 2,
+        "sizeY": 2,
+        "asset": {
+          "id": "asset-crop-plot-forest-2",
+          "name": "Forest Crop Plot",
+          "type": "GROUND",
+          "onClickAction": {
+            "actionType": "START_TIMER",
+            "timerInfo": {
+              "durationSeconds": 320,
+              "timerId": "crop-growth"
+            }
+          }
+        }
+      }
+    ],
+    "decorations": [
+      {
+        "x": 8,
+        "y": 3,
+        "sizeX": 1,
+        "sizeY": 1,
+        "asset": {
+          "id": "asset-tree-forest-1",
+          "name": "Oak Tree",
+          "type": "WOOD",
+          "onClickAction": {
+            "actionType": "START_TIMER",
+            "timerInfo": {
+              "durationSeconds": 25,
+              "timerId": "chop-wood"
+            }
+          }
+        }
+      },
+      {
+        "x": 9,
+        "y": 3,
+        "sizeX": 1,
+        "sizeY": 1,
+        "asset": {
+          "id": "asset-tree-forest-2",
+          "name": "Oak Tree",
+          "type": "WOOD",
+          "onClickAction": {
+            "actionType": "START_TIMER",
+            "timerInfo": {
+              "durationSeconds": 25,
+              "timerId": "chop-wood"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "barnTemplate": {
+    "id": "barn-forest",
+    "name": "Forest Barn",
+    "sizeX": 10,
+    "sizeY": 6,
+    "blockSize": 16,
+    "pens": [
+      {
+        "x": 1,
+        "y": 1,
+        "sizeX": 4,
+        "sizeY": 4,
+        "capacity": 8,
+        "asset": {
+          "id": "asset-animal-pen-forest",
+          "name": "Large Animal Pen",
+          "type": "BUILDING",
+          "onClickAction": {
+            "actionType": "VOID"
+          }
+        }
+      }
+    ],
+    "storageUnits": [
+      {
+        "x": 6,
+        "y": 2,
+        "sizeX": 2,
+        "sizeY": 2,
+        "capacity": 30,
+        "asset": {
+          "id": "asset-storage-forest",
+          "name": "Large Storage Chest",
+          "type": "BUILDING",
+          "onClickAction": {
+            "actionType": "VOID"
+          }
+        }
+      }
+    ]
+  },
+  "minesTemplate": {
+    "id": "mines-forest",
+    "name": "Forest Mines",
+    "currentLevel": 1,
+    "maxLevel": 120,
+    "levels": [
+      {
+        "level": 1,
+        "sizeX": 12,
+        "sizeY": 8,
+        "blockSize": 16,
+        "difficulty": 2,
+        "tiles": [
+          {
+            "x": 3,
+            "y": 2,
+            "sizeX": 1,
+            "sizeY": 1,
+            "discovered": false,
+            "timeTaken": 8,
+            "asset": {
+              "id": "asset-mine-hardstone-forest-1",
+              "name": "Hard Stone Rock",
+              "type": "HARDSTONE",
+              "onClickAction": {
+                "actionType": "START_TIMER",
+                "timerInfo": {
+                  "durationSeconds": 8,
+                  "timerId": "mine-hardstone"
+                }
+              }
+            }
+          },
+          {
+            "x": 6,
+            "y": 4,
+            "sizeX": 1,
+            "sizeY": 1,
+            "discovered": false,
+            "timeTaken": 12,
+            "asset": {
+              "id": "asset-mine-hardstone-forest-2",
+              "name": "Hard Stone Rock",
+              "type": "HARDSTONE",
+              "onClickAction": {
+                "actionType": "START_TIMER",
+                "timerInfo": {
+                  "durationSeconds": 12,
+                  "timerId": "mine-hardstone"
+                }
+              }
+            }
+          },
+          {
+            "x": 9,
+            "y": 5,
+            "sizeX": 1,
+            "sizeY": 1,
+            "discovered": false,
+            "timeTaken": 15,
+            "asset": {
+              "id": "asset-mine-hardstone-forest-3",
+              "name": "Hard Stone Rock",
+              "type": "HARDSTONE",
+              "onClickAction": {
+                "actionType": "START_TIMER",
+                "timerInfo": {
+                  "durationSeconds": 15,
+                  "timerId": "mine-hardstone"
+                }
+              }
+            }
+          }
+        ],
+        "resourceIds": []
+      }
+    ]
+  },
+  "fishingAreaTemplate": {
+    "id": "fishing-forest",
+    "name": "Forest Pond",
+    "sizeX": 8,
+    "sizeY": 6,
+    "blockSize": 16,
+    "spots": [
+      {
+        "x": 3,
+        "y": 3,
+        "sizeX": 2,
+        "sizeY": 2,
+        "quality": 2,
+        "asset": {
+          "id": "asset-fishing-spot-forest",
+          "name": "Forest Fishing Spot",
+          "type": "GROUND",
+          "onClickAction": {
+            "actionType": "START_TIMER",
+            "timerInfo": {
+              "durationSeconds": 18,
+              "timerId": "fishing"
+            }
+          }
+        }
+      }
+    ],
+    "availableFishIds": []
+  }
+}

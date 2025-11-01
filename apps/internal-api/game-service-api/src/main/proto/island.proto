@@ -9,10 +9,12 @@ import 'asset.proto';
 service IslandService {
   rpc Create (CreateIslandRequest) returns (CreateIslandResponse) {}
   rpc Read (ReadIslandRequest) returns (ReadIslandResponse) {}
+  rpc ListAll (ListAllIslandsRequest) returns (ListAllIslandsResponse) {}
 }
 
 service IslandVariantService {
   rpc Read (ReadIslandVariantRequest) returns (IslandVariant) {}
+  rpc ListAll (ListAllIslandVariantsRequest) returns (ListAllIslandVariantsResponse) {}
 }
 
 message CreateIslandRequest {
@@ -33,6 +35,14 @@ message ReadIslandResponse {
   Island island = 1;
 }
 
+message ListAllIslandsRequest {
+  string ownerId = 1;
+}
+
+message ListAllIslandsResponse {
+  repeated Island islands = 1;
+}
+
 enum IslandVariantType {
   DEFAULT = 0;
   CLASSIC = 1;
@@ -41,6 +51,14 @@ enum IslandVariantType {
 
 message ReadIslandVariantRequest {
   string id = 1;
+}
+
+message ListAllIslandVariantsRequest {
+  // Empty request for now, can add pagination/filtering later
+}
+
+message ListAllIslandVariantsResponse {
+  repeated IslandVariant variants = 1;
 }
 
 message IslandVariant {

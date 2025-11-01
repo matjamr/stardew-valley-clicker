@@ -19,12 +19,20 @@ class _$Asset extends Asset {
   final String? url;
   @override
   final String? content;
+  @override
+  final OnClickAction? onClickAction;
 
   factory _$Asset([void Function(AssetBuilder)? updates]) =>
       (AssetBuilder()..update(updates))._build();
 
   _$Asset._(
-      {this.id, this.type, this.name, this.description, this.url, this.content})
+      {this.id,
+      this.type,
+      this.name,
+      this.description,
+      this.url,
+      this.content,
+      this.onClickAction})
       : super._();
   @override
   Asset rebuild(void Function(AssetBuilder) updates) =>
@@ -42,7 +50,8 @@ class _$Asset extends Asset {
         name == other.name &&
         description == other.description &&
         url == other.url &&
-        content == other.content;
+        content == other.content &&
+        onClickAction == other.onClickAction;
   }
 
   @override
@@ -54,6 +63,7 @@ class _$Asset extends Asset {
     _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, url.hashCode);
     _$hash = $jc(_$hash, content.hashCode);
+    _$hash = $jc(_$hash, onClickAction.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -66,7 +76,8 @@ class _$Asset extends Asset {
           ..add('name', name)
           ..add('description', description)
           ..add('url', url)
-          ..add('content', content))
+          ..add('content', content)
+          ..add('onClickAction', onClickAction))
         .toString();
   }
 }
@@ -98,6 +109,12 @@ class AssetBuilder implements Builder<Asset, AssetBuilder> {
   String? get content => _$this._content;
   set content(String? content) => _$this._content = content;
 
+  OnClickActionBuilder? _onClickAction;
+  OnClickActionBuilder get onClickAction =>
+      _$this._onClickAction ??= OnClickActionBuilder();
+  set onClickAction(OnClickActionBuilder? onClickAction) =>
+      _$this._onClickAction = onClickAction;
+
   AssetBuilder() {
     Asset._defaults(this);
   }
@@ -111,6 +128,7 @@ class AssetBuilder implements Builder<Asset, AssetBuilder> {
       _description = $v.description;
       _url = $v.url;
       _content = $v.content;
+      _onClickAction = $v.onClickAction?.toBuilder();
       _$v = null;
     }
     return this;
@@ -130,15 +148,28 @@ class AssetBuilder implements Builder<Asset, AssetBuilder> {
   Asset build() => _build();
 
   _$Asset _build() {
-    final _$result = _$v ??
-        _$Asset._(
-          id: id,
-          type: type,
-          name: name,
-          description: description,
-          url: url,
-          content: content,
-        );
+    _$Asset _$result;
+    try {
+      _$result = _$v ??
+          _$Asset._(
+            id: id,
+            type: type,
+            name: name,
+            description: description,
+            url: url,
+            content: content,
+            onClickAction: _onClickAction?.build(),
+          );
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'onClickAction';
+        _onClickAction?.build();
+      } catch (e) {
+        throw BuiltValueNestedFieldError(r'Asset', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

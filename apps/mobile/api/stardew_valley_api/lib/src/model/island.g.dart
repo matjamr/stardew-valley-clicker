@@ -22,8 +22,6 @@ class _$Island extends Island {
   @override
   final String? updatedAt;
   @override
-  final BuiltList<Terrain>? terrains;
-  @override
   final Farm? farm;
   @override
   final Barn? barn;
@@ -43,7 +41,6 @@ class _$Island extends Island {
       this.allowedPlayers,
       this.createdAt,
       this.updatedAt,
-      this.terrains,
       this.farm,
       this.barn,
       this.mines,
@@ -67,7 +64,6 @@ class _$Island extends Island {
         allowedPlayers == other.allowedPlayers &&
         createdAt == other.createdAt &&
         updatedAt == other.updatedAt &&
-        terrains == other.terrains &&
         farm == other.farm &&
         barn == other.barn &&
         mines == other.mines &&
@@ -84,7 +80,6 @@ class _$Island extends Island {
     _$hash = $jc(_$hash, allowedPlayers.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, updatedAt.hashCode);
-    _$hash = $jc(_$hash, terrains.hashCode);
     _$hash = $jc(_$hash, farm.hashCode);
     _$hash = $jc(_$hash, barn.hashCode);
     _$hash = $jc(_$hash, mines.hashCode);
@@ -103,7 +98,6 @@ class _$Island extends Island {
           ..add('allowedPlayers', allowedPlayers)
           ..add('createdAt', createdAt)
           ..add('updatedAt', updatedAt)
-          ..add('terrains', terrains)
           ..add('farm', farm)
           ..add('barn', barn)
           ..add('mines', mines)
@@ -145,11 +139,6 @@ class IslandBuilder implements Builder<Island, IslandBuilder> {
   String? get updatedAt => _$this._updatedAt;
   set updatedAt(String? updatedAt) => _$this._updatedAt = updatedAt;
 
-  ListBuilder<Terrain>? _terrains;
-  ListBuilder<Terrain> get terrains =>
-      _$this._terrains ??= ListBuilder<Terrain>();
-  set terrains(ListBuilder<Terrain>? terrains) => _$this._terrains = terrains;
-
   FarmBuilder? _farm;
   FarmBuilder get farm => _$this._farm ??= FarmBuilder();
   set farm(FarmBuilder? farm) => _$this._farm = farm;
@@ -182,7 +171,6 @@ class IslandBuilder implements Builder<Island, IslandBuilder> {
       _allowedPlayers = $v.allowedPlayers?.toBuilder();
       _createdAt = $v.createdAt;
       _updatedAt = $v.updatedAt;
-      _terrains = $v.terrains?.toBuilder();
       _farm = $v.farm?.toBuilder();
       _barn = $v.barn?.toBuilder();
       _mines = $v.mines?.toBuilder();
@@ -217,7 +205,6 @@ class IslandBuilder implements Builder<Island, IslandBuilder> {
             allowedPlayers: _allowedPlayers?.build(),
             createdAt: createdAt,
             updatedAt: updatedAt,
-            terrains: _terrains?.build(),
             farm: _farm?.build(),
             barn: _barn?.build(),
             mines: _mines?.build(),
@@ -229,8 +216,6 @@ class IslandBuilder implements Builder<Island, IslandBuilder> {
         _$failedField = 'allowedPlayers';
         _allowedPlayers?.build();
 
-        _$failedField = 'terrains';
-        _terrains?.build();
         _$failedField = 'farm';
         _farm?.build();
         _$failedField = 'barn';

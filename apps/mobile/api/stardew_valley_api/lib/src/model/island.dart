@@ -6,7 +6,6 @@
 import 'package:stardew_valley_api/src/model/barn.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:stardew_valley_api/src/model/farm.dart';
-import 'package:stardew_valley_api/src/model/terrain.dart';
 import 'package:stardew_valley_api/src/model/fishing_area.dart';
 import 'package:stardew_valley_api/src/model/mines.dart';
 import 'package:built_value/built_value.dart';
@@ -24,7 +23,6 @@ part 'island.g.dart';
 /// * [allowedPlayers]
 /// * [createdAt]
 /// * [updatedAt]
-/// * [terrains]
 /// * [farm]
 /// * [barn]
 /// * [mines]
@@ -51,9 +49,6 @@ abstract class Island implements Built<Island, IslandBuilder> {
 
   @BuiltValueField(wireName: r'updatedAt')
   String? get updatedAt;
-
-  @BuiltValueField(wireName: r'terrains')
-  BuiltList<Terrain>? get terrains;
 
   @BuiltValueField(wireName: r'farm')
   Farm? get farm;
@@ -137,13 +132,6 @@ class _$IslandSerializer implements PrimitiveSerializer<Island> {
       yield serializers.serialize(
         object.updatedAt,
         specifiedType: const FullType(String),
-      );
-    }
-    if (object.terrains != null) {
-      yield r'terrains';
-      yield serializers.serialize(
-        object.terrains,
-        specifiedType: const FullType(BuiltList, [FullType(Terrain)]),
       );
     }
     if (object.farm != null) {
@@ -247,13 +235,6 @@ class _$IslandSerializer implements PrimitiveSerializer<Island> {
             specifiedType: const FullType(String),
           ) as String;
           result.updatedAt = valueDes;
-          break;
-        case r'terrains':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BuiltList, [FullType(Terrain)]),
-          ) as BuiltList<Terrain>;
-          result.terrains.replace(valueDes);
           break;
         case r'farm':
           final valueDes = serializers.deserialize(

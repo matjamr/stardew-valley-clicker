@@ -74,6 +74,11 @@ public interface IslandVariantApiMapper {
     })
     com.mat.jamr.externalapi.model.AssetType mapAssetType(com.mat.jamr.gameservice.api.AssetType type);
 
+    @ValueMappings({
+        @ValueMapping(source = "UNRECOGNIZED", target = MappingConstants.NULL)
+    })
+    com.mat.jamr.externalapi.model.ActionType mapActionType(com.mat.jamr.gameservice.api.ActionType src);
+
     @Named("byteStringToBytes")
     default byte[] byteStringToBytes(ByteString byteString) {
         return byteString == null ? null : (byteString.isEmpty() ? null : byteString.toByteArray());

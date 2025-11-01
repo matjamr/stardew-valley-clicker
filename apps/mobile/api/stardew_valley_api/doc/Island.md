@@ -15,7 +15,6 @@ Name | Type | Description | Notes
 **allowedPlayers** | **BuiltList&lt;String&gt;** |  | [optional] 
 **createdAt** | **String** |  | [optional] 
 **updatedAt** | **String** |  | [optional] 
-**terrains** | [**BuiltList&lt;Terrain&gt;**](Terrain.md) |  | [optional] 
 **farm** | [**Farm**](Farm.md) |  | [optional] 
 **barn** | [**Barn**](Barn.md) |  | [optional] 
 **mines** | [**Mines**](Mines.md) |  | [optional] 

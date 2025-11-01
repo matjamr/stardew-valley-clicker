@@ -29,4 +29,5 @@ public class IslandController {
         var grpcResp = islandServiceClient.read(ReadIslandRequest.newBuilder().setIslandId(id).build());
         return islandApiMapper.toExternal(grpcResp);
     }
+
 }

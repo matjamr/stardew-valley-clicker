@@ -1,0 +1,179 @@
+{
+  "id": "variant-riverland",
+  "name": "Riverland Farm",
+  "ownerId": "system",
+  "namedVariant": "RIVERLAND",
+  "farmTemplate": {
+    "id": "farm-riverland",
+    "name": "Riverland Farm",
+    "sizeX": 12,
+    "sizeY": 8,
+    "blockSize": 16,
+    "plots": [
+      {
+        "x": 1,
+        "y": 2,
+        "sizeX": 2,
+        "sizeY": 2,
+        "asset": {
+          "id": "asset-crop-plot-riverland-1",
+          "name": "Riverland Crop Plot",
+          "type": "GROUND",
+          "onClickAction": {
+            "actionType": "START_TIMER",
+            "timerInfo": {
+              "durationSeconds": 280,
+              "timerId": "crop-growth"
+            }
+          }
+        }
+      },
+      {
+        "x": 9,
+        "y": 2,
+        "sizeX": 2,
+        "sizeY": 2,
+        "asset": {
+          "id": "asset-crop-plot-riverland-2",
+          "name": "Riverland Crop Plot",
+          "type": "GROUND",
+          "onClickAction": {
+            "actionType": "START_TIMER",
+            "timerInfo": {
+              "durationSeconds": 280,
+              "timerId": "crop-growth"
+            }
+          }
+        }
+      }
+    ],
+    "decorations": []
+  },
+  "barnTemplate": {
+    "id": "barn-riverland",
+    "name": "Riverland Barn",
+    "sizeX": 10,
+    "sizeY": 6,
+    "blockSize": 16,
+    "pens": [
+      {
+        "x": 2,
+        "y": 1,
+        "sizeX": 3,
+        "sizeY": 3,
+        "capacity": 6,
+        "asset": {
+          "id": "asset-animal-pen-riverland",
+          "name": "Animal Pen",
+          "type": "BUILDING",
+          "onClickAction": {
+            "actionType": "VOID"
+          }
+        }
+      }
+    ],
+    "storageUnits": [
+      {
+        "x": 6,
+        "y": 1,
+        "sizeX": 2,
+        "sizeY": 2,
+        "capacity": 25,
+        "asset": {
+          "id": "asset-storage-riverland",
+          "name": "Storage Chest",
+          "type": "BUILDING",
+          "onClickAction": {
+            "actionType": "VOID"
+          }
+        }
+      }
+    ]
+  },
+  "minesTemplate": {
+    "id": "mines-riverland",
+    "name": "Riverland Mines",
+    "currentLevel": 1,
+    "maxLevel": 120,
+    "levels": [
+      {
+        "level": 1,
+        "sizeX": 12,
+        "sizeY": 8,
+        "blockSize": 16,
+        "difficulty": 1,
+        "tiles": [
+          {
+            "x": 4,
+            "y": 3,
+            "sizeX": 1,
+            "sizeY": 1,
+            "discovered": false,
+            "timeTaken": 12,
+            "asset": {
+              "id": "asset-mine-stone-riverland",
+              "name": "Stone Rock",
+              "type": "STONE",
+              "onClickAction": {
+                "actionType": "START_TIMER",
+                "timerInfo": {
+                  "durationSeconds": 12,
+                  "timerId": "mine-stone"
+                }
+              }
+            }
+          }
+        ],
+        "resourceIds": []
+      }
+    ]
+  },
+  "fishingAreaTemplate": {
+    "id": "fishing-riverland",
+    "name": "Riverland Waters",
+    "sizeX": 12,
+    "sizeY": 10,
+    "blockSize": 16,
+    "spots": [
+      {
+        "x": 2,
+        "y": 3,
+        "sizeX": 2,
+        "sizeY": 2,
+        "quality": 3,
+        "asset": {
+          "id": "asset-fishing-spot-riverland-1",
+          "name": "Premium Fishing Spot",
+          "type": "GROUND",
+          "onClickAction": {
+            "actionType": "START_TIMER",
+            "timerInfo": {
+              "durationSeconds": 15,
+              "timerId": "fishing"
+            }
+          }
+        }
+      },
+      {
+        "x": 7,
+        "y": 5,
+        "sizeX": 2,
+        "sizeY": 2,
+        "quality": 3,
+        "asset": {
+          "id": "asset-fishing-spot-riverland-2",
+          "name": "Premium Fishing Spot",
+          "type": "GROUND",
+          "onClickAction": {
+            "actionType": "START_TIMER",
+            "timerInfo": {
+              "durationSeconds": 15,
+              "timerId": "fishing"
+            }
+          }
+        }
+      }
+    ],
+    "availableFishIds": []
+  }
+}

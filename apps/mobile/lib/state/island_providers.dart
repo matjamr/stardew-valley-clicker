@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stardew_valley_api/stardew_valley_api.dart';
 import 'package:mobile/state/app_providers.dart';
+import 'package:built_collection/built_collection.dart';
 
 // Simple models for islands and variants (mocked)
 class IslandSummary {
@@ -68,8 +69,16 @@ class IslandVariant {
 // Repository for island and event operations
 class IslandRepository {
   final EventsApi _eventsApi;
+  final IslandVariantsApi _islandVariantsApi;
+  final IslandsApi _islandsApi;
 
-  IslandRepository({required EventsApi eventsApi}) : _eventsApi = eventsApi;
+  IslandRepository({
+    required EventsApi eventsApi,
+    required IslandVariantsApi islandVariantsApi,
+    required IslandsApi islandsApi,
+  })  : _eventsApi = eventsApi,
+        _islandVariantsApi = islandVariantsApi,
+        _islandsApi = islandsApi;
   // pretend we have some existing islands
   final List<IslandSummary> _islands = [
     IslandSummary(id: 'isl-001', name: 'Pelican Farm', variantKey: 'standard'),
@@ -317,19 +326,113 @@ class IslandRepository {
   }
 
   Future<List<IslandVariant>> fetchVariants() async {
-    await Future<void>.delayed(const Duration(milliseconds: 300));
-    return List<IslandVariant>.from(_variants);
+    try {
+      final response = await _islandVariantsApi.listAllIslandVariants();
+      final variants = response.data;
+
+      if (variants == null) {
+        return [];
+      }
+
+      // Convert from API models to local models
+      return variants.map((apiVariant) => IslandVariant(
+        key: apiVariant.id ?? '',
+        title: apiVariant.name ?? 'Unknown',
+        description: apiVariant.namedVariant ?? '',
+        terrains: [], // Empty for now - terrains are not needed for variant selection
+      )).toList();
+    } catch (e) {
+      throw Exception('Failed to fetch island variants: $e');
+    }
   }
 
   Future<String> createIsland({
     required String name,
-    required String variantKey,
-    String? description,
+    required String variantId,
+    required String userId,
   }) async {
-    await Future<void>.delayed(const Duration(milliseconds: 700));
-    final id = 'isl-${DateTime.now().millisecondsSinceEpoch}';
-    _islands.add(IslandSummary(id: id, name: name, variantKey: variantKey));
-    return id;
+    try {
+      final request = CreateIslandRequestBuilder()
+        ..userId = userId
+        ..variantId = variantId
+        ..name = name;
+
+      final response = await _islandsApi.createIsland(
+        createIslandRequest: request.build(),
+      );
+
+      final islandId = response.data?.id;
+      if (islandId == null) {
+        throw Exception('Failed to create island: no ID returned');
+      }
+
+      // Add to local cache
+      _islands.add(IslandSummary(
+        id: islandId,
+        name: name,
+        variantKey: variantId,
+      ));
+
+      return islandId;
+    } catch (e) {
+      throw Exception('Failed to create island: $e');
+    }
+  }
+
+  Future<ReadIslandResponse?> fetchIsland(String islandId) async {
+    try {
+      final response = await _islandsApi.readIsland(id: islandId);
+      return response.data;
+    } catch (e) {
+      throw Exception('Failed to fetch island: $e');
+    }
+  }
+
+  TerrainSpec? getFarmTerrainFromIsland(ReadIslandResponse? islandResponse) {
+    if (islandResponse == null || islandResponse.island == null) return null;
+
+    final island = islandResponse.island!;
+    final farm = island.farm;
+
+    if (farm == null) return null;
+
+    // Convert farm plots and decorations to terrain tiles
+    final tiles = <TerrainTileSpec>[];
+
+    // Add plots as soil tiles
+    if (farm.plots != null) {
+      for (final plot in farm.plots!) {
+        tiles.add(TerrainTileSpec(
+          x: plot.x ?? 0,
+          y: plot.y ?? 0,
+          sizeX: plot.sizeX ?? 1,
+          sizeY: plot.sizeY ?? 1,
+          kind: TileKind.soil,
+        ));
+      }
+    }
+
+    // Add decorations
+    if (farm.decorations != null) {
+      for (final decoration in farm.decorations!) {
+        tiles.add(TerrainTileSpec(
+          x: decoration.x ?? 0,
+          y: decoration.y ?? 0,
+          sizeX: decoration.sizeX ?? 1,
+          sizeY: decoration.sizeY ?? 1,
+          kind: TileKind.path,
+        ));
+      }
+    }
+
+    return TerrainSpec(
+      id: farm.id ?? 'farm',
+      name: farm.name ?? 'Farm',
+      blockSize: farm.blockSize ?? 16,
+      sizeX: farm.sizeX ?? 12,
+      sizeY: farm.sizeY ?? 8,
+      tiles: tiles,
+    );
   }
 
   Future<bool> enterIsland(String islandId) async {
@@ -433,7 +536,13 @@ class FieldEventResult {
 final islandRepositoryProvider = Provider<IslandRepository>(
   (ref) {
     final eventsApi = ref.watch(eventsApiProvider);
-    return IslandRepository(eventsApi: eventsApi);
+    final islandVariantsApi = ref.watch(islandVariantsApiProvider);
+    final islandsApi = ref.watch(islandsApiProvider);
+    return IslandRepository(
+      eventsApi: eventsApi,
+      islandVariantsApi: islandVariantsApi,
+      islandsApi: islandsApi,
+    );
   },
 );
 
@@ -449,6 +558,30 @@ final islandVariantsProvider = FutureProvider<List<IslandVariant>>((ref) async {
 
 // Selected island id after choosing/creating
 final selectedIslandIdProvider = StateProvider<String?>((ref) => null);
+
+// Fetch island data from backend
+final selectedIslandDataProvider = FutureProvider<ReadIslandResponse?>((ref) async {
+  final id = ref.watch(selectedIslandIdProvider);
+  if (id == null) return null;
+
+  final repo = ref.watch(islandRepositoryProvider);
+  return repo.fetchIsland(id);
+});
+
+// Derived: Get farm terrain from selected island
+final selectedIslandFarmTerrainProvider = Provider<TerrainSpec?>((ref) {
+  final islandAsync = ref.watch(selectedIslandDataProvider);
+
+  return islandAsync.when(
+    data: (islandResponse) {
+      if (islandResponse == null) return null;
+      final repo = ref.watch(islandRepositoryProvider);
+      return repo.getFarmTerrainFromIsland(islandResponse);
+    },
+    loading: () => null,
+    error: (_, __) => null,
+  );
+});
 
 // Derived: selected island's variant key (null if not available)
 final selectedIslandVariantKeyProvider = Provider<String?>((ref) {

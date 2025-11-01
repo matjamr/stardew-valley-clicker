@@ -89,42 +89,64 @@ class _GamePageState extends ConsumerState<GamePage> {
           children: [
             // Flame scene (still used for overlays/logic); terrain grid will be layered above as the visual background
             Positioned.fill(child: GameWidget(game: _game)),
-            // Terrain grid background based on current island variant + location
+            // Terrain grid background based on real island data from backend
             Positioned.fill(
               child: Consumer(
                 builder: (context, ref, _) {
-                  final variantKey = ref.watch(
-                    selectedIslandVariantKeyProvider,
-                  );
+                  final loc = ref.watch(locationProvider);
+
+                  // Hide terrain during fishing
+                  if (loc == LocationArea.fishing) {
+                    return const SizedBox.shrink();
+                  }
+
+                  // For farm location, try to load real farm data from backend
+                  if (loc == LocationArea.farm) {
+                    final farmTerrain = ref.watch(selectedIslandFarmTerrainProvider);
+
+                    if (farmTerrain != null) {
+                      // Use real farm data from backend
+                      final size = MediaQuery.of(context).size;
+                      return Center(
+                        child: ZoomPanViewer(
+                          minScale: 0.5,
+                          maxScale: 3.0,
+                          boundaryMargin: const EdgeInsets.all(120),
+                          child: InteractiveTerrain(
+                            terrain: farmTerrain,
+                            maxWidth: size.width - 24,
+                            maxHeight: size.height - 120,
+                          ),
+                        ),
+                      );
+                    }
+                  }
+
+                  // Fallback to mock terrain for other locations or if farm data not loaded
+                  final variantKey = ref.watch(selectedIslandVariantKeyProvider);
                   if (variantKey == null) {
                     return const SizedBox.shrink();
                   }
-                  final loc = ref.watch(locationProvider);
+
                   final repo = ref.watch(islandRepositoryProvider);
                   final terrain = repo.getTerrainForVariant(
                     variantKey,
                     loc.name,
                   );
                   final size = MediaQuery.of(context).size;
-                  if (loc == LocationArea.fishing) {
-                    // During fishing, hide terrain entirely per requirement
-                    return const SizedBox.shrink();
-                  } else {
-                    return Center(
-                      child: ZoomPanViewer(
-                        minScale: 0.8,
-                        maxScale: 4.0,
-                        boundaryMargin: const EdgeInsets.all(120),
-                        child: InteractiveTerrain(
-                          terrain: terrain,
-                          maxWidth: size.width - 24, // a bit of safe padding
-                          maxHeight:
-                              size.height -
-                              120, // leave room for HUD/bottom bar visually
-                        ),
+
+                  return Center(
+                    child: ZoomPanViewer(
+                      minScale: 0.8,
+                      maxScale: 4.0,
+                      boundaryMargin: const EdgeInsets.all(120),
+                      child: InteractiveTerrain(
+                        terrain: terrain,
+                        maxWidth: size.width - 24,
+                        maxHeight: size.height - 120,
                       ),
-                    );
-                  }
+                    ),
+                  );
                 },
               ),
             ),

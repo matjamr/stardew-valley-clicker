@@ -14,6 +14,7 @@ import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:stardew_valley_api/src/date_serializer.dart';
 import 'package:stardew_valley_api/src/model/date.dart';
 
+import 'package:stardew_valley_api/src/model/action_type.dart';
 import 'package:stardew_valley_api/src/model/animal_pen.dart';
 import 'package:stardew_valley_api/src/model/asset.dart';
 import 'package:stardew_valley_api/src/model/asset_type.dart';
@@ -26,6 +27,7 @@ import 'package:stardew_valley_api/src/model/create_island_request.dart';
 import 'package:stardew_valley_api/src/model/create_island_response.dart';
 import 'package:stardew_valley_api/src/model/crop_plot.dart';
 import 'package:stardew_valley_api/src/model/decoration.dart';
+import 'package:stardew_valley_api/src/model/energy_info.dart';
 import 'package:stardew_valley_api/src/model/error.dart';
 import 'package:stardew_valley_api/src/model/event_request_trigger_type.dart';
 import 'package:stardew_valley_api/src/model/farm.dart';
@@ -38,25 +40,28 @@ import 'package:stardew_valley_api/src/model/login_user_response.dart';
 import 'package:stardew_valley_api/src/model/mine_level.dart';
 import 'package:stardew_valley_api/src/model/mine_tile.dart';
 import 'package:stardew_valley_api/src/model/mines.dart';
+import 'package:stardew_valley_api/src/model/on_click_action.dart';
 import 'package:stardew_valley_api/src/model/read_asset_response.dart';
 import 'package:stardew_valley_api/src/model/read_event_response.dart';
 import 'package:stardew_valley_api/src/model/read_island_response.dart';
 import 'package:stardew_valley_api/src/model/refresh_token_request.dart';
 import 'package:stardew_valley_api/src/model/refresh_token_response.dart';
+import 'package:stardew_valley_api/src/model/resource_reward.dart';
 import 'package:stardew_valley_api/src/model/retrieve_user_request.dart';
 import 'package:stardew_valley_api/src/model/retrieve_user_response.dart';
+import 'package:stardew_valley_api/src/model/reward_info.dart';
 import 'package:stardew_valley_api/src/model/save_user_request.dart';
 import 'package:stardew_valley_api/src/model/save_user_response.dart';
 import 'package:stardew_valley_api/src/model/scheduled_event.dart';
 import 'package:stardew_valley_api/src/model/storage.dart';
-import 'package:stardew_valley_api/src/model/terrain.dart';
-import 'package:stardew_valley_api/src/model/terrain_tile.dart';
+import 'package:stardew_valley_api/src/model/timer_info.dart';
 import 'package:stardew_valley_api/src/model/verify_user_request.dart';
 import 'package:stardew_valley_api/src/model/verify_user_response.dart';
 
 part 'serializers.g.dart';
 
 @SerializersFor([
+  ActionType,
   AnimalPen,
   Asset,
   AssetType,
@@ -69,6 +74,7 @@ part 'serializers.g.dart';
   CreateIslandResponse,
   CropPlot,
   Decoration,
+  EnergyInfo,
   Error,
   EventRequestTriggerType,
   Farm,
@@ -81,23 +87,29 @@ part 'serializers.g.dart';
   MineLevel,
   MineTile,
   Mines,
+  OnClickAction,
   ReadAssetResponse,
   ReadEventResponse,
   ReadIslandResponse,
   RefreshTokenRequest,
   RefreshTokenResponse,
+  ResourceReward,
   RetrieveUserRequest,
   RetrieveUserResponse,
+  RewardInfo,
   SaveUserRequest,
   SaveUserResponse,
   ScheduledEvent,
   Storage,
-  Terrain,
-  TerrainTile,
+  TimerInfo,
   VerifyUserRequest,
   VerifyUserResponse,
 ])
 Serializers serializers = (_$serializers.toBuilder()
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(IslandVariant)]),
+        () => ListBuilder<IslandVariant>(),
+      )
       ..add(const OneOfSerializer())
       ..add(const AnyOfSerializer())
       ..add(const DateSerializer())

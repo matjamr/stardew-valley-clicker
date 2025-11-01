@@ -15,6 +15,7 @@ public class Asset {
     private String url;
     private String description;
     private AssetType type;
+    private OnClickAction onClickAction;
 
     @DynamoDbPartitionKey
     @DynamoDbAttribute("id")
@@ -60,5 +61,14 @@ public class Asset {
 
     public void setType(String type) {
         this.type = AssetType.valueOf(type);
+    }
+
+    @DynamoDbAttribute("onClickAction")
+    public OnClickAction getOnClickAction() {
+        return onClickAction;
+    }
+
+    public void setOnClickAction(OnClickAction onClickAction) {
+        this.onClickAction = onClickAction;
     }
 }

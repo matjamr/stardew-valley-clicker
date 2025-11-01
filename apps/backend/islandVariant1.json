@@ -1,0 +1,198 @@
+{
+  "id": "variant-standard",
+  "name": "Standard Farm",
+  "ownerId": "system",
+  "namedVariant": "STANDARD",
+  "farmTemplate": {
+    "id": "farm-standard",
+    "name": "Standard Farm",
+    "sizeX": 12,
+    "sizeY": 8,
+    "blockSize": 16,
+    "plots": [
+      {
+        "x": 2,
+        "y": 2,
+        "sizeX": 2,
+        "sizeY": 2,
+        "asset": {
+          "id": "asset-crop-plot-standard-1",
+          "name": "Standard Crop Plot",
+          "type": "GROUND",
+          "onClickAction": {
+            "actionType": "START_TIMER",
+            "timerInfo": {
+              "durationSeconds": 300,
+              "timerId": "crop-growth"
+            }
+          }
+        }
+      },
+      {
+        "x": 5,
+        "y": 2,
+        "sizeX": 2,
+        "sizeY": 2,
+        "asset": {
+          "id": "asset-crop-plot-standard-2",
+          "name": "Standard Crop Plot",
+          "type": "GROUND",
+          "onClickAction": {
+            "actionType": "START_TIMER",
+            "timerInfo": {
+              "durationSeconds": 300,
+              "timerId": "crop-growth"
+            }
+          }
+        }
+      },
+      {
+        "x": 8,
+        "y": 2,
+        "sizeX": 2,
+        "sizeY": 2,
+        "asset": {
+          "id": "asset-crop-plot-standard-3",
+          "name": "Standard Crop Plot",
+          "type": "GROUND",
+          "onClickAction": {
+            "actionType": "START_TIMER",
+            "timerInfo": {
+              "durationSeconds": 300,
+              "timerId": "crop-growth"
+            }
+          }
+        }
+      }
+    ],
+    "decorations": []
+  },
+  "barnTemplate": {
+    "id": "barn-standard",
+    "name": "Standard Barn",
+    "sizeX": 10,
+    "sizeY": 6,
+    "blockSize": 16,
+    "pens": [
+      {
+        "x": 2,
+        "y": 2,
+        "sizeX": 3,
+        "sizeY": 3,
+        "capacity": 4,
+        "asset": {
+          "id": "asset-animal-pen-standard",
+          "name": "Animal Pen",
+          "type": "BUILDING",
+          "onClickAction": {
+            "actionType": "VOID"
+          }
+        }
+      }
+    ],
+    "storageUnits": [
+      {
+        "x": 7,
+        "y": 2,
+        "sizeX": 2,
+        "sizeY": 2,
+        "capacity": 20,
+        "asset": {
+          "id": "asset-storage-standard",
+          "name": "Storage Chest",
+          "type": "BUILDING",
+          "onClickAction": {
+            "actionType": "VOID"
+          }
+        }
+      }
+    ]
+  },
+  "minesTemplate": {
+    "id": "mines-standard",
+    "name": "Standard Mines",
+    "currentLevel": 1,
+    "maxLevel": 120,
+    "levels": [
+      {
+        "level": 1,
+        "sizeX": 12,
+        "sizeY": 8,
+        "blockSize": 16,
+        "difficulty": 1,
+        "tiles": [
+          {
+            "x": 3,
+            "y": 3,
+            "sizeX": 1,
+            "sizeY": 1,
+            "discovered": false,
+            "timeTaken": 10,
+            "asset": {
+              "id": "asset-mine-stone-1",
+              "name": "Stone Rock",
+              "type": "STONE",
+              "onClickAction": {
+                "actionType": "START_TIMER",
+                "timerInfo": {
+                  "durationSeconds": 10,
+                  "timerId": "mine-stone"
+                }
+              }
+            }
+          },
+          {
+            "x": 5,
+            "y": 4,
+            "sizeX": 1,
+            "sizeY": 1,
+            "discovered": false,
+            "timeTaken": 15,
+            "asset": {
+              "id": "asset-mine-stone-2",
+              "name": "Stone Rock",
+              "type": "STONE",
+              "onClickAction": {
+                "actionType": "START_TIMER",
+                "timerInfo": {
+                  "durationSeconds": 15,
+                  "timerId": "mine-stone"
+                }
+              }
+            }
+          }
+        ],
+        "resourceIds": []
+      }
+    ]
+  },
+  "fishingAreaTemplate": {
+    "id": "fishing-standard",
+    "name": "Standard Pond",
+    "sizeX": 10,
+    "sizeY": 8,
+    "blockSize": 16,
+    "spots": [
+      {
+        "x": 3,
+        "y": 4,
+        "sizeX": 2,
+        "sizeY": 2,
+        "quality": 2,
+        "asset": {
+          "id": "asset-fishing-spot-standard",
+          "name": "Fishing Spot",
+          "type": "GROUND",
+          "onClickAction": {
+            "actionType": "START_TIMER",
+            "timerInfo": {
+              "durationSeconds": 20,
+              "timerId": "fishing"
+            }
+          }
+        }
+      }
+    ],
+    "availableFishIds": []
+  }
+}

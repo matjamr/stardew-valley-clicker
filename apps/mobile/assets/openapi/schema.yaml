@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: User, Security and Game API
   description: API for user management, security operations and game operations (assets, islands)
-  version: 1.0.0
+  version: 0.0.9
 servers:
   - url: /api
 paths:
@@ -199,6 +199,21 @@ paths:
           description: Island not found
 
   # Game - Island Variants
+  /island-variants:
+    get:
+      summary: List all island variants
+      operationId: listAllIslandVariants
+      tags:
+        - island-variants
+      responses:
+        '200':
+          description: Island variants retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IslandVariant'
   /island-variants/{id}:
     get:
       summary: Read island variant by ID
@@ -411,9 +426,63 @@ components:
         content:
           type: string
           format: byte
+        onClickAction:
+          $ref: '#/components/schemas/OnClickAction'
     AssetType:
       type: string
       enum: [UNKNOWN, IMAGE, AUDIO, VIDEO, MODEL, BUILDING, WOOD, STONE, HARDWOOD, HARDSTONE, GROUND, DECORATION]
+
+    OnClickAction:
+      type: object
+      properties:
+        actionType:
+          $ref: '#/components/schemas/ActionType'
+        timerInfo:
+          $ref: '#/components/schemas/TimerInfo'
+        rewardInfo:
+          $ref: '#/components/schemas/RewardInfo'
+        energyInfo:
+          $ref: '#/components/schemas/EnergyInfo'
+
+    ActionType:
+      type: string
+      enum: [VOID, START_TIMER, END_TIMER, COLLECT_REWARD, SPEED_UP, FINISH_NOW]
+
+    TimerInfo:
+      type: object
+      properties:
+        durationSeconds:
+          type: integer
+          format: int64
+        timerId:
+          type: string
+
+    RewardInfo:
+      type: object
+      properties:
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceReward'
+        xpGrant:
+          type: integer
+          format: int32
+
+    ResourceReward:
+      type: object
+      properties:
+        resourceId:
+          type: string
+        amount:
+          type: integer
+          format: int32
+
+    EnergyInfo:
+      type: object
+      properties:
+        energyConsumption:
+          type: integer
+          format: int32
 
     # Island
     CreateIslandRequest:
@@ -455,10 +524,6 @@ components:
           type: string
         updatedAt:
           type: string
-        terrains:
-          type: array
-          items:
-            $ref: '#/components/schemas/Terrain'
         farm:
           $ref: '#/components/schemas/Farm'
         barn:
@@ -755,48 +820,6 @@ components:
           format: int32
         asset:
           $ref: '#/components/schemas/Asset'
-
-    Terrain:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        tiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/TerrainTile'
-        blockSize:
-          type: integer
-          format: int32
-        sizeX:
-          type: integer
-          format: int32
-        sizeY:
-          type: integer
-          format: int32
-    TerrainTile:
-      type: object
-      properties:
-        x:
-          type: integer
-          format: int32
-        y:
-          type: integer
-          format: int32
-        sizeX:
-          type: integer
-          format: int32
-        sizeY:
-          type: integer
-          format: int32
-        asset:
-          $ref: '#/components/schemas/Asset'
-        timeTaken:
-          type: integer
-          format: int32
-          description: Time taken in milliseconds to complete action on this tile (e.g., mining)
 
     # Events
     CreateEventRequest:

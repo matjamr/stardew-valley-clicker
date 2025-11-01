@@ -3,6 +3,7 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:stardew_valley_api/src/model/on_click_action.dart';
 import 'package:stardew_valley_api/src/model/asset_type.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -18,6 +19,7 @@ part 'asset.g.dart';
 /// * [description]
 /// * [url]
 /// * [content]
+/// * [onClickAction]
 @BuiltValue()
 abstract class Asset implements Built<Asset, AssetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -38,6 +40,9 @@ abstract class Asset implements Built<Asset, AssetBuilder> {
 
   @BuiltValueField(wireName: r'content')
   String? get content;
+
+  @BuiltValueField(wireName: r'onClickAction')
+  OnClickAction? get onClickAction;
 
   Asset._();
 
@@ -102,6 +107,13 @@ class _$AssetSerializer implements PrimitiveSerializer<Asset> {
       yield serializers.serialize(
         object.content,
         specifiedType: const FullType(String),
+      );
+    }
+    if (object.onClickAction != null) {
+      yield r'onClickAction';
+      yield serializers.serialize(
+        object.onClickAction,
+        specifiedType: const FullType(OnClickAction),
       );
     }
   }
@@ -170,6 +182,13 @@ class _$AssetSerializer implements PrimitiveSerializer<Asset> {
             specifiedType: const FullType(String),
           ) as String;
           result.content = valueDes;
+          break;
+        case r'onClickAction':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(OnClickAction),
+          ) as OnClickAction;
+          result.onClickAction.replace(valueDes);
           break;
         default:
           unhandled.add(key);
