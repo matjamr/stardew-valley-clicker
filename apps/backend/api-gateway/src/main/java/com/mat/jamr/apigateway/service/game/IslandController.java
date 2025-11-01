@@ -5,9 +5,13 @@ import com.mat.jamr.externalapi.model.CreateIslandRequest;
 import com.mat.jamr.externalapi.model.CreateIslandResponse;
 import com.mat.jamr.externalapi.model.ReadIslandResponse;
 import com.mat.jamr.gameservice.api.IslandServiceGrpc;
+import com.mat.jamr.gameservice.api.ListAllIslandsRequest;
+import com.mat.jamr.gameservice.api.ListAllIslandsResponse;
 import com.mat.jamr.gameservice.api.ReadIslandRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/islands")
@@ -28,6 +32,12 @@ public class IslandController {
     public ReadIslandResponse read(@PathVariable String id) {
         var grpcResp = islandServiceClient.read(ReadIslandRequest.newBuilder().setIslandId(id).build());
         return islandApiMapper.toExternal(grpcResp);
+    }
+
+    // TODO implement in game service for condition if present then check.
+    @GetMapping
+    public ListAllIslandsResponse listAll() {
+        return islandServiceClient.listAll(ListAllIslandsRequest.newBuilder().setOwnerId("user-001").build());
     }
 
 }
