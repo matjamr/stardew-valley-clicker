@@ -14,6 +14,7 @@ import 'package:stardew_valley_api/src/api/events_api.dart';
 import 'package:stardew_valley_api/src/api/island_variants_api.dart';
 import 'package:stardew_valley_api/src/api/islands_api.dart';
 import 'package:stardew_valley_api/src/api/security_api.dart';
+import 'package:stardew_valley_api/src/api/shop_api.dart';
 import 'package:stardew_valley_api/src/api/users_api.dart';
 
 class StardewValleyApi {
@@ -109,6 +110,12 @@ class StardewValleyApi {
   /// by doing that all interceptors will not be executed
   SecurityApi getSecurityApi() {
     return SecurityApi(dio, serializers);
+  }
+
+  /// Get ShopApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  ShopApi getShopApi() {
+    return ShopApi(dio, serializers);
   }
 
   /// Get UsersApi instance, base route and serializer can be overridden by a given but be careful,

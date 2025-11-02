@@ -24,9 +24,17 @@ public interface IslandVariantApiMapper {
     // Farm mapping
     @Mapping(target = "plots", source = "plotsList")
     @Mapping(target = "decorations", source = "decorationsList")
+    @Mapping(target = "terrainCollectables", source = "terrainCollectablesList")
     com.mat.jamr.externalapi.model.Farm mapFarm(com.mat.jamr.gameservice.api.Farm farm);
 
     com.mat.jamr.externalapi.model.CropPlot mapCropPlot(com.mat.jamr.gameservice.api.CropPlot plot);
+
+    com.mat.jamr.externalapi.model.TerrainCollectable mapTerrainCollectable(com.mat.jamr.gameservice.api.TerrainCollectable tc);
+
+    @ValueMappings({
+        @ValueMapping(source = "UNRECOGNIZED", target = MappingConstants.NULL)
+    })
+    com.mat.jamr.externalapi.model.TerrainCollectableType mapTerrainCollectableType(com.mat.jamr.gameservice.api.TerrainCollectableType type);
 
     // Barn mapping
     @Mapping(target = "pens", source = "pensList")

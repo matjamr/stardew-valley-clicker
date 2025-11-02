@@ -21,6 +21,8 @@ class _$Farm extends Farm {
   final BuiltList<CropPlot>? plots;
   @override
   final BuiltList<Decoration>? decorations;
+  @override
+  final BuiltList<TerrainCollectable>? terrainCollectables;
 
   factory _$Farm([void Function(FarmBuilder)? updates]) =>
       (FarmBuilder()..update(updates))._build();
@@ -32,7 +34,8 @@ class _$Farm extends Farm {
       this.sizeY,
       this.blockSize,
       this.plots,
-      this.decorations})
+      this.decorations,
+      this.terrainCollectables})
       : super._();
   @override
   Farm rebuild(void Function(FarmBuilder) updates) =>
@@ -51,7 +54,8 @@ class _$Farm extends Farm {
         sizeY == other.sizeY &&
         blockSize == other.blockSize &&
         plots == other.plots &&
-        decorations == other.decorations;
+        decorations == other.decorations &&
+        terrainCollectables == other.terrainCollectables;
   }
 
   @override
@@ -64,6 +68,7 @@ class _$Farm extends Farm {
     _$hash = $jc(_$hash, blockSize.hashCode);
     _$hash = $jc(_$hash, plots.hashCode);
     _$hash = $jc(_$hash, decorations.hashCode);
+    _$hash = $jc(_$hash, terrainCollectables.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -77,7 +82,8 @@ class _$Farm extends Farm {
           ..add('sizeY', sizeY)
           ..add('blockSize', blockSize)
           ..add('plots', plots)
-          ..add('decorations', decorations))
+          ..add('decorations', decorations)
+          ..add('terrainCollectables', terrainCollectables))
         .toString();
   }
 }
@@ -115,6 +121,13 @@ class FarmBuilder implements Builder<Farm, FarmBuilder> {
   set decorations(ListBuilder<Decoration>? decorations) =>
       _$this._decorations = decorations;
 
+  ListBuilder<TerrainCollectable>? _terrainCollectables;
+  ListBuilder<TerrainCollectable> get terrainCollectables =>
+      _$this._terrainCollectables ??= ListBuilder<TerrainCollectable>();
+  set terrainCollectables(
+          ListBuilder<TerrainCollectable>? terrainCollectables) =>
+      _$this._terrainCollectables = terrainCollectables;
+
   FarmBuilder() {
     Farm._defaults(this);
   }
@@ -129,6 +142,7 @@ class FarmBuilder implements Builder<Farm, FarmBuilder> {
       _blockSize = $v.blockSize;
       _plots = $v.plots?.toBuilder();
       _decorations = $v.decorations?.toBuilder();
+      _terrainCollectables = $v.terrainCollectables?.toBuilder();
       _$v = null;
     }
     return this;
@@ -159,6 +173,7 @@ class FarmBuilder implements Builder<Farm, FarmBuilder> {
             blockSize: blockSize,
             plots: _plots?.build(),
             decorations: _decorations?.build(),
+            terrainCollectables: _terrainCollectables?.build(),
           );
     } catch (_) {
       late String _$failedField;
@@ -167,6 +182,8 @@ class FarmBuilder implements Builder<Farm, FarmBuilder> {
         _plots?.build();
         _$failedField = 'decorations';
         _decorations?.build();
+        _$failedField = 'terrainCollectables';
+        _terrainCollectables?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(r'Farm', _$failedField, e.toString());
       }

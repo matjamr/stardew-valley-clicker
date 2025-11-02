@@ -13,6 +13,7 @@ class InteractiveTerrain extends ConsumerStatefulWidget {
   final double maxWidth;
   final double maxHeight;
   final double gap;
+  final String? backgroundImage;
 
   const InteractiveTerrain({
     super.key,
@@ -20,6 +21,7 @@ class InteractiveTerrain extends ConsumerStatefulWidget {
     this.maxWidth = 240,
     this.maxHeight = 160,
     this.gap = 1,
+    this.backgroundImage,
   });
 
   @override
@@ -117,11 +119,25 @@ class _InteractiveTerrainState extends ConsumerState<InteractiveTerrain> {
           height: h,
           child: _TapLayer(
             onTapDown: (_) async {
+              final selectedIslandId = ref.read(selectedIslandIdProvider);
               final current = ref.read(tileTimersProvider)[key];
+
+              // Check if this is a terrain collectable (bush, rock, tree)
+              final isTerrainCollectable = t.collectableId != null;
+
+              // Handle both terrain collectables and field plots with timer-based collection
               if (current == null) {
-                // Generate duration for this tile
-                final rng = Random();
-                final duration = Duration(seconds: 10 + rng.nextInt(51)); // 10..60s
+                // START TIMER
+                Duration duration;
+
+                if (isTerrainCollectable && t.timerDurationSeconds != null) {
+                  // Use the timer duration from the backend Asset
+                  duration = Duration(seconds: t.timerDurationSeconds!);
+                } else {
+                  // Fallback to random duration for fields without explicit timer
+                  final rng = Random();
+                  duration = Duration(seconds: 10 + rng.nextInt(51)); // 10..60s
+                }
 
                 // Start timer immediately for UI feedback
                 setState(() {
@@ -138,35 +154,64 @@ class _InteractiveTerrainState extends ConsumerState<InteractiveTerrain> {
                   }
                 });
 
-                // Create event on server (fire and forget - eventId will be stored if needed for polling)
-                try {
-                  final selectedIslandId = ref.read(selectedIslandIdProvider);
-                  if (selectedIslandId != null) {
-                    final result = await repo.startFieldEvent(
-                      islandId: selectedIslandId,
-                      userId: 'user-001', // TODO: Get from auth context
-                      terrainId: terrain.id,
-                      x: t.x,
-                      y: t.y,
-                      duration: duration,
-                    );
+                // Create event on server for field plots (not needed for terrain collectables)
+                if (!isTerrainCollectable) {
+                  try {
+                    if (selectedIslandId != null) {
+                      final result = await repo.startFieldEvent(
+                        islandId: selectedIslandId,
+                        userId: 'user-001', // TODO: Get from auth context
+                        terrainId: terrain.id,
+                        x: t.x,
+                        y: t.y,
+                        duration: duration,
+                      );
 
-                    // Update timer with eventId
-                    ref.read(tileTimersProvider.notifier).startTimer(
-                      terrainId: terrain.id,
-                      x: t.x,
-                      y: t.y,
-                      duration: duration,
-                      eventId: result.eventId,
-                    );
+                      // Update timer with eventId
+                      ref.read(tileTimersProvider.notifier).startTimer(
+                        terrainId: terrain.id,
+                        x: t.x,
+                        y: t.y,
+                        duration: duration,
+                        eventId: result.eventId,
+                      );
+                    }
+                  } catch (e) {
+                    // If API fails, timer still runs locally
+                    debugPrint('Failed to create field event: $e');
                   }
-                } catch (e) {
-                  // If API fails, timer still runs locally
-                  debugPrint('Failed to create field event: $e');
                 }
               } else if (current.status == TileTimerStatus.ready) {
-                // Collect field - verify with server
-                if (current.eventId != null) {
+                // TIMER READY - Collect rewards
+                if (isTerrainCollectable && selectedIslandId != null) {
+                  // Collect terrain collectable from backend
+                  try {
+                    final amount = await repo.collectTerrainCollectable(
+                      islandId: selectedIslandId,
+                      collectableId: t.collectableId!,
+                    );
+
+                    ref.read(profileProvider.notifier).earnGold(amount);
+
+                    if (mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Collected +$amount gold from ${t.kind.name}')),
+                      );
+                    }
+
+                    // Reset timer and refresh island data to remove the collected item
+                    ref.read(tileTimersProvider.notifier).reset(terrain.id, t.x, t.y);
+                    ref.invalidate(selectedIslandDataProvider);
+
+                  } catch (e) {
+                    if (mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Failed to collect: $e')),
+                      );
+                    }
+                  }
+                } else if (current.eventId != null) {
+                  // Collect field plot from backend
                   try {
                     final amount = await repo.collectField(eventId: current.eventId!);
                     ref.read(profileProvider.notifier).earnGold(amount);
@@ -229,6 +274,7 @@ class _InteractiveTerrainState extends ConsumerState<InteractiveTerrain> {
               maxWidth: widget.maxWidth,
               maxHeight: widget.maxHeight,
               gap: widget.gap,
+              backgroundImage: widget.backgroundImage,
             ),
             ...overlays,
           ],

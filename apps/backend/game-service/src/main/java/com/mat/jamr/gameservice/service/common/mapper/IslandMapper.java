@@ -3,6 +3,8 @@ package com.mat.jamr.gameservice.service.common.mapper;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.NullValueCheckStrategy;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 @Mapper(
     componentModel = "spring",
@@ -11,9 +13,12 @@ import org.mapstruct.Mapping;
         BarnMapper.class,
         MinesMapper.class,
         FishingAreaMapper.class,
+        BagMapper.class,
         ProtobufStringMapper.class
     },
-    collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED
+    collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED,
+    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+    nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
 )
 public interface IslandMapper {
 

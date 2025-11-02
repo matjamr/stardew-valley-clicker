@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/state/app_providers.dart';
+import 'package:stardew_valley_api/stardew_valley_api.dart' as api;
 
 // ---------- Models ----------
 
@@ -127,31 +129,113 @@ final profileProvider = StateNotifierProvider<ProfileNotifier, ProfileData>(
 
 // ---------- Shop ----------
 
-final shopCatalogProvider = Provider<Map<ShopCategory, List<ShopItem>>>((ref) {
-  const carrot = Item(id: 'carrot_seed', name: 'Carrot Seeds', icon: Icons.spa);
-  const potato = Item(id: 'potato_seed', name: 'Potato Seeds', icon: Icons.spa);
-  const bread = Item(id: 'bread', name: 'Bread', icon: Icons.bakery_dining);
-  const milk = Item(id: 'milk', name: 'Milk', icon: Icons.local_drink);
-  const hoe = Item(id: 'hoe', name: 'Hoe', icon: Icons.construction);
-  const scarecrow = Item(
-    id: 'scarecrow',
-    name: 'Scarecrow',
-    icon: Icons.agriculture,
-  );
-  return {
-    ShopCategory.groceries: [
-      ShopItem(item: bread, price: 10, category: ShopCategory.groceries),
-      ShopItem(item: milk, price: 12, category: ShopCategory.groceries),
-    ],
-    ShopCategory.seeds: [
-      ShopItem(item: carrot, price: 15, category: ShopCategory.seeds),
-      ShopItem(item: potato, price: 20, category: ShopCategory.seeds),
-    ],
-    ShopCategory.utility: [
-      ShopItem(item: hoe, price: 50, category: ShopCategory.utility),
-      ShopItem(item: scarecrow, price: 80, category: ShopCategory.utility),
-    ],
-  };
+// Helper to map API category to local category
+ShopCategory _mapApiCategoryToLocal(api.ShopCategory? apiCategory) {
+  switch (apiCategory) {
+    case api.ShopCategory.SEEDS:
+      return ShopCategory.seeds;
+    case api.ShopCategory.FOOD:
+      return ShopCategory.groceries;
+    case api.ShopCategory.TOOLS:
+    case api.ShopCategory.FERTILIZER:
+      return ShopCategory.utility;
+    default:
+      return ShopCategory.utility;
+  }
+}
+
+// Helper to get icon for shop item based on category
+IconData _getIconForItem(api.ShopItem item) {
+  switch (item.category) {
+    case api.ShopCategory.SEEDS:
+      return Icons.spa;
+    case api.ShopCategory.FOOD:
+      return Icons.restaurant;
+    case api.ShopCategory.TOOLS:
+      return Icons.construction;
+    case api.ShopCategory.ANIMALS:
+      return Icons.pets;
+    case api.ShopCategory.BUILDINGS:
+      return Icons.home;
+    case api.ShopCategory.FERTILIZER:
+      return Icons.energy_savings_leaf;
+    case api.ShopCategory.COLLECTABLES:
+      return Icons.stars; // COLLECTABLES won't appear in shop but define icon anyway
+    default:
+      return Icons.shopping_bag;
+  }
+}
+
+// Fetch shop items from API
+final shopCatalogProvider = FutureProvider<Map<ShopCategory, List<ShopItem>>>((
+  ref,
+) async {
+  final shopApi = ref.watch(shopApiProvider);
+
+  try {
+    final response = await shopApi.listShopItems();
+
+    if (response.data == null || response.data!.items == null) {
+      return {};
+    }
+
+    final Map<ShopCategory, List<ShopItem>> catalog = {
+      ShopCategory.groceries: [],
+      ShopCategory.seeds: [],
+      ShopCategory.utility: [],
+    };
+
+    for (final apiItem in response.data!.items!) {
+      final category = _mapApiCategoryToLocal(apiItem.category);
+      final item = Item(
+        id: apiItem.id ?? '',
+        name: apiItem.name ?? 'Unknown',
+        icon: _getIconForItem(apiItem),
+      );
+      final shopItem = ShopItem(
+        item: item,
+        price: apiItem.price ?? 0,
+        category: category,
+      );
+      catalog[category]?.add(shopItem);
+    }
+
+    return catalog;
+  } catch (e) {
+    // Fallback to mock data if API fails
+    const carrot = Item(
+      id: 'carrot_seed',
+      name: 'Carrot Seeds',
+      icon: Icons.spa,
+    );
+    const potato = Item(
+      id: 'potato_seed',
+      name: 'Potato Seeds',
+      icon: Icons.spa,
+    );
+    const bread = Item(id: 'bread', name: 'Bread', icon: Icons.bakery_dining);
+    const milk = Item(id: 'milk', name: 'Milk', icon: Icons.local_drink);
+    const hoe = Item(id: 'hoe', name: 'Hoe', icon: Icons.construction);
+    const scarecrow = Item(
+      id: 'scarecrow',
+      name: 'Scarecrow',
+      icon: Icons.agriculture,
+    );
+    return {
+      ShopCategory.groceries: [
+        ShopItem(item: bread, price: 10, category: ShopCategory.groceries),
+        ShopItem(item: milk, price: 12, category: ShopCategory.groceries),
+      ],
+      ShopCategory.seeds: [
+        ShopItem(item: carrot, price: 15, category: ShopCategory.seeds),
+        ShopItem(item: potato, price: 20, category: ShopCategory.seeds),
+      ],
+      ShopCategory.utility: [
+        ShopItem(item: hoe, price: 50, category: ShopCategory.utility),
+        ShopItem(item: scarecrow, price: 80, category: ShopCategory.utility),
+      ],
+    };
+  }
 });
 
 // ---------- Alerts ----------

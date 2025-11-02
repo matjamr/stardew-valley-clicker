@@ -17,7 +17,6 @@ import 'package:mobile/ui/widgets/interactive_terrain.dart';
 import 'package:mobile/ui/widgets/location_radial_menu.dart';
 import 'package:mobile/ui/widgets/profile_modal.dart';
 import 'package:mobile/ui/widgets/shop_modal.dart';
-import 'package:mobile/ui/widgets/terrain_grid.dart';
 import 'package:mobile/ui/widgets/zoom_pan_viewer.dart';
 
 class GamePage extends ConsumerStatefulWidget {
@@ -71,6 +70,47 @@ class _GamePageState extends ConsumerState<GamePage> {
     });
   }
 
+  Future<void> _addRandomTerrainCollectables(WidgetRef ref) async {
+    final islandId = ref.read(selectedIslandIdProvider);
+    if (islandId == null) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('No island selected')),
+        );
+      }
+      return;
+    }
+
+    try {
+      // Call the generate collectables endpoint
+      final apiClient = ref.read(islandRepositoryProvider);
+      final response = await apiClient.generateCollectables(islandId);
+
+      // Invalidate to refresh UI with DB data - defer to next frame to avoid rebuild issues
+      if (mounted) {
+        Future.microtask(() {
+          ref.invalidate(selectedIslandDataProvider);
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(response.message ?? 'Added ${response.count} terrain collectables!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error adding collectables: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final notifications = ref.watch(notificationsCountProvider);
@@ -84,6 +124,19 @@ class _GamePageState extends ConsumerState<GamePage> {
 
     return Scaffold(
       backgroundColor: const Color(0xFF1B1B1B),
+      floatingActionButton: Consumer(
+        builder: (context, ref, _) {
+          final loc = ref.watch(locationProvider);
+          // Only show on farm location
+          if (loc != LocationArea.farm) return const SizedBox.shrink();
+
+          return FloatingActionButton(
+            onPressed: () => _addRandomTerrainCollectables(ref),
+            backgroundColor: const Color(0xFF4CAF50),
+            child: const Icon(Icons.add_location_alt),
+          );
+        },
+      ),
       body: SafeArea(
         child: Stack(
           children: [
@@ -95,9 +148,50 @@ class _GamePageState extends ConsumerState<GamePage> {
                 builder: (context, ref, _) {
                   final loc = ref.watch(locationProvider);
 
-                  // Hide terrain during fishing
+                  final size = MediaQuery.of(context).size;
+
+                  // Show fishing background without terrain
                   if (loc == LocationArea.fishing) {
-                    return const SizedBox.shrink();
+                    return Positioned.fill(
+                      child: Image.asset(
+                        'assets/images/fishing_background.png',
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => Container(
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Color(0xFF42A5F5),
+                                Color(0xFF1976D2),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+
+                  // Determine background image based on location
+                  String? backgroundImage;
+                  bool enableZoom = true;
+
+                  switch (loc) {
+                    case LocationArea.farm:
+                      backgroundImage = 'assets/images/riverside_background.png';
+                      enableZoom = true;
+                      break;
+                    case LocationArea.barn:
+                      backgroundImage = 'assets/images/barn_background.png';
+                      enableZoom = false;
+                      break;
+                    case LocationArea.mines:
+                      backgroundImage = 'assets/images/mines_background.png';
+                      enableZoom = true;
+                      break;
+                    case LocationArea.fishing:
+                      // Already handled above
+                      return const SizedBox.shrink();
                   }
 
                   // For farm location, try to load real farm data from backend
@@ -105,17 +199,19 @@ class _GamePageState extends ConsumerState<GamePage> {
                     final farmTerrain = ref.watch(selectedIslandFarmTerrainProvider);
 
                     if (farmTerrain != null) {
-                      // Use real farm data from backend
-                      final size = MediaQuery.of(context).size;
+                      // Use real farm data from backend with zoom
                       return Center(
                         child: ZoomPanViewer(
-                          minScale: 0.5,
-                          maxScale: 3.0,
-                          boundaryMargin: const EdgeInsets.all(120),
+                          minScale: 1.0,
+                          maxScale: 4.0,
+                          initialScale: 2.0, // Start zoomed in
+                          constrainScale: true,
+                          boundaryMargin: const EdgeInsets.all(24),
                           child: InteractiveTerrain(
                             terrain: farmTerrain,
                             maxWidth: size.width - 24,
                             maxHeight: size.height - 120,
+                            backgroundImage: backgroundImage,
                           ),
                         ),
                       );
@@ -133,20 +229,35 @@ class _GamePageState extends ConsumerState<GamePage> {
                     variantKey,
                     loc.name,
                   );
-                  final size = MediaQuery.of(context).size;
 
-                  return Center(
-                    child: ZoomPanViewer(
-                      minScale: 0.8,
-                      maxScale: 4.0,
-                      boundaryMargin: const EdgeInsets.all(120),
+                  // Apply zoom only for farm and mines, not for barn
+                  if (enableZoom) {
+                    return Center(
+                      child: ZoomPanViewer(
+                        minScale: 1.0,
+                        maxScale: 4.0,
+                        initialScale: 2.0, // Start zoomed in
+                        constrainScale: true,
+                        boundaryMargin: const EdgeInsets.all(24),
+                        child: InteractiveTerrain(
+                          terrain: terrain,
+                          maxWidth: size.width - 24,
+                          maxHeight: size.height - 120,
+                          backgroundImage: backgroundImage,
+                        ),
+                      ),
+                    );
+                  } else {
+                    // No zoom for barn - just display the terrain
+                    return Center(
                       child: InteractiveTerrain(
                         terrain: terrain,
                         maxWidth: size.width - 24,
                         maxHeight: size.height - 120,
+                        backgroundImage: backgroundImage,
                       ),
-                    ),
-                  );
+                    );
+                  }
                 },
               ),
             ),

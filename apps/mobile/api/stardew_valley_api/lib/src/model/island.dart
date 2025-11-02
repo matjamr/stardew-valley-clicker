@@ -3,6 +3,7 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:stardew_valley_api/src/model/bag.dart';
 import 'package:stardew_valley_api/src/model/barn.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:stardew_valley_api/src/model/farm.dart';
@@ -27,6 +28,7 @@ part 'island.g.dart';
 /// * [barn]
 /// * [mines]
 /// * [fishingArea]
+/// * [bag]
 @BuiltValue()
 abstract class Island implements Built<Island, IslandBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -61,6 +63,9 @@ abstract class Island implements Built<Island, IslandBuilder> {
 
   @BuiltValueField(wireName: r'fishingArea')
   FishingArea? get fishingArea;
+
+  @BuiltValueField(wireName: r'bag')
+  Bag? get bag;
 
   Island._();
 
@@ -160,6 +165,13 @@ class _$IslandSerializer implements PrimitiveSerializer<Island> {
       yield serializers.serialize(
         object.fishingArea,
         specifiedType: const FullType(FishingArea),
+      );
+    }
+    if (object.bag != null) {
+      yield r'bag';
+      yield serializers.serialize(
+        object.bag,
+        specifiedType: const FullType(Bag),
       );
     }
   }
@@ -263,6 +275,13 @@ class _$IslandSerializer implements PrimitiveSerializer<Island> {
             specifiedType: const FullType(FishingArea),
           ) as FishingArea;
           result.fishingArea.replace(valueDes);
+          break;
+        case r'bag':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(Bag),
+          ) as Bag;
+          result.bag.replace(valueDes);
           break;
         default:
           unhandled.add(key);

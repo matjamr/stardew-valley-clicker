@@ -158,6 +158,25 @@ paths:
 
   # Game - Islands
   /islands:
+    get:
+      summary: List all islands (optionally filtered by ownerId)
+      operationId: listAllIslands
+      tags:
+        - islands
+      parameters:
+        - name: ownerId
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter islands by owner ID
+      responses:
+        '200':
+          description: Islands retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAllIslandsResponse'
     post:
       summary: Create a new island
       operationId: createIsland
@@ -197,6 +216,91 @@ paths:
                 $ref: '#/components/schemas/ReadIslandResponse'
         '404':
           description: Island not found
+    put:
+      summary: Update island
+      operationId: updateIsland
+      tags:
+        - islands
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateIslandRequest'
+      responses:
+        '200':
+          description: Island updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateIslandResponse'
+        '404':
+          description: Island not found
+
+  /islands/{id}/generate-collectables:
+    post:
+      summary: Generate random terrain collectables for island
+      operationId: generateCollectables
+      tags:
+        - islands
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: count
+          in: query
+          required: false
+          schema:
+            type: integer
+            description: Number of collectables to generate (defaults to 3-5 if not specified)
+      responses:
+        '200':
+          description: Collectables generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateCollectablesResponse'
+        '404':
+          description: Island not found
+
+  /islands/{id}/terrain-collectables/{collectableId}/collect:
+    post:
+      summary: Collect a terrain collectable and receive rewards
+      operationId: collectTerrainCollectable
+      tags:
+        - islands
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Island ID
+        - name: collectableId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Terrain collectable ID
+      responses:
+        '200':
+          description: Collectable collected successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectTerrainCollectableResponse'
+        '404':
+          description: Island or collectable not found
+        '400':
+          description: Collectable already collected
 
   # Game - Island Variants
   /island-variants:
@@ -279,6 +383,70 @@ paths:
                 $ref: '#/components/schemas/ReadEventResponse'
         '404':
           description: Event not found
+
+  # Game - Shop
+  /shop/items:
+    get:
+      summary: List all shop items (optionally filtered by category)
+      operationId: listShopItems
+      tags:
+        - shop
+      parameters:
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter items by category (SEEDS, TOOLS, FOOD, ANIMALS, BUILDINGS, FERTILIZER)
+      responses:
+        '200':
+          description: Shop items retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListShopItemsResponse'
+  /shop/items/{id}:
+    get:
+      summary: Get shop item by ID
+      operationId: getShopItem
+      tags:
+        - shop
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Shop item found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShopItem'
+        '404':
+          description: Shop item not found
+  /shop/purchase:
+    post:
+      summary: Purchase an item from the shop
+      operationId: purchaseItem
+      tags:
+        - shop
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PurchaseItemRequest'
+      responses:
+        '200':
+          description: Purchase completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseItemResponse'
+        '400':
+          description: Invalid purchase request
 components:
   schemas:
     SaveUserRequest:
@@ -505,6 +673,45 @@ components:
       properties:
         island:
           $ref: '#/components/schemas/Island'
+    UpdateIslandRequest:
+      type: object
+      required: [island]
+      properties:
+        island:
+          $ref: '#/components/schemas/Island'
+    UpdateIslandResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    GenerateCollectablesResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        count:
+          type: integer
+          description: Number of collectables generated
+    CollectTerrainCollectableResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        rewards:
+          $ref: '#/components/schemas/RewardInfo'
+    ListAllIslandsResponse:
+      type: object
+      properties:
+        islands:
+          type: array
+          items:
+            $ref: '#/components/schemas/Island'
     Island:
       type: object
       properties:
@@ -532,6 +739,8 @@ components:
           $ref: '#/components/schemas/Mines'
         fishingArea:
           $ref: '#/components/schemas/FishingArea'
+        bag:
+          $ref: '#/components/schemas/Bag'
 
     # Island Variant
     IslandVariant:
@@ -579,6 +788,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Decoration'
+        terrainCollectables:
+          type: array
+          items:
+            $ref: '#/components/schemas/TerrainCollectable'
 
     CropPlot:
       type: object
@@ -821,6 +1034,37 @@ components:
         asset:
           $ref: '#/components/schemas/Asset'
 
+    TerrainCollectable:
+      type: object
+      properties:
+        id:
+          type: string
+        x:
+          type: integer
+          format: int32
+        y:
+          type: integer
+          format: int32
+        sizeX:
+          type: integer
+          format: int32
+        sizeY:
+          type: integer
+          format: int32
+        asset:
+          $ref: '#/components/schemas/Asset'
+        type:
+          $ref: '#/components/schemas/TerrainCollectableType'
+        isCollected:
+          type: boolean
+        collectedAt:
+          type: string
+          description: ISO 8601 datetime when collected
+
+    TerrainCollectableType:
+      type: string
+      enum: [TERRAIN_COLLECTABLE_UNSPECIFIED, BUSH, ROCK, TREE]
+
     # Events
     CreateEventRequest:
       type: object
@@ -881,5 +1125,122 @@ components:
           description: ID of the user who created the event
     EventRequestTriggerType:
       type: string
-      enum: [UNKNOWN_TYPE, MINES_TYPE]
+      enum: [UNKNOWN_TYPE, MINES_TYPE, TERRAIN_COLLECTABLE_TYPE]
       description: Type of event being triggered
+
+    # Shop
+    ListShopItemsResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShopItem'
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShopCategoryInfo'
+    ShopItem:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          $ref: '#/components/schemas/ShopCategory'
+        price:
+          type: integer
+          format: int32
+        currency:
+          $ref: '#/components/schemas/CurrencyType'
+        iconUrl:
+          type: string
+        stackSize:
+          type: integer
+          format: int32
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        available:
+          type: boolean
+        stock:
+          type: integer
+          format: int32
+          description: -1 for unlimited, 0+ for limited stock
+    ShopCategoryInfo:
+      type: object
+      properties:
+        category:
+          $ref: '#/components/schemas/ShopCategory'
+        name:
+          type: string
+        description:
+          type: string
+        iconUrl:
+          type: string
+        sortOrder:
+          type: integer
+          format: int32
+    ShopCategory:
+      type: string
+      enum: [CATEGORY_UNSPECIFIED, SEEDS, TOOLS, FOOD, ANIMALS, BUILDINGS, FERTILIZER, COLLECTABLES]
+    CurrencyType:
+      type: string
+      enum: [CURRENCY_UNSPECIFIED, GOLD, GEMS, TOKENS]
+    PurchaseItemRequest:
+      type: object
+      required: [userId, islandId, itemId, quantity]
+      properties:
+        userId:
+          type: string
+        islandId:
+          type: string
+        itemId:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+    PurchaseItemResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        transactionId:
+          type: string
+        message:
+          type: string
+          description: Error message if success = false
+        remainingCurrency:
+          type: integer
+          format: int32
+
+    # Bag/Inventory
+    Bag:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/BagItem'
+        maxSlots:
+          type: integer
+          format: int32
+          description: Maximum number of item slots (e.g., 20, 40)
+
+    BagItem:
+      type: object
+      properties:
+        itemId:
+          type: string
+          description: References ShopItem.id
+        name:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+        iconUrl:
+          type: string

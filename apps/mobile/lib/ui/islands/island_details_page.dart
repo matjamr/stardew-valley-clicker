@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile/state/island_providers.dart';
 
+import '../../state/app_providers.dart';
+
 class IslandDetailsPage extends ConsumerStatefulWidget {
   final String variantKey;
   const IslandDetailsPage({super.key, required this.variantKey});
@@ -221,11 +223,16 @@ class _IslandDetailsPageState extends ConsumerState<IslandDetailsPage> {
     setState(() => _submitting = true);
     try {
       final repo = ref.read(islandRepositoryProvider);
+      final userId = ref.read(userIdProvider);
       final id = await repo.createIsland(
         name: _nameCtrl.text.trim(),
         variantId: widget.variantKey,
-        userId: 'user-001', // TODO: Get from auth
+        userId: userId,
       );
+
+      // Invalidate islands cache to refresh the list
+      ref.invalidate(islandsProvider);
+
       ref.read(selectedIslandIdProvider.notifier).state = id;
       if (!mounted) return;
       Navigator.of(context).pushReplacementNamed('/enterIsland', arguments: id);

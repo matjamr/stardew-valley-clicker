@@ -14,6 +14,7 @@ public class Farm {
     private Integer blockSize;
     private List<CropPlot> plots;
     private List<Decoration> decorations;
+    private List<TerrainCollectable> terrainCollectables;
 
     @DynamoDbAttribute("id")
     public String getId() { return id; }
@@ -42,4 +43,8 @@ public class Farm {
     @DynamoDbAttribute("decorations")
     public List<Decoration> getDecorations() { return decorations; }
     public void setDecorations(List<Decoration> decorations) { this.decorations = decorations; }
+
+    @DynamoDbAttribute("terrainCollectables")
+    public List<TerrainCollectable> getTerrainCollectables() { return terrainCollectables; }
+    public void setTerrainCollectables(List<TerrainCollectable> terrainCollectables) { this.terrainCollectables = terrainCollectables; }
 }

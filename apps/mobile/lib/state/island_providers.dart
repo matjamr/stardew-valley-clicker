@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:stardew_valley_api/stardew_valley_api.dart';
 import 'package:mobile/state/app_providers.dart';
-import 'package:built_collection/built_collection.dart';
+import 'package:stardew_valley_api/stardew_valley_api.dart';
 
 // Simple models for islands and variants (mocked)
 class IslandSummary {
@@ -26,12 +25,18 @@ class TerrainTileSpec {
   final int sizeX;
   final int sizeY;
   final TileKind kind;
+  final String? collectableId; // ID for terrain collectables (bushes, rocks, trees)
+  final int? timerDurationSeconds; // Duration in seconds from Asset's TimerInfo
+  final String? assetUrl; // Image URL from Asset (e.g., 'assets/images/bush.png')
   const TerrainTileSpec({
     required this.x,
     required this.y,
     this.sizeX = 1,
     this.sizeY = 1,
     required this.kind,
+    this.collectableId,
+    this.timerDurationSeconds,
+    this.assetUrl,
   });
 }
 
@@ -76,25 +81,9 @@ class IslandRepository {
     required EventsApi eventsApi,
     required IslandVariantsApi islandVariantsApi,
     required IslandsApi islandsApi,
-  })  : _eventsApi = eventsApi,
-        _islandVariantsApi = islandVariantsApi,
-        _islandsApi = islandsApi;
-  // pretend we have some existing islands
-  final List<IslandSummary> _islands = [
-    IslandSummary(id: 'isl-001', name: 'Pelican Farm', variantKey: 'standard'),
-  ];
-
-  // Helpers to read island info synchronously (mocked storage)
-  IslandSummary? getIslandById(String id) {
-    try {
-      return _islands.firstWhere((e) => e.id == id);
-    } catch (_) {
-      return null;
-    }
-  }
-
-  String? getVariantForIsland(String islandId) =>
-      getIslandById(islandId)?.variantKey;
+  }) : _eventsApi = eventsApi,
+       _islandVariantsApi = islandVariantsApi,
+       _islandsApi = islandsApi;
 
   List<TerrainTileSpec> _genBorderPath(int cols, int rows) {
     final tiles = <TerrainTileSpec>[];
@@ -200,26 +189,14 @@ class IslandRepository {
   TerrainSpec _minesMap() {
     const cols = 12;
     const rows = 8;
-    final tiles = <TerrainTileSpec>[];
-    tiles.addAll(_genBorderPath(cols, rows));
-    // rocky base with some paths
-    for (var y = 1; y < rows - 1; y++) {
-      for (var x = 1; x < cols - 1; x++) {
-        tiles.add(TerrainTileSpec(x: x, y: y, kind: TileKind.rock));
-      }
-    }
-    // carve meandering path
-    for (var x = 2; x < cols - 2; x++) {
-      final y = 2 + (x % 3);
-      tiles.add(TerrainTileSpec(x: x, y: y, kind: TileKind.path));
-    }
+    // No pre-existing tiles - only show background image
     return TerrainSpec(
       id: 'terrain-mines',
       name: 'Mines',
       blockSize: 16,
       sizeX: cols,
       sizeY: rows,
-      tiles: tiles,
+      tiles: [], // Empty - background image only
     );
   }
 
@@ -254,30 +231,14 @@ class IslandRepository {
   TerrainSpec _barnMap() {
     const cols = 12;
     const rows = 8;
-    final tiles = <TerrainTileSpec>[];
-    tiles.addAll(_genBorderPath(cols, rows));
-    // grassy with central pen (path outline)
-    for (var y = 1; y < rows - 1; y++) {
-      for (var x = 1; x < cols - 1; x++) {
-        tiles.add(TerrainTileSpec(x: x, y: y, kind: TileKind.grass));
-      }
-    }
-    // pen rectangle
-    for (var x = 4; x <= 7; x++) {
-      tiles.add(TerrainTileSpec(x: x, y: 3, kind: TileKind.path));
-      tiles.add(TerrainTileSpec(x: x, y: 6, kind: TileKind.path));
-    }
-    for (var y = 3; y <= 6; y++) {
-      tiles.add(TerrainTileSpec(x: 4, y: y, kind: TileKind.path));
-      tiles.add(TerrainTileSpec(x: 7, y: y, kind: TileKind.path));
-    }
+    // No tiles - only show background image
     return TerrainSpec(
       id: 'terrain-barn',
       name: 'Barn',
       blockSize: 16,
       sizeX: cols,
       sizeY: rows,
-      tiles: tiles,
+      tiles: [], // Empty - background image only
     );
   }
 
@@ -299,30 +260,29 @@ class IslandRepository {
     }
   }
 
-  late final List<IslandVariant> _variants = [
-    IslandVariant(
-      key: 'standard',
-      title: 'Standard Farm',
-      description: 'A simple plot of land to get you started.',
-      terrains: [_standardFarm()],
-    ),
-    IslandVariant(
-      key: 'riverland',
-      title: 'Riverland Farm',
-      description: 'Lots of water, great for fishing enthusiasts.',
-      terrains: [_riverlandMap()],
-    ),
-    IslandVariant(
-      key: 'forest',
-      title: 'Forest Farm',
-      description: 'Plenty of forageable items and hardwood stumps.',
-      terrains: [_forestMap()],
-    ),
-  ];
+  Future<List<IslandSummary>> fetchIslands({String? ownerId}) async {
+    try {
+      final response = await _islandsApi.listAllIslands(ownerId: ownerId);
+      final islands = response.data?.islands;
 
-  Future<List<IslandSummary>> fetchIslands() async {
-    await Future<void>.delayed(const Duration(milliseconds: 500));
-    return List<IslandSummary>.from(_islands);
+      if (islands == null || islands.isEmpty) {
+        return [];
+      }
+
+      // Convert from API models to local IslandSummary
+      return islands
+          .map(
+            (apiIsland) => IslandSummary(
+              id: apiIsland.id ?? '',
+              name: apiIsland.name ?? 'Unknown',
+              variantKey: apiIsland.namedVariant ?? '',
+            ),
+          )
+          .toList();
+    } catch (e) {
+      // Fallback to empty list on error
+      return [];
+    }
   }
 
   Future<List<IslandVariant>> fetchVariants() async {
@@ -335,12 +295,17 @@ class IslandRepository {
       }
 
       // Convert from API models to local models
-      return variants.map((apiVariant) => IslandVariant(
-        key: apiVariant.id ?? '',
-        title: apiVariant.name ?? 'Unknown',
-        description: apiVariant.namedVariant ?? '',
-        terrains: [], // Empty for now - terrains are not needed for variant selection
-      )).toList();
+      return variants
+          .map(
+            (apiVariant) => IslandVariant(
+              key: apiVariant.id ?? '',
+              title: apiVariant.name ?? 'Unknown',
+              description: apiVariant.namedVariant ?? '',
+              terrains:
+                  [], // Empty for now - terrains are not needed for variant selection
+            ),
+          )
+          .toList();
     } catch (e) {
       throw Exception('Failed to fetch island variants: $e');
     }
@@ -366,16 +331,46 @@ class IslandRepository {
         throw Exception('Failed to create island: no ID returned');
       }
 
-      // Add to local cache
-      _islands.add(IslandSummary(
-        id: islandId,
-        name: name,
-        variantKey: variantId,
-      ));
-
       return islandId;
     } catch (e) {
       throw Exception('Failed to create island: $e');
+    }
+  }
+
+  Future<UpdateIslandResponse> updateIsland(
+    String islandId,
+    UpdateIslandRequest request,
+  ) async {
+    try {
+      final response = await _islandsApi.updateIsland(
+        id: islandId,
+        updateIslandRequest: request,
+      );
+
+      if (response.data == null) {
+        throw Exception('Failed to update island: no response data');
+      }
+
+      return response.data!;
+    } catch (e) {
+      throw Exception('Failed to update island: $e');
+    }
+  }
+
+  Future<GenerateCollectablesResponse> generateCollectables(String islandId, {int? count}) async {
+    try {
+      final response = await _islandsApi.generateCollectables(
+        id: islandId,
+        count: count,
+      );
+
+      if (response.data == null) {
+        throw Exception('Failed to generate collectables: no response data');
+      }
+
+      return response.data!;
+    } catch (e) {
+      throw Exception('Failed to generate collectables: $e');
     }
   }
 
@@ -396,32 +391,53 @@ class IslandRepository {
 
     if (farm == null) return null;
 
-    // Convert farm plots and decorations to terrain tiles
+    // Convert farm terrainCollectables to terrain tiles
     final tiles = <TerrainTileSpec>[];
 
-    // Add plots as soil tiles
-    if (farm.plots != null) {
-      for (final plot in farm.plots!) {
-        tiles.add(TerrainTileSpec(
-          x: plot.x ?? 0,
-          y: plot.y ?? 0,
-          sizeX: plot.sizeX ?? 1,
-          sizeY: plot.sizeY ?? 1,
-          kind: TileKind.soil,
-        ));
-      }
-    }
+    // Add terrainCollectables (bushes, rocks, trees) from backend
+    if (farm.terrainCollectables != null) {
+      for (final collectable in farm.terrainCollectables!) {
+        // Skip already collected items
+        if (collectable.isCollected == true) continue;
 
-    // Add decorations
-    if (farm.decorations != null) {
-      for (final decoration in farm.decorations!) {
-        tiles.add(TerrainTileSpec(
-          x: decoration.x ?? 0,
-          y: decoration.y ?? 0,
-          sizeX: decoration.sizeX ?? 1,
-          sizeY: decoration.sizeY ?? 1,
-          kind: TileKind.path,
-        ));
+        // Map terrain collectable type to TileKind
+        TileKind kind;
+        switch (collectable.type?.name) {
+          case 'BUSH':
+            kind = TileKind.grass; // Use grass for bushes
+            break;
+          case 'ROCK':
+            kind = TileKind.rock;
+            break;
+          case 'TREE':
+            kind = TileKind.tree;
+            break;
+          default:
+            kind = TileKind.grass;
+        }
+
+        // Extract timer duration and asset URL from asset
+        int? timerDuration;
+        String? assetUrl;
+        if (collectable.asset?.onClickAction?.timerInfo?.durationSeconds != null) {
+          timerDuration = collectable.asset!.onClickAction!.timerInfo!.durationSeconds!.toInt();
+        }
+        if (collectable.asset?.url != null) {
+          assetUrl = collectable.asset!.url;
+        }
+
+        tiles.add(
+          TerrainTileSpec(
+            x: collectable.x ?? 0,
+            y: collectable.y ?? 0,
+            sizeX: collectable.sizeX ?? 1,
+            sizeY: collectable.sizeY ?? 1,
+            kind: kind,
+            collectableId: collectable.id,
+            timerDurationSeconds: timerDuration,
+            assetUrl: assetUrl,
+          ),
+        );
       }
     }
 
@@ -436,9 +452,13 @@ class IslandRepository {
   }
 
   Future<bool> enterIsland(String islandId) async {
-    await Future<void>.delayed(const Duration(milliseconds: 400));
-    // verify exists
-    return _islands.any((e) => e.id == islandId);
+    try {
+      // Verify island exists by attempting to fetch it
+      final response = await _islandsApi.readIsland(id: islandId);
+      return response.data?.island != null;
+    } catch (e) {
+      return false;
+    }
   }
 
   // Create an event when a field is clicked
@@ -494,9 +514,7 @@ class IslandRepository {
   }
 
   // Collect field - verify event is completed and return reward
-  Future<int> collectField({
-    required String eventId,
-  }) async {
+  Future<int> collectField({required String eventId}) async {
     try {
       // Verify event is completed
       final event = await getEventStatus(eventId);
@@ -520,35 +538,64 @@ class IslandRepository {
       throw Exception('Failed to collect field: $e');
     }
   }
+
+  // Collect a terrain collectable (bush, rock, tree)
+  Future<int> collectTerrainCollectable({
+    required String islandId,
+    required String collectableId,
+  }) async {
+    try {
+      final response = await _islandsApi.collectTerrainCollectable(
+        id: islandId,
+        collectableId: collectableId,
+      );
+
+      if (response.data == null || response.data!.success != true) {
+        throw Exception(response.data?.message ?? 'Failed to collect');
+      }
+
+      // Extract gold reward from rewards
+      final rewards = response.data!.rewards;
+      if (rewards?.resources != null && rewards!.resources!.isNotEmpty) {
+        final goldReward = rewards.resources!.firstWhere(
+          (r) => r.resourceId == 'gold',
+          orElse: () => ResourceReward((b) => b
+            ..resourceId = 'gold'
+            ..amount = 0),
+        );
+        return goldReward.amount ?? 0;
+      }
+
+      return 0;
+    } catch (e) {
+      throw Exception('Failed to collect terrain collectable: $e');
+    }
+  }
 }
 
 class FieldEventResult {
   final String eventId;
   final DateTime executionDate;
 
-  FieldEventResult({
-    required this.eventId,
-    required this.executionDate,
-  });
+  FieldEventResult({required this.eventId, required this.executionDate});
 }
 
 // Providers
-final islandRepositoryProvider = Provider<IslandRepository>(
-  (ref) {
-    final eventsApi = ref.watch(eventsApiProvider);
-    final islandVariantsApi = ref.watch(islandVariantsApiProvider);
-    final islandsApi = ref.watch(islandsApiProvider);
-    return IslandRepository(
-      eventsApi: eventsApi,
-      islandVariantsApi: islandVariantsApi,
-      islandsApi: islandsApi,
-    );
-  },
-);
+final islandRepositoryProvider = Provider<IslandRepository>((ref) {
+  final eventsApi = ref.watch(eventsApiProvider);
+  final islandVariantsApi = ref.watch(islandVariantsApiProvider);
+  final islandsApi = ref.watch(islandsApiProvider);
+  return IslandRepository(
+    eventsApi: eventsApi,
+    islandVariantsApi: islandVariantsApi,
+    islandsApi: islandsApi,
+  );
+});
 
 final islandsProvider = FutureProvider<List<IslandSummary>>((ref) async {
   final repo = ref.watch(islandRepositoryProvider);
-  return repo.fetchIslands();
+  final userId = ref.watch(userIdProvider);
+  return repo.fetchIslands(ownerId: userId);
 });
 
 final islandVariantsProvider = FutureProvider<List<IslandVariant>>((ref) async {
@@ -560,7 +607,9 @@ final islandVariantsProvider = FutureProvider<List<IslandVariant>>((ref) async {
 final selectedIslandIdProvider = StateProvider<String?>((ref) => null);
 
 // Fetch island data from backend
-final selectedIslandDataProvider = FutureProvider<ReadIslandResponse?>((ref) async {
+final selectedIslandDataProvider = FutureProvider<ReadIslandResponse?>((
+  ref,
+) async {
   final id = ref.watch(selectedIslandIdProvider);
   if (id == null) return null;
 
@@ -585,8 +634,10 @@ final selectedIslandFarmTerrainProvider = Provider<TerrainSpec?>((ref) {
 
 // Derived: selected island's variant key (null if not available)
 final selectedIslandVariantKeyProvider = Provider<String?>((ref) {
-  final id = ref.watch(selectedIslandIdProvider);
-  if (id == null) return null;
-  final repo = ref.watch(islandRepositoryProvider);
-  return repo.getVariantForIsland(id);
+  final islandAsync = ref.watch(selectedIslandDataProvider);
+  return islandAsync.when(
+    data: (islandResponse) => islandResponse?.island?.namedVariant,
+    loading: () => null,
+    error: (_, __) => null,
+  );
 });

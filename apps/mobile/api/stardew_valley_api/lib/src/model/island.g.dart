@@ -29,6 +29,8 @@ class _$Island extends Island {
   final Mines? mines;
   @override
   final FishingArea? fishingArea;
+  @override
+  final Bag? bag;
 
   factory _$Island([void Function(IslandBuilder)? updates]) =>
       (IslandBuilder()..update(updates))._build();
@@ -44,7 +46,8 @@ class _$Island extends Island {
       this.farm,
       this.barn,
       this.mines,
-      this.fishingArea})
+      this.fishingArea,
+      this.bag})
       : super._();
   @override
   Island rebuild(void Function(IslandBuilder) updates) =>
@@ -67,7 +70,8 @@ class _$Island extends Island {
         farm == other.farm &&
         barn == other.barn &&
         mines == other.mines &&
-        fishingArea == other.fishingArea;
+        fishingArea == other.fishingArea &&
+        bag == other.bag;
   }
 
   @override
@@ -84,6 +88,7 @@ class _$Island extends Island {
     _$hash = $jc(_$hash, barn.hashCode);
     _$hash = $jc(_$hash, mines.hashCode);
     _$hash = $jc(_$hash, fishingArea.hashCode);
+    _$hash = $jc(_$hash, bag.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -101,7 +106,8 @@ class _$Island extends Island {
           ..add('farm', farm)
           ..add('barn', barn)
           ..add('mines', mines)
-          ..add('fishingArea', fishingArea))
+          ..add('fishingArea', fishingArea)
+          ..add('bag', bag))
         .toString();
   }
 }
@@ -157,6 +163,10 @@ class IslandBuilder implements Builder<Island, IslandBuilder> {
   set fishingArea(FishingAreaBuilder? fishingArea) =>
       _$this._fishingArea = fishingArea;
 
+  BagBuilder? _bag;
+  BagBuilder get bag => _$this._bag ??= BagBuilder();
+  set bag(BagBuilder? bag) => _$this._bag = bag;
+
   IslandBuilder() {
     Island._defaults(this);
   }
@@ -175,6 +185,7 @@ class IslandBuilder implements Builder<Island, IslandBuilder> {
       _barn = $v.barn?.toBuilder();
       _mines = $v.mines?.toBuilder();
       _fishingArea = $v.fishingArea?.toBuilder();
+      _bag = $v.bag?.toBuilder();
       _$v = null;
     }
     return this;
@@ -209,6 +220,7 @@ class IslandBuilder implements Builder<Island, IslandBuilder> {
             barn: _barn?.build(),
             mines: _mines?.build(),
             fishingArea: _fishingArea?.build(),
+            bag: _bag?.build(),
           );
     } catch (_) {
       late String _$failedField;
@@ -224,6 +236,8 @@ class IslandBuilder implements Builder<Island, IslandBuilder> {
         _mines?.build();
         _$failedField = 'fishingArea';
         _fishingArea?.build();
+        _$failedField = 'bag';
+        _bag?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
             r'Island', _$failedField, e.toString());

@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **barn** | [**Barn**](Barn.md) |  | [optional] 
 **mines** | [**Mines**](Mines.md) |  | [optional] 
 **fishingArea** | [**FishingArea**](FishingArea.md) |  | [optional] 
+**bag** | [**Bag**](Bag.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

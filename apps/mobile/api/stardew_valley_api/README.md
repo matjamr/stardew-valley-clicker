@@ -71,11 +71,18 @@ Class | Method | HTTP request | Description
 [*EventsApi*](doc/EventsApi.md) | [**readEvent**](doc/EventsApi.md#readevent) | **GET** /events/{id} | Read event by ID
 [*IslandVariantsApi*](doc/IslandVariantsApi.md) | [**listAllIslandVariants**](doc/IslandVariantsApi.md#listallislandvariants) | **GET** /island-variants | List all island variants
 [*IslandVariantsApi*](doc/IslandVariantsApi.md) | [**readIslandVariant**](doc/IslandVariantsApi.md#readislandvariant) | **GET** /island-variants/{id} | Read island variant by ID
+[*IslandsApi*](doc/IslandsApi.md) | [**collectTerrainCollectable**](doc/IslandsApi.md#collectterraincollectable) | **POST** /islands/{id}/terrain-collectables/{collectableId}/collect | Collect a terrain collectable and receive rewards
 [*IslandsApi*](doc/IslandsApi.md) | [**createIsland**](doc/IslandsApi.md#createisland) | **POST** /islands | Create a new island
+[*IslandsApi*](doc/IslandsApi.md) | [**generateCollectables**](doc/IslandsApi.md#generatecollectables) | **POST** /islands/{id}/generate-collectables | Generate random terrain collectables for island
+[*IslandsApi*](doc/IslandsApi.md) | [**listAllIslands**](doc/IslandsApi.md#listallislands) | **GET** /islands | List all islands (optionally filtered by ownerId)
 [*IslandsApi*](doc/IslandsApi.md) | [**readIsland**](doc/IslandsApi.md#readisland) | **GET** /islands/{id} | Read island by ID
+[*IslandsApi*](doc/IslandsApi.md) | [**updateIsland**](doc/IslandsApi.md#updateisland) | **PUT** /islands/{id} | Update island
 [*SecurityApi*](doc/SecurityApi.md) | [**loginUser**](doc/SecurityApi.md#loginuser) | **POST** /auth/login | Authenticate a user
 [*SecurityApi*](doc/SecurityApi.md) | [**refreshToken**](doc/SecurityApi.md#refreshtoken) | **POST** /auth/refresh | Refresh an access token
 [*SecurityApi*](doc/SecurityApi.md) | [**verifyUser**](doc/SecurityApi.md#verifyuser) | **POST** /auth/verify | Verify a user&#39;s access token
+[*ShopApi*](doc/ShopApi.md) | [**getShopItem**](doc/ShopApi.md#getshopitem) | **GET** /shop/items/{id} | Get shop item by ID
+[*ShopApi*](doc/ShopApi.md) | [**listShopItems**](doc/ShopApi.md#listshopitems) | **GET** /shop/items | List all shop items (optionally filtered by category)
+[*ShopApi*](doc/ShopApi.md) | [**purchaseItem**](doc/ShopApi.md#purchaseitem) | **POST** /shop/purchase | Purchase an item from the shop
 [*UsersApi*](doc/UsersApi.md) | [**retrieveUser**](doc/UsersApi.md#retrieveuser) | **GET** /users/{id} | Retrieve a user by ID
 [*UsersApi*](doc/UsersApi.md) | [**saveUser**](doc/UsersApi.md#saveuser) | **POST** /users | Create a new user
 
@@ -86,7 +93,10 @@ Class | Method | HTTP request | Description
  - [AnimalPen](doc/AnimalPen.md)
  - [Asset](doc/Asset.md)
  - [AssetType](doc/AssetType.md)
+ - [Bag](doc/Bag.md)
+ - [BagItem](doc/BagItem.md)
  - [Barn](doc/Barn.md)
+ - [CollectTerrainCollectableResponse](doc/CollectTerrainCollectableResponse.md)
  - [CreateAssetRequest](doc/CreateAssetRequest.md)
  - [CreateAssetResponse](doc/CreateAssetResponse.md)
  - [CreateEventRequest](doc/CreateEventRequest.md)
@@ -94,6 +104,7 @@ Class | Method | HTTP request | Description
  - [CreateIslandRequest](doc/CreateIslandRequest.md)
  - [CreateIslandResponse](doc/CreateIslandResponse.md)
  - [CropPlot](doc/CropPlot.md)
+ - [CurrencyType](doc/CurrencyType.md)
  - [Decoration](doc/Decoration.md)
  - [EnergyInfo](doc/EnergyInfo.md)
  - [Error](doc/Error.md)
@@ -101,14 +112,19 @@ Class | Method | HTTP request | Description
  - [Farm](doc/Farm.md)
  - [FishingArea](doc/FishingArea.md)
  - [FishingSpot](doc/FishingSpot.md)
+ - [GenerateCollectablesResponse](doc/GenerateCollectablesResponse.md)
  - [Island](doc/Island.md)
  - [IslandVariant](doc/IslandVariant.md)
+ - [ListAllIslandsResponse](doc/ListAllIslandsResponse.md)
+ - [ListShopItemsResponse](doc/ListShopItemsResponse.md)
  - [LoginUserRequest](doc/LoginUserRequest.md)
  - [LoginUserResponse](doc/LoginUserResponse.md)
  - [MineLevel](doc/MineLevel.md)
  - [MineTile](doc/MineTile.md)
  - [Mines](doc/Mines.md)
  - [OnClickAction](doc/OnClickAction.md)
+ - [PurchaseItemRequest](doc/PurchaseItemRequest.md)
+ - [PurchaseItemResponse](doc/PurchaseItemResponse.md)
  - [ReadAssetResponse](doc/ReadAssetResponse.md)
  - [ReadEventResponse](doc/ReadEventResponse.md)
  - [ReadIslandResponse](doc/ReadIslandResponse.md)
@@ -121,8 +137,15 @@ Class | Method | HTTP request | Description
  - [SaveUserRequest](doc/SaveUserRequest.md)
  - [SaveUserResponse](doc/SaveUserResponse.md)
  - [ScheduledEvent](doc/ScheduledEvent.md)
+ - [ShopCategory](doc/ShopCategory.md)
+ - [ShopCategoryInfo](doc/ShopCategoryInfo.md)
+ - [ShopItem](doc/ShopItem.md)
  - [Storage](doc/Storage.md)
+ - [TerrainCollectable](doc/TerrainCollectable.md)
+ - [TerrainCollectableType](doc/TerrainCollectableType.md)
  - [TimerInfo](doc/TimerInfo.md)
+ - [UpdateIslandRequest](doc/UpdateIslandRequest.md)
+ - [UpdateIslandResponse](doc/UpdateIslandResponse.md)
  - [VerifyUserRequest](doc/VerifyUserRequest.md)
  - [VerifyUserResponse](doc/VerifyUserResponse.md)
 

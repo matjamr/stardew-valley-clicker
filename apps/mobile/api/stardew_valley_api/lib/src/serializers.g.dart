@@ -11,7 +11,10 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(AnimalPen.serializer)
       ..add(Asset.serializer)
       ..add(AssetType.serializer)
+      ..add(Bag.serializer)
+      ..add(BagItem.serializer)
       ..add(Barn.serializer)
+      ..add(CollectTerrainCollectableResponse.serializer)
       ..add(CreateAssetRequest.serializer)
       ..add(CreateAssetResponse.serializer)
       ..add(CreateEventRequest.serializer)
@@ -19,6 +22,7 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(CreateIslandRequest.serializer)
       ..add(CreateIslandResponse.serializer)
       ..add(CropPlot.serializer)
+      ..add(CurrencyType.serializer)
       ..add(Decoration.serializer)
       ..add(EnergyInfo.serializer)
       ..add(Error.serializer)
@@ -26,14 +30,19 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(Farm.serializer)
       ..add(FishingArea.serializer)
       ..add(FishingSpot.serializer)
+      ..add(GenerateCollectablesResponse.serializer)
       ..add(Island.serializer)
       ..add(IslandVariant.serializer)
+      ..add(ListAllIslandsResponse.serializer)
+      ..add(ListShopItemsResponse.serializer)
       ..add(LoginUserRequest.serializer)
       ..add(LoginUserResponse.serializer)
       ..add(MineLevel.serializer)
       ..add(MineTile.serializer)
       ..add(Mines.serializer)
       ..add(OnClickAction.serializer)
+      ..add(PurchaseItemRequest.serializer)
+      ..add(PurchaseItemResponse.serializer)
       ..add(ReadAssetResponse.serializer)
       ..add(ReadEventResponse.serializer)
       ..add(ReadIslandResponse.serializer)
@@ -47,8 +56,15 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(SaveUserResponse.serializer)
       ..add(ScheduledEvent.serializer)
       ..add(ScheduledEventStatusEnum.serializer)
+      ..add(ShopCategory.serializer)
+      ..add(ShopCategoryInfo.serializer)
+      ..add(ShopItem.serializer)
       ..add(Storage.serializer)
+      ..add(TerrainCollectable.serializer)
+      ..add(TerrainCollectableType.serializer)
       ..add(TimerInfo.serializer)
+      ..add(UpdateIslandRequest.serializer)
+      ..add(UpdateIslandResponse.serializer)
       ..add(VerifyUserRequest.serializer)
       ..add(VerifyUserResponse.serializer)
       ..addBuilderFactory(
@@ -58,17 +74,26 @@ Serializers _$serializers = (Serializers().toBuilder()
           const FullType(BuiltList, const [const FullType(Storage)]),
           () => ListBuilder<Storage>())
       ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(BagItem)]),
+          () => ListBuilder<BagItem>())
+      ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(CropPlot)]),
           () => ListBuilder<CropPlot>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Decoration)]),
           () => ListBuilder<Decoration>())
       ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(TerrainCollectable)]),
+          () => ListBuilder<TerrainCollectable>())
+      ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(FishingSpot)]),
           () => ListBuilder<FishingSpot>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(Island)]),
+          () => ListBuilder<Island>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(MineLevel)]),
           () => ListBuilder<MineLevel>())
@@ -82,14 +107,24 @@ Serializers _$serializers = (Serializers().toBuilder()
           const FullType(BuiltList, const [const FullType(ResourceReward)]),
           () => ListBuilder<ResourceReward>())
       ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(ShopItem)]),
+          () => ListBuilder<ShopItem>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(ShopCategoryInfo)]),
+          () => ListBuilder<ShopCategoryInfo>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => ListBuilder<String>())
+      ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => ListBuilder<String>())
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => ListBuilder<String>()))
+          const FullType(
+              BuiltMap, const [const FullType(String), const FullType(String)]),
+          () => MapBuilder<String, String>()))
     .build();
 
 // ignore_for_file: deprecated_member_use_from_same_package,type=lint

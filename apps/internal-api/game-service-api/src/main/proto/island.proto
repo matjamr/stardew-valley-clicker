@@ -9,7 +9,10 @@ import 'asset.proto';
 service IslandService {
   rpc Create (CreateIslandRequest) returns (CreateIslandResponse) {}
   rpc Read (ReadIslandRequest) returns (ReadIslandResponse) {}
+  rpc Update (UpdateIslandRequest) returns (UpdateIslandResponse) {}
   rpc ListAll (ListAllIslandsRequest) returns (ListAllIslandsResponse) {}
+  rpc GenerateCollectables (GenerateCollectablesRequest) returns (GenerateCollectablesResponse) {}
+  rpc CollectTerrainCollectable (CollectTerrainCollectableRequest) returns (CollectTerrainCollectableResponse) {}
 }
 
 service IslandVariantService {
@@ -33,6 +36,38 @@ message ReadIslandRequest {
 
 message ReadIslandResponse {
   Island island = 1;
+}
+
+message UpdateIslandRequest {
+  string islandId = 1;
+  Island island = 2;
+}
+
+message UpdateIslandResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message GenerateCollectablesRequest {
+  string islandId = 1;
+  int32 count = 2; // Number of collectables to generate (optional, defaults to 3-5)
+}
+
+message GenerateCollectablesResponse {
+  bool success = 1;
+  string message = 2;
+  int32 count = 3; // Actual number of collectables generated
+}
+
+message CollectTerrainCollectableRequest {
+  string islandId = 1;
+  string collectableId = 2;
+}
+
+message CollectTerrainCollectableResponse {
+  bool success = 1;
+  string message = 2;
+  RewardInfo rewards = 3; // Rewards collected
 }
 
 message ListAllIslandsRequest {
@@ -85,6 +120,19 @@ message Island {
   Barn barn = 9;
   Mines mines = 10;
   FishingArea fishingArea = 11;
+  Bag bag = 12;
+}
+
+message Bag {
+  repeated BagItem items = 1;
+  int32 maxSlots = 2; // Maximum number of item slots (e.g., 20, 40)
+}
+
+message BagItem {
+  string itemId = 1; // References ShopItem.id
+  string name = 2;
+  int32 quantity = 3;
+  string iconUrl = 4;
 }
 
 message Farm {
@@ -95,6 +143,7 @@ message Farm {
   int32 blockSize = 5;
   repeated CropPlot plots = 6;
   repeated Decoration decorations = 7;
+  repeated TerrainCollectable terrainCollectables = 8;
 }
 
 message CropPlot {
@@ -198,6 +247,24 @@ message Decoration {
   Asset asset = 5;
 }
 
+message TerrainCollectable {
+  string id = 1;
+  int32 x = 2;
+  int32 y = 3;
+  int32 sizeX = 4;
+  int32 sizeY = 5;
+  Asset asset = 6;
+  TerrainCollectableType type = 7;
+  bool isCollected = 8;
+  string collectedAt = 9;
+}
+
+enum TerrainCollectableType {
+  TERRAIN_COLLECTABLE_UNSPECIFIED = 0;
+  BUSH = 1;
+  ROCK = 2;
+  TREE = 3;
+}
 
 message Building {
   string id = 1;

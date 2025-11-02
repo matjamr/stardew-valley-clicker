@@ -33,7 +33,7 @@ abstract class CreateEventRequest
 
   @BuiltValueField(wireName: r'type')
   EventRequestTriggerType get type;
-  // enum typeEnum {  UNKNOWN_TYPE,  MINES_TYPE,  };
+  // enum typeEnum {  UNKNOWN_TYPE,  MINES_TYPE,  TERRAIN_COLLECTABLE_TYPE,  };
 
   CreateEventRequest._();
 

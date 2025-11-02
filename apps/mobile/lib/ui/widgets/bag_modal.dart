@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mobile/state/ui_providers.dart';
+import 'package:mobile/state/island_providers.dart';
+import 'package:stardew_valley_api/stardew_valley_api.dart' as api;
 
 class BagModal extends ConsumerStatefulWidget {
   final bool showClose;
@@ -43,49 +44,112 @@ class _BagModalState extends ConsumerState<BagModal>
 
   @override
   Widget build(BuildContext context) {
-    final inventory = ref.watch(inventoryProvider);
+    final islandAsync = ref.watch(selectedIslandDataProvider);
 
-    Widget body = Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
+    Widget body = islandAsync.when(
+      data: (response) {
+        final bag = response?.island?.bag;
+        final items = bag?.items?.toList() ?? [];
+        final maxSlots = bag?.maxSlots ?? 20;
+
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Icon(Icons.inventory, color: Color(0xFFFFE7A0)),
-            const SizedBox(width: 8),
-            const Text(
-              'Bag',
-              style: TextStyle(
-                color: Color(0xFFFFF3C4),
-                fontWeight: FontWeight.w800,
-                fontSize: 18,
-              ),
+            Row(
+              children: [
+                const Icon(Icons.inventory, color: Color(0xFFFFE7A0)),
+                const SizedBox(width: 8),
+                const Text(
+                  'Bag',
+                  style: TextStyle(
+                    color: Color(0xFFFFF3C4),
+                    fontWeight: FontWeight.w800,
+                    fontSize: 18,
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  '${items.length}/$maxSlots',
+                  style: const TextStyle(
+                    color: Color(0xFFFFE7A0),
+                    fontSize: 14,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                if (widget.showClose)
+                  IconButton(
+                    icon: const Icon(Icons.close, color: Color(0xFFFFE7A0)),
+                    onPressed: () => Navigator.of(context).maybePop(),
+                  ),
+              ],
             ),
-            const Spacer(),
-            if (widget.showClose)
-              IconButton(
-                icon: const Icon(Icons.close, color: Color(0xFFFFE7A0)),
-                onPressed: () => Navigator.of(context).maybePop(),
-              ),
+            const SizedBox(height: 8),
+            items.isEmpty
+                ? const Padding(
+                    padding: EdgeInsets.all(24.0),
+                    child: Center(
+                      child: Text(
+                        'Your bag is empty',
+                        style: TextStyle(
+                          color: Color(0xFFFFE7A0),
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  )
+                : GridView.builder(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
+                          childAspectRatio: 1.1,
+                        ),
+                    itemCount: items.length,
+                    itemBuilder: (_, i) {
+                      final item = items[i];
+                      return _BagSlot(item: item);
+                    },
+                  ),
           ],
-        ),
-        const SizedBox(height: 8),
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const BouncingScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8,
-            childAspectRatio: 1.1,
+        );
+      },
+      loading: () => const Center(
+        child: CircularProgressIndicator(color: Color(0xFFFFE7A0)),
+      ),
+      error: (error, stack) => Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.error_outline,
+                color: Color(0xFFFFE7A0),
+                size: 48,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Failed to load bag',
+                style: const TextStyle(
+                  color: Color(0xFFFFF3C4),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                error.toString(),
+                style: const TextStyle(color: Color(0xFFFFE7A0), fontSize: 12),
+                textAlign: TextAlign.center,
+              ),
+            ],
           ),
-          itemCount: inventory.length,
-          itemBuilder: (_, i) {
-            final e = inventory[i];
-            return _BagSlot(entry: e);
-          },
         ),
-      ],
+      ),
     );
 
     if (widget.embedded) {
@@ -126,8 +190,17 @@ class _BagModalState extends ConsumerState<BagModal>
 }
 
 class _BagSlot extends StatelessWidget {
-  final InventoryEntry entry;
-  const _BagSlot({required this.entry});
+  final api.BagItem item;
+  const _BagSlot({required this.item});
+
+  IconData _getIconForItem(String itemId) {
+    // Map item IDs to icons - this is a simple mapping
+    // In a real app, you might have this data in the API or a local mapping
+    if (itemId.contains('seed')) return Icons.spa;
+    if (itemId.contains('food')) return Icons.restaurant;
+    if (itemId.contains('tool')) return Icons.construction;
+    return Icons.inventory_2;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -141,10 +214,14 @@ class _BagSlot extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(entry.item.icon, color: const Color(0xFFFFE7A0), size: 28),
+          Icon(
+            _getIconForItem(item.itemId ?? ''),
+            color: const Color(0xFFFFE7A0),
+            size: 28,
+          ),
           const SizedBox(height: 6),
           Text(
-            entry.item.name,
+            item.name ?? 'Unknown',
             textAlign: TextAlign.center,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -158,7 +235,7 @@ class _BagSlot extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
-              'x${entry.quantity}',
+              'x${item.quantity ?? 0}',
               style: const TextStyle(
                 color: Color(0xFFFFE7A0),
                 fontSize: 12,

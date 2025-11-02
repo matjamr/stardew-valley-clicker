@@ -6,6 +6,7 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:stardew_valley_api/src/model/decoration.dart';
 import 'package:stardew_valley_api/src/model/crop_plot.dart';
+import 'package:stardew_valley_api/src/model/terrain_collectable.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -21,6 +22,7 @@ part 'farm.g.dart';
 /// * [blockSize]
 /// * [plots]
 /// * [decorations]
+/// * [terrainCollectables]
 @BuiltValue()
 abstract class Farm implements Built<Farm, FarmBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -43,6 +45,9 @@ abstract class Farm implements Built<Farm, FarmBuilder> {
 
   @BuiltValueField(wireName: r'decorations')
   BuiltList<Decoration>? get decorations;
+
+  @BuiltValueField(wireName: r'terrainCollectables')
+  BuiltList<TerrainCollectable>? get terrainCollectables;
 
   Farm._();
 
@@ -114,6 +119,14 @@ class _$FarmSerializer implements PrimitiveSerializer<Farm> {
       yield serializers.serialize(
         object.decorations,
         specifiedType: const FullType(BuiltList, [FullType(Decoration)]),
+      );
+    }
+    if (object.terrainCollectables != null) {
+      yield r'terrainCollectables';
+      yield serializers.serialize(
+        object.terrainCollectables,
+        specifiedType:
+            const FullType(BuiltList, [FullType(TerrainCollectable)]),
       );
     }
   }
@@ -189,6 +202,14 @@ class _$FarmSerializer implements PrimitiveSerializer<Farm> {
             specifiedType: const FullType(BuiltList, [FullType(Decoration)]),
           ) as BuiltList<Decoration>;
           result.decorations.replace(valueDes);
+          break;
+        case r'terrainCollectables':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(BuiltList, [FullType(TerrainCollectable)]),
+          ) as BuiltList<TerrainCollectable>;
+          result.terrainCollectables.replace(valueDes);
           break;
         default:
           unhandled.add(key);

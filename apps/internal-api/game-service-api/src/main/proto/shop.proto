@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.mat.jamr.gameservice.api";
+option java_outer_classname = "ShopGrpcService";
+
+service ShopService {
+  rpc ListShopItems (ListShopItemsRequest) returns (ListShopItemsResponse) {}
+  rpc GetShopItem (GetShopItemRequest) returns (ShopItem) {}
+  rpc PurchaseItem (PurchaseItemRequest) returns (PurchaseItemResponse) {}
+}
+
+message ListShopItemsRequest {
+  string category = 1; // Optional: filter by category
+}
+
+message ListShopItemsResponse {
+  repeated ShopItem items = 1;
+  repeated ShopCategoryInfo categories = 2;
+}
+
+message GetShopItemRequest {
+  string itemId = 1;
+}
+
+message PurchaseItemRequest {
+  string userId = 1;
+  string islandId = 2;
+  string itemId = 3;
+  int32 quantity = 4;
+}
+
+message PurchaseItemResponse {
+  bool success = 1;
+  string transactionId = 2;
+  string message = 3; // Error message if success = false
+  int32 remainingCurrency = 4;
+}
+
+enum ShopCategory {
+  CATEGORY_UNSPECIFIED = 0;
+  SEEDS = 1;
+  TOOLS = 2;
+  FOOD = 3;
+  ANIMALS = 4;
+  BUILDINGS = 5;
+  FERTILIZER = 6;
+  COLLECTABLES = 7;
+}
+
+enum CurrencyType {
+  CURRENCY_UNSPECIFIED = 0;
+  GOLD = 1;
+  GEMS = 2;
+  TOKENS = 3;
+}
+
+message ShopItem {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  ShopCategory category = 4;
+  int32 price = 5;
+  CurrencyType currency = 6;
+  string iconUrl = 7;
+  int32 stackSize = 8;
+  map<string, string> metadata = 9; // Flexible key-value pairs for item-specific data
+  bool available = 10; // Whether item is currently available for purchase
+  int32 stock = 11; // -1 for unlimited, 0+ for limited stock
+}
+
+message ShopCategoryInfo {
+  ShopCategory category = 1;
+  string name = 2;
+  string description = 3;
+  string iconUrl = 4;
+  int32 sortOrder = 5;
+}

@@ -121,6 +121,12 @@ final islandsApiProvider = Provider<IslandsApi>((ref) {
   return api.getIslandsApi();
 });
 
+// Shop API
+final shopApiProvider = Provider<ShopApi>((ref) {
+  final api = ref.watch(stardewApiProvider);
+  return api.getShopApi();
+});
+
 // Example of a future provider to fetch some profile or game data later.
 // Keeping it simple and unused in UI for now; shows how HTTP would be composed.
 final exampleProfileProvider = FutureProvider<Map<String, dynamic>>((

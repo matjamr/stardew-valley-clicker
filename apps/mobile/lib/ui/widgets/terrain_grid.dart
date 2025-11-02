@@ -8,6 +8,7 @@ class TerrainGrid extends StatelessWidget {
   final double gap;
   final double tileSize;
   final bool useFixedTileSize;
+  final String? backgroundImage;
 
   const TerrainGrid({
     super.key,
@@ -17,6 +18,7 @@ class TerrainGrid extends StatelessWidget {
     this.gap = 1,
     this.tileSize = 16,
     this.useFixedTileSize = false,
+    this.backgroundImage,
   });
 
   Color _colorFor(TileKind kind) {
@@ -57,30 +59,32 @@ class TerrainGrid extends StatelessWidget {
     // expand individual tiles (including multi-size tiles) to absolute positioned boxes
     final children = <Widget>[];
 
-    // Add background image
-    children.add(
-      Positioned.fill(
-        child: Image.asset(
-          'assets/images/riverside_background.png',
-          fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) {
-            // Fallback to gradient if image not found
-            return Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    const Color(0xFF4CAF50),
-                    const Color(0xFF81C784),
-                  ],
+    // Add background image if provided
+    if (backgroundImage != null) {
+      children.add(
+        Positioned.fill(
+          child: Image.asset(
+            backgroundImage!,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              // Fallback to gradient if image not found
+              return Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      const Color(0xFF4CAF50),
+                      const Color(0xFF81C784),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
-      ),
-    );
+      );
+    }
 
     // Add tile overlays
     for (final t in terrain.tiles) {
@@ -88,19 +92,46 @@ class TerrainGrid extends StatelessWidget {
       final top = t.y * (tile + gap);
       final w = t.sizeX * tile + (t.sizeX - 1) * gap;
       final h = t.sizeY * tile + (t.sizeY - 1) * gap;
+
+      Widget tileWidget;
+
+      // If terrain collectable has an asset URL, show image
+      if (t.assetUrl != null) {
+        tileWidget = ClipRRect(
+          borderRadius: BorderRadius.circular(2),
+          child: Image.asset(
+            t.assetUrl!,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              // Fallback to colored container if image not found
+              return Container(
+                decoration: BoxDecoration(
+                  color: _colorFor(t.kind),
+                  borderRadius: BorderRadius.circular(2),
+                  border: Border.all(color: const Color(0xFF2E1F1A), width: 1),
+                ),
+              );
+            },
+          ),
+        );
+      } else {
+        // Default colored container for regular tiles
+        tileWidget = Container(
+          decoration: BoxDecoration(
+            color: _colorFor(t.kind),
+            borderRadius: BorderRadius.circular(2),
+            border: Border.all(color: const Color(0xFF2E1F1A), width: 1),
+          ),
+        );
+      }
+
       children.add(
         Positioned(
           left: left,
           top: top,
           width: w,
           height: h,
-          child: Container(
-            decoration: BoxDecoration(
-              color: _colorFor(t.kind),
-              borderRadius: BorderRadius.circular(2),
-              border: Border.all(color: const Color(0xFF2E1F1A), width: 1),
-            ),
-          ),
+          child: tileWidget,
         ),
       );
     }

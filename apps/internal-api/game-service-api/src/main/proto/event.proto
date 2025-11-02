@@ -17,6 +17,7 @@ message ReadByIdParams {
 enum EventRequestTriggerType {
   UNKNOWN_TYPE = 0;
   MINES_TYPE = 1;
+  TERRAIN_COLLECTABLE_TYPE = 2;
 }
 
 message TriggerEventRequest {

@@ -10,6 +10,8 @@ const EventRequestTriggerType _$UNKNOWN_TYPE =
     const EventRequestTriggerType._('UNKNOWN_TYPE');
 const EventRequestTriggerType _$MINES_TYPE =
     const EventRequestTriggerType._('MINES_TYPE');
+const EventRequestTriggerType _$TERRAIN_COLLECTABLE_TYPE =
+    const EventRequestTriggerType._('TERRAIN_COLLECTABLE_TYPE');
 
 EventRequestTriggerType _$valueOf(String name) {
   switch (name) {
@@ -17,6 +19,8 @@ EventRequestTriggerType _$valueOf(String name) {
       return _$UNKNOWN_TYPE;
     case 'MINES_TYPE':
       return _$MINES_TYPE;
+    case 'TERRAIN_COLLECTABLE_TYPE':
+      return _$TERRAIN_COLLECTABLE_TYPE;
     default:
       throw ArgumentError(name);
   }
@@ -26,12 +30,15 @@ final BuiltSet<EventRequestTriggerType> _$values =
     BuiltSet<EventRequestTriggerType>(const <EventRequestTriggerType>[
   _$UNKNOWN_TYPE,
   _$MINES_TYPE,
+  _$TERRAIN_COLLECTABLE_TYPE,
 ]);
 
 class _$EventRequestTriggerTypeMeta {
   const _$EventRequestTriggerTypeMeta();
   EventRequestTriggerType get UNKNOWN_TYPE => _$UNKNOWN_TYPE;
   EventRequestTriggerType get MINES_TYPE => _$MINES_TYPE;
+  EventRequestTriggerType get TERRAIN_COLLECTABLE_TYPE =>
+      _$TERRAIN_COLLECTABLE_TYPE;
   EventRequestTriggerType valueOf(String name) => _$valueOf(name);
   BuiltSet<EventRequestTriggerType> get values => _$values;
 }
@@ -50,10 +57,12 @@ class _$EventRequestTriggerTypeSerializer
   static const Map<String, Object> _toWire = const <String, Object>{
     'UNKNOWN_TYPE': 'UNKNOWN_TYPE',
     'MINES_TYPE': 'MINES_TYPE',
+    'TERRAIN_COLLECTABLE_TYPE': 'TERRAIN_COLLECTABLE_TYPE',
   };
   static const Map<Object, String> _fromWire = const <Object, String>{
     'UNKNOWN_TYPE': 'UNKNOWN_TYPE',
     'MINES_TYPE': 'MINES_TYPE',
+    'TERRAIN_COLLECTABLE_TYPE': 'TERRAIN_COLLECTABLE_TYPE',
   };
 
   @override

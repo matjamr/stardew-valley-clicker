@@ -5,21 +5,64 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="635becb2-690f-4978-8c96-999695fb46c7" name="Changes" comment="working e2e fully for events">
+      <change afterPath="$PROJECT_DIR$/apps/mobile/assets/images/barn_background.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/mobile/assets/images/fishing_background.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/mobile/assets/images/mines_background.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/apps/mobile/firebase.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/apps/mobile/ios/Runner/GoogleService-Info.plist" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/apps/mobile/lib/firebase_options.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/game/GameGrpcClientConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/game/GameGrpcClientConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/game/IslandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/game/IslandController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Flutter/Debug.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/ios/Flutter/Debug.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Flutter/Release.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/ios/Flutter/Release.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/macos/Flutter/Flutter-Debug.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/macos/Flutter/Flutter-Debug.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/macos/Flutter/Flutter-Release.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/macos/Flutter/Flutter-Release.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/game/mapper/IslandApiMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/game/mapper/IslandApiMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/game/mapper/IslandVariantApiMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/game/mapper/IslandVariantApiMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Farm.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Farm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Island.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/api/db/Island.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/AssetMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/AssetMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/BarnMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/BarnMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/FarmMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/FarmMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/FishingAreaMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/FishingAreaMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/IslandMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/IslandMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/MinesMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/common/mapper/MinesMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/islands/IslandService.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/islands/IslandService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/islands/create/consumers/CreateIslandFromVariantConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/islands/create/consumers/CreateIslandFromVariantConsumer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/external-api/src/main/resources/schema.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/external-api/src/main/resources/schema.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/event.proto" beforeDir="false" afterPath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/event.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/island.proto" beforeDir="false" afterPath="$PROJECT_DIR$/apps/internal-api/game-service-api/src/main/proto/island.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/.openapi-generator/FILES" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/.openapi-generator/FILES" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/doc/Farm.md" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/doc/Farm.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/doc/Island.md" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/doc/Island.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/doc/IslandsApi.md" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/doc/IslandsApi.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/api/islands_api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/api/islands_api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/create_event_request.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/create_event_request.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/event_request_trigger_type.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/event_request_trigger_type.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/event_request_trigger_type.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/event_request_trigger_type.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/farm.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/farm.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/farm.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/farm.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/island.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/island.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/island.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/island.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/serializers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/serializers.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/serializers.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/serializers.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/stardew_valley_api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/stardew_valley_api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/assets/images/grass.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/assets/images/ground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/assets/openapi/schema.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/assets/openapi/schema.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/api/openapi_generator_config.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/api/openapi_generator_config.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/game/my_game.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/game/my_game.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/game_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/game_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/state/app_providers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/state/app_providers.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/state/island_providers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/state/island_providers.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/state/ui_providers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/state/ui_providers.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/ui/islands/island_details_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/ui/islands/island_details_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/ui/widgets/bag_modal.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/ui/widgets/bag_modal.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/ui/widgets/interactive_terrain.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/ui/widgets/interactive_terrain.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/ui/widgets/shop_modal.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/ui/widgets/shop_modal.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/ui/widgets/terrain_grid.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/ui/widgets/terrain_grid.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/lib/ui/widgets/zoom_pan_viewer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/ui/widgets/zoom_pan_viewer.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/mobile/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/mobile/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>
     <list id="8a89aab7-bfc2-4748-9dc5-dafb80757922" name="ignored" comment="ignored">
       <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
@@ -268,8 +311,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.GameServiceApplication" />
         <item itemvalue="Spring Boot.SchedulingWorkerApplication (1)" />
+        <item itemvalue="Spring Boot.GameServiceApplication" />
         <item itemvalue="Java Scratch.Scratch" />
         <item itemvalue="HTTP Request.generated-requests | #2" />
       </list>
@@ -312,7 +355,7 @@
       <workItem from="1760812880509" duration="20878000" />
       <workItem from="1761335965643" duration="5331000" />
       <workItem from="1761473546262" duration="4601000" />
-      <workItem from="1761764369622" duration="19894000" />
+      <workItem from="1761764369622" duration="41303000" />
     </task>
     <task id="LOCAL-00001" summary="Initialize project structure with key backend, frontend, and mobile app components. Added Maven configurations, gRPC setup, and initial service implementation.">
       <option name="closed" value="true" />
@@ -543,6 +586,11 @@
           <url>file://$PROJECT_DIR$/apps/backend/game-service/target/generated-sources/annotations/com/mat/jamr/gameservice/service/common/mapper/MinesMapperImpl.java</url>
           <line>47</line>
           <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/apps/backend/api-gateway/target/generated-sources/annotations/com/mat/jamr/apigateway/service/game/mapper/IslandApiMapperImpl.java</url>
+          <line>586</line>
+          <option name="timeStamp" value="24" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-field">
           <url>file://$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/java/com/mat/jamr/schedulingworker/config/ScheduledEventStreamConfig.java</url>

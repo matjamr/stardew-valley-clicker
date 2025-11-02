@@ -1,0 +1,212 @@
+{
+  "shopItems": [
+    {
+      "id": "seed-001",
+      "name": "Parsnip Seeds",
+      "description": "Plant these in spring. Takes 4 days to mature.",
+      "category": "SEEDS",
+      "price": 20,
+      "currency": "GOLD",
+      "iconUrl": "assets/icons/seeds/parsnip.png",
+      "stackSize": 20,
+      "metadata": {
+        "growthDays": 4,
+        "season": "spring"
+      }
+    },
+    {
+      "id": "seed-002",
+      "name": "Cauliflower Seeds",
+      "description": "Plant these in spring. Takes 12 days to mature.",
+      "category": "SEEDS",
+      "price": 80,
+      "currency": "GOLD",
+      "iconUrl": "assets/icons/seeds/cauliflower.png",
+      "stackSize": 20,
+      "metadata": {
+        "growthDays": 12,
+        "season": "spring"
+      }
+    },
+    {
+      "id": "seed-003",
+      "name": "Potato Seeds",
+      "description": "Plant these in spring. Takes 6 days to mature.",
+      "category": "SEEDS",
+      "price": 50,
+      "currency": "GOLD",
+      "iconUrl": "assets/icons/seeds/potato.png",
+      "stackSize": 20,
+      "metadata": {
+        "growthDays": 6,
+        "season": "spring"
+      }
+    },
+    {
+      "id": "tool-001",
+      "name": "Copper Watering Can",
+      "description": "Waters 3 tiles at once. Upgrade from basic can.",
+      "category": "TOOLS",
+      "price": 2000,
+      "currency": "GOLD",
+      "iconUrl": "assets/icons/tools/watering_can_copper.png",
+      "stackSize": 1,
+      "metadata": {
+        "tier": "copper",
+        "capacity": 40
+      }
+    },
+    {
+      "id": "tool-002",
+      "name": "Steel Axe",
+      "description": "Chops trees faster. Can cut hardwood stumps.",
+      "category": "TOOLS",
+      "price": 5000,
+      "currency": "GOLD",
+      "iconUrl": "assets/icons/tools/axe_steel.png",
+      "stackSize": 1,
+      "metadata": {
+        "tier": "steel",
+        "power": 3
+      }
+    },
+    {
+      "id": "food-001",
+      "name": "Field Snack",
+      "description": "Restores 45 energy. A quick pick-me-up.",
+      "category": "FOOD",
+      "price": 20,
+      "currency": "GOLD",
+      "iconUrl": "assets/icons/food/field_snack.png",
+      "stackSize": 999,
+      "metadata": {
+        "energyRestore": 45
+      }
+    },
+    {
+      "id": "food-002",
+      "name": "Survival Burger",
+      "description": "Restores 125 energy. Hearty and filling!",
+      "category": "FOOD",
+      "price": 350,
+      "currency": "GOLD",
+      "iconUrl": "assets/icons/food/burger.png",
+      "stackSize": 999,
+      "metadata": {
+        "energyRestore": 125
+      }
+    },
+    {
+      "id": "animal-001",
+      "name": "Chicken",
+      "description": "Produces eggs daily. Requires a coop.",
+      "category": "ANIMALS",
+      "price": 800,
+      "currency": "GOLD",
+      "iconUrl": "assets/icons/animals/chicken.png",
+      "stackSize": 1,
+      "metadata": {
+        "produceType": "egg",
+        "produceDays": 1
+      }
+    },
+    {
+      "id": "animal-002",
+      "name": "Cow",
+      "description": "Produces milk daily. Requires a barn.",
+      "category": "ANIMALS",
+      "price": 1500,
+      "currency": "GOLD",
+      "iconUrl": "assets/icons/animals/cow.png",
+      "stackSize": 1,
+      "metadata": {
+        "produceType": "milk",
+        "produceDays": 1
+      }
+    },
+    {
+      "id": "building-001",
+      "name": "Scarecrow",
+      "description": "Protects crops from crows in 8 tile radius.",
+      "category": "BUILDINGS",
+      "price": 50,
+      "currency": "GOLD",
+      "iconUrl": "assets/icons/buildings/scarecrow.png",
+      "stackSize": 1,
+      "metadata": {
+        "radius": 8
+      }
+    },
+    {
+      "id": "building-002",
+      "name": "Chest",
+      "description": "Store up to 36 items. Place anywhere.",
+      "category": "BUILDINGS",
+      "price": 50,
+      "currency": "GOLD",
+      "iconUrl": "assets/icons/buildings/chest.png",
+      "stackSize": 1,
+      "metadata": {
+        "capacity": 36
+      }
+    },
+    {
+      "id": "fertilizer-001",
+      "name": "Basic Fertilizer",
+      "description": "Improves soil quality. Lasts one season.",
+      "category": "FERTILIZER",
+      "price": 100,
+      "currency": "GOLD",
+      "iconUrl": "assets/icons/fertilizer/basic.png",
+      "stackSize": 999,
+      "metadata": {
+        "qualityBonus": 1,
+        "duration": "season"
+      }
+    }
+  ],
+  "categories": [
+    {
+      "id": "SEEDS",
+      "name": "Seeds",
+      "description": "Plant and grow crops",
+      "iconUrl": "assets/icons/categories/seeds.png",
+      "sortOrder": 1
+    },
+    {
+      "id": "TOOLS",
+      "name": "Tools",
+      "description": "Upgrade your equipment",
+      "iconUrl": "assets/icons/categories/tools.png",
+      "sortOrder": 2
+    },
+    {
+      "id": "FOOD",
+      "name": "Food",
+      "description": "Restore energy and health",
+      "iconUrl": "assets/icons/categories/food.png",
+      "sortOrder": 3
+    },
+    {
+      "id": "ANIMALS",
+      "name": "Animals",
+      "description": "Livestock for your farm",
+      "iconUrl": "assets/icons/categories/animals.png",
+      "sortOrder": 4
+    },
+    {
+      "id": "BUILDINGS",
+      "name": "Buildings",
+      "description": "Structures and decorations",
+      "iconUrl": "assets/icons/categories/buildings.png",
+      "sortOrder": 5
+    },
+    {
+      "id": "FERTILIZER",
+      "name": "Fertilizer",
+      "description": "Enhance crop growth",
+      "iconUrl": "assets/icons/categories/fertilizer.png",
+      "sortOrder": 6
+    }
+  ]
+}

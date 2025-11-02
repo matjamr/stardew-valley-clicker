@@ -2,9 +2,17 @@ package com.mat.jamr.gameservice.service.common.mapper;
 
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
+import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = { AssetMapper.class, ProtobufStringMapper.class }, collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED)
+@Mapper(
+    componentModel = "spring",
+    uses = { AssetMapper.class, ProtobufStringMapper.class },
+    collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED,
+    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+    nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
+)
 public interface FishingAreaMapper {
     // FishingArea
     @Mapping(target = "spotsList", source = "spots")

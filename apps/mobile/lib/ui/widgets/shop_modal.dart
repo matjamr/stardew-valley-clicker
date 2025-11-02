@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile/state/ui_providers.dart';
+import 'package:mobile/state/app_providers.dart';
+import 'package:mobile/state/island_providers.dart';
+import 'package:stardew_valley_api/stardew_valley_api.dart' as api;
 
 class ShopModal extends ConsumerStatefulWidget {
   final bool showClose;
@@ -33,107 +36,147 @@ class _ShopModalState extends ConsumerState<ShopModal>
 
   @override
   Widget build(BuildContext context) {
-    final catalog = ref.watch(shopCatalogProvider);
+    final catalogAsync = ref.watch(shopCatalogProvider);
     final tabs = ShopCategory.values;
 
-    Widget content = DefaultTabController(
-      length: tabs.length,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            child: Row(
-              children: [
-                const Icon(Icons.store, color: Color(0xFFFFE7A0)),
-                const SizedBox(width: 8),
-                const Text(
-                  'Shop',
-                  style: TextStyle(
-                    color: Color(0xFFFFF3C4),
-                    fontWeight: FontWeight.w800,
-                    fontSize: 18,
+    Widget content = catalogAsync.when(
+      data: (catalog) => DefaultTabController(
+        length: tabs.length,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              child: Row(
+                children: [
+                  const Icon(Icons.store, color: Color(0xFFFFE7A0)),
+                  const SizedBox(width: 8),
+                  const Text(
+                    'Shop',
+                    style: TextStyle(
+                      color: Color(0xFFFFF3C4),
+                      fontWeight: FontWeight.w800,
+                      fontSize: 18,
+                    ),
                   ),
-                ),
-                const Spacer(),
-                Consumer(
-                  builder: (context, ref, _) {
-                    final gold = ref.watch(profileProvider).gold;
-                    return Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF2E1F1A),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: const Color(0xFF7C5A4A),
-                          width: 1.5,
+                  const Spacer(),
+                  Consumer(
+                    builder: (context, ref, _) {
+                      final gold = ref.watch(profileProvider).gold;
+                      return Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 6,
                         ),
-                      ),
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.circle,
-                            size: 10,
-                            color: Colors.amber,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF2E1F1A),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: const Color(0xFF7C5A4A),
+                            width: 1.5,
                           ),
-                          const SizedBox(width: 6),
-                          Text(
-                            '$gold',
-                            style: const TextStyle(
-                              color: Color(0xFFFFE7A0),
-                              fontWeight: FontWeight.w700,
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.circle,
+                              size: 10,
+                              color: Colors.amber,
                             ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-                if (widget.showClose)
-                  IconButton(
-                    icon: const Icon(Icons.close, color: Color(0xFFFFE7A0)),
-                    onPressed: () => Navigator.of(context).maybePop(),
+                            const SizedBox(width: 6),
+                            Text(
+                              '$gold',
+                              style: const TextStyle(
+                                color: Color(0xFFFFE7A0),
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
-              ],
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 12),
-            decoration: BoxDecoration(
-              color: const Color(0xFF4A372F),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: const Color(0xFF7C5A4A), width: 1.5),
-            ),
-            child: TabBar(
-              labelColor: const Color(0xFFFFE7A0),
-              unselectedLabelColor: const Color(0xFFFFE7A0),
-              indicator: BoxDecoration(
-                color: const Color(0xFF6D4C41),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              tabs: const [
-                Tab(text: 'Groceries', icon: Icon(Icons.local_grocery_store)),
-                Tab(text: 'Seeds', icon: Icon(Icons.spa)),
-                Tab(text: 'Utility', icon: Icon(Icons.construction)),
-              ],
-            ),
-          ),
-          const SizedBox(height: 8),
-          Flexible(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              child: TabBarView(
-                children: tabs.map((c) {
-                  final items = catalog[c] ?? const [];
-                  return _ShopList(items: items);
-                }).toList(),
+                  if (widget.showClose)
+                    IconButton(
+                      icon: const Icon(Icons.close, color: Color(0xFFFFE7A0)),
+                      onPressed: () => Navigator.of(context).maybePop(),
+                    ),
+                ],
               ),
             ),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 12),
+              decoration: BoxDecoration(
+                color: const Color(0xFF4A372F),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: const Color(0xFF7C5A4A), width: 1.5),
+              ),
+              child: TabBar(
+                labelColor: const Color(0xFFFFE7A0),
+                unselectedLabelColor: const Color(0xFFFFE7A0),
+                indicator: BoxDecoration(
+                  color: const Color(0xFF6D4C41),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                tabs: const [
+                  Tab(text: 'Groceries', icon: Icon(Icons.local_grocery_store)),
+                  Tab(text: 'Seeds', icon: Icon(Icons.spa)),
+                  Tab(text: 'Utility', icon: Icon(Icons.construction)),
+                ],
+              ),
+            ),
+            const SizedBox(height: 8),
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                child: TabBarView(
+                  children: tabs.map((c) {
+                    final items = catalog[c] ?? const [];
+                    return _ShopList(items: items);
+                  }).toList(),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      loading: () => const Center(
+        child: CircularProgressIndicator(
+          color: Color(0xFFFFE7A0),
+        ),
+      ),
+      error: (error, stack) => Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.error_outline,
+                color: Color(0xFFFFE7A0),
+                size: 48,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Failed to load shop',
+                style: const TextStyle(
+                  color: Color(0xFFFFF3C4),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                error.toString(),
+                style: const TextStyle(
+                  color: Color(0xFFFFE7A0),
+                  fontSize: 12,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
 
@@ -218,18 +261,54 @@ class _ShopList extends ConsumerWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {
-                  final ok = ref
-                      .read(profileProvider.notifier)
-                      .spendGold(s.price);
-                  if (ok) {
-                    ref.read(inventoryProvider.notifier).addItem(s.item, 1);
+                onPressed: () async {
+                  // Get required data for purchase
+                  final userId = ref.read(userIdProvider);
+                  final islandId = ref.read(selectedIslandIdProvider);
+
+                  if (islandId == null) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Bought ${s.item.name}')),
+                      const SnackBar(content: Text('No island selected')),
                     );
-                  } else {
+                    return;
+                  }
+
+                  try {
+                    // Call real purchase API
+                    final shopApi = ref.read(shopApiProvider);
+                    final purchaseRequest = api.PurchaseItemRequest(
+                      (b) => b
+                        ..userId = userId
+                        ..islandId = islandId
+                        ..itemId = s.item.id
+                        ..quantity = 1,
+                    );
+
+                    final response = await shopApi.purchaseItem(
+                      purchaseItemRequest: purchaseRequest,
+                    );
+
+                    if (response.data?.success == true) {
+                      // Invalidate island data to refresh bag
+                      ref.invalidate(selectedIslandDataProvider);
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Bought ${s.item.name} - added to bag!'),
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            response.data?.message ?? 'Purchase failed',
+                          ),
+                        ),
+                      );
+                    }
+                  } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Not enough gold')),
+                      SnackBar(content: Text('Error: ${e.toString()}')),
                     );
                   }
                 },

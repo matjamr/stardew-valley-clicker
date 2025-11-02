@@ -48,6 +48,12 @@ public class CreateIslandFromVariantConsumer<T extends IslandVariantAware & Isla
             island.setFishingArea(copyFishingArea(variant.getFishingAreaTemplate()));
         }
 
+        // Initialize empty bag
+        Bag bag = new Bag();
+        bag.setItems(new ArrayList<>());
+        bag.setMaxSlots(20); // Default 20 slots
+        island.setBag(bag);
+
         context.setIsland(island);
     }
 

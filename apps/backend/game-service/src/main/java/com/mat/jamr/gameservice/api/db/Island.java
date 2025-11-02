@@ -20,6 +20,7 @@ public class Island {
     private Barn barn;
     private Mines mines;
     private FishingArea fishingArea;
+    private Bag bag;
 
     @DynamoDbPartitionKey
     @DynamoDbAttribute("id")
@@ -119,5 +120,14 @@ public class Island {
 
     public void setFishingArea(FishingArea fishingArea) {
         this.fishingArea = fishingArea;
+    }
+
+    @DynamoDbAttribute("bag")
+    public Bag getBag() {
+        return bag;
+    }
+
+    public void setBag(Bag bag) {
+        this.bag = bag;
     }
 }

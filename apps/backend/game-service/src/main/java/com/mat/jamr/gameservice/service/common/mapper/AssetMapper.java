@@ -2,10 +2,17 @@ package com.mat.jamr.gameservice.service.common.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.NullValueCheckStrategy;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring", uses = {ProtobufStringMapper.class})
+@Mapper(
+    componentModel = "spring",
+    uses = {ProtobufStringMapper.class},
+    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+    nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
+)
 public interface AssetMapper {
 
     // DB -> Proto: ensure null/blank strings become "" to satisfy protobuf setters
@@ -101,6 +108,11 @@ public interface AssetMapper {
         }
 
         return db;
+    }
+
+    // Direct RewardInfo mapping (for convenience)
+    default com.mat.jamr.gameservice.api.RewardInfo map(com.mat.jamr.gameservice.api.db.RewardInfo db) {
+        return mapRewardInfoToProto(db);
     }
 
     // RewardInfo mappings

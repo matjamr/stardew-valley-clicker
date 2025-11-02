@@ -18,6 +18,11 @@ class EventRequestTriggerType extends EnumClass {
   @BuiltValueEnumConst(wireName: r'MINES_TYPE')
   static const EventRequestTriggerType MINES_TYPE = _$MINES_TYPE;
 
+  /// Type of event being triggered
+  @BuiltValueEnumConst(wireName: r'TERRAIN_COLLECTABLE_TYPE')
+  static const EventRequestTriggerType TERRAIN_COLLECTABLE_TYPE =
+      _$TERRAIN_COLLECTABLE_TYPE;
+
   static Serializer<EventRequestTriggerType> get serializer =>
       _$eventRequestTriggerTypeSerializer;
 

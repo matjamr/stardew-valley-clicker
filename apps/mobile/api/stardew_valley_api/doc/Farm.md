@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **blockSize** | **int** |  | [optional] 
 **plots** | [**BuiltList&lt;CropPlot&gt;**](CropPlot.md) |  | [optional] 
 **decorations** | [**BuiltList&lt;Decoration&gt;**](Decoration.md) |  | [optional] 
+**terrainCollectables** | [**BuiltList&lt;TerrainCollectable&gt;**](TerrainCollectable.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
