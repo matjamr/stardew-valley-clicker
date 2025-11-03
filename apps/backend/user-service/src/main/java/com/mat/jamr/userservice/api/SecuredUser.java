@@ -18,7 +18,7 @@ public class SecuredUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return "";
+        return user.getPassword() != null ? user.getPassword() : "";
     }
 
     @Override

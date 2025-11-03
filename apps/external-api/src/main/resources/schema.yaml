@@ -455,6 +455,7 @@ components:
         - name
         - surname
         - email
+        - password
       properties:
         name:
           type: string
@@ -463,6 +464,9 @@ components:
         email:
           type: string
           format: email
+        password:
+          type: string
+          format: password
     SaveUserResponse:
       type: object
       properties:

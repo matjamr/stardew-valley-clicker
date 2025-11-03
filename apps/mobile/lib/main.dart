@@ -2,7 +2,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile/game_page.dart';
-import 'package:mobile/login_screen.dart';
+import 'package:mobile/ui/auth/auth_guard.dart';
+import 'package:mobile/ui/auth/login_page.dart';
 import 'package:mobile/ui/islands/enter_island_page.dart';
 import 'package:mobile/ui/islands/island_chooser_page.dart';
 import 'package:mobile/ui/islands/island_details_page.dart';
@@ -82,28 +83,36 @@ class StardewClickerApp extends StatelessWidget {
         late final Widget page;
         switch (settings.name) {
           case '/':
-            page = const LoginScreen();
+            page = const LoginPage();
             break;
+          case '/home':
           case '/islands':
-            page = const IslandChooserPage();
+            // Protected route - requires authentication
+            page = const AuthGuard(child: IslandChooserPage());
             break;
           case '/createIsland/chooseVariant':
-            page = const IslandVariantSelectPage();
+            // Protected route - requires authentication
+            page = const AuthGuard(child: IslandVariantSelectPage());
             break;
           case '/createIsland/details':
+            // Protected route - requires authentication
             final args = settings.arguments as String?;
-            page = IslandDetailsPage(variantKey: args ?? 'standard');
+            page = AuthGuard(
+              child: IslandDetailsPage(variantKey: args ?? 'standard'),
+            );
             break;
           case '/enterIsland':
+            // Protected route - requires authentication
             final args = settings.arguments as String?;
             final id = args ?? '';
-            page = EnterIslandPage(islandId: id);
+            page = AuthGuard(child: EnterIslandPage(islandId: id));
             break;
           case '/game':
-            page = const GamePage();
+            // Protected route - requires authentication
+            page = const AuthGuard(child: GamePage());
             break;
           default:
-            page = const LoginScreen();
+            page = const LoginPage();
         }
         return PageRouteBuilder(
           settings: settings,

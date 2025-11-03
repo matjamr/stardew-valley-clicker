@@ -5,9 +5,9 @@ option java_package = "com.mat.jamr.userservice.api";
 option java_outer_classname = "SecurityGrpcService";
 
 service SecurityService {
-  rpc Login (LoginUserRequest) returns (LoginUserResponse) {}
-  rpc Verify (VerifyUserRequest) returns (VerifyUserResponse) {}
-  rpc Refresh (RefreshTokenRequest) returns (RefreshTokenResponse) {}
+  rpc login (LoginUserRequest) returns (LoginUserResponse) {}
+  rpc verify (VerifyUserRequest) returns (VerifyUserResponse) {}
+  rpc refresh (RefreshTokenRequest) returns (RefreshTokenResponse) {}
 }
 
 message LoginUserRequest {

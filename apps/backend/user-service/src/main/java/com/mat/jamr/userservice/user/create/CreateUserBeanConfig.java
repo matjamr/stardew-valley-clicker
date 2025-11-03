@@ -5,6 +5,7 @@ import com.mat.jamr.userservice.api.SaveUserResponse;
 import com.mat.jamr.userservice.api.User;
 import com.mat.jamr.userservice.user.create.service.CreateUserCommitConsumer;
 import com.mat.jamr.userservice.user.create.service.CreateUserContext;
+import com.mat.jamr.userservice.user.create.service.CreateUserPasswordValidationConsumer;
 import com.matjamr.commonutils.StrategyBasedConsumer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,12 +21,22 @@ public class CreateUserBeanConfig {
 
     @Bean
     public Function<CreateUserContext, SaveUserResponse> createUserStrategyBasedFlow(
+            final Consumer<CreateUserContext> userPasswordValidationConsumer,
             final Consumer<CreateUserContext> userCommitConsumer,
             final Consumer<CreateUserContext> userCreateResponseMapperImpl,
             final Consumer<CreateUserContext> userCreateRequestMapperImpl
     ) {
-        return new StrategyBasedConsumer<>(List.of(userCreateRequestMapperImpl, userCommitConsumer, userCreateResponseMapperImpl),
+        return new StrategyBasedConsumer<>(List.of(
+//                userPasswordValidationConsumer,
+                userCreateRequestMapperImpl,
+                userCommitConsumer,
+                userCreateResponseMapperImpl),
                 CreateUserContext::getSaveUserResponse);
+    }
+
+    @Bean
+    public Consumer<CreateUserContext> userPasswordValidationConsumer() {
+        return new CreateUserPasswordValidationConsumer();
     }
 
     @Bean

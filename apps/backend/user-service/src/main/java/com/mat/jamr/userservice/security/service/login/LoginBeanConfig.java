@@ -9,6 +9,7 @@ import com.mat.jamr.userservice.security.service.common.TokenGenerator;
 import com.matjamr.commonutils.StrategyBasedConsumer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 
 import java.util.List;
@@ -21,11 +22,13 @@ public class LoginBeanConfig {
     @Bean
     public Function<LoginSecurityContext, LoginUserResponse> loginUserStrategyBasedFlow(
             Consumer<LoginSecurityContext> userByEmailFetchingConsumer,
+            Consumer<LoginSecurityContext> passwordValidationConsumer,
             Consumer<LoginSecurityContext> loginUserTokenGenerator,
             Consumer<LoginSecurityContext> loginUserResponseMapper
     ) {
         return new StrategyBasedConsumer<>(List.of(
                 userByEmailFetchingConsumer,
+                passwordValidationConsumer,
                 loginUserTokenGenerator,
                 loginUserResponseMapper
         ),
@@ -38,6 +41,13 @@ public class LoginBeanConfig {
             final DynamoDbTable<Email> emailTable
     ) {
         return new UserByEmailFetchingConsumer<>(userTable, emailTable);
+    }
+
+    @Bean
+    public Consumer<LoginSecurityContext> passwordValidationConsumer(
+            final PasswordEncoder passwordEncoder
+    ) {
+        return new PasswordValidationConsumer(passwordEncoder);
     }
 
     @Bean

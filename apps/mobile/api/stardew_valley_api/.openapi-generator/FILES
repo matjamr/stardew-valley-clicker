@@ -145,4 +145,3 @@ lib/src/model/verify_user_response.dart
 lib/src/serializers.dart
 lib/stardew_valley_api.dart
 pubspec.yaml
-test/collect_terrain_collectable_response_test.dart
