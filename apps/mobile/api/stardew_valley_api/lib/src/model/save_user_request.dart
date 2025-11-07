@@ -14,6 +14,7 @@ part 'save_user_request.g.dart';
 /// * [name]
 /// * [surname]
 /// * [email]
+/// * [password]
 @BuiltValue()
 abstract class SaveUserRequest
     implements Built<SaveUserRequest, SaveUserRequestBuilder> {
@@ -25,6 +26,9 @@ abstract class SaveUserRequest
 
   @BuiltValueField(wireName: r'email')
   String get email;
+
+  @BuiltValueField(wireName: r'password')
+  String get password;
 
   SaveUserRequest._();
 
@@ -65,6 +69,11 @@ class _$SaveUserRequestSerializer
     yield r'email';
     yield serializers.serialize(
       object.email,
+      specifiedType: const FullType(String),
+    );
+    yield r'password';
+    yield serializers.serialize(
+      object.password,
       specifiedType: const FullType(String),
     );
   }
@@ -112,6 +121,13 @@ class _$SaveUserRequestSerializer
             specifiedType: const FullType(String),
           ) as String;
           result.email = valueDes;
+          break;
+        case r'password':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.password = valueDes;
           break;
         default:
           unhandled.add(key);

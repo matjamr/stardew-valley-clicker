@@ -1,4 +1,4 @@
-package com.mat.jamr.userservice.api;
+package com.mat.jamr.schedulingworker.model;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

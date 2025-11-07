@@ -13,12 +13,17 @@ class _$SaveUserRequest extends SaveUserRequest {
   final String surname;
   @override
   final String email;
+  @override
+  final String password;
 
   factory _$SaveUserRequest([void Function(SaveUserRequestBuilder)? updates]) =>
       (SaveUserRequestBuilder()..update(updates))._build();
 
   _$SaveUserRequest._(
-      {required this.name, required this.surname, required this.email})
+      {required this.name,
+      required this.surname,
+      required this.email,
+      required this.password})
       : super._();
   @override
   SaveUserRequest rebuild(void Function(SaveUserRequestBuilder) updates) =>
@@ -33,7 +38,8 @@ class _$SaveUserRequest extends SaveUserRequest {
     return other is SaveUserRequest &&
         name == other.name &&
         surname == other.surname &&
-        email == other.email;
+        email == other.email &&
+        password == other.password;
   }
 
   @override
@@ -42,6 +48,7 @@ class _$SaveUserRequest extends SaveUserRequest {
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, surname.hashCode);
     _$hash = $jc(_$hash, email.hashCode);
+    _$hash = $jc(_$hash, password.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -51,7 +58,8 @@ class _$SaveUserRequest extends SaveUserRequest {
     return (newBuiltValueToStringHelper(r'SaveUserRequest')
           ..add('name', name)
           ..add('surname', surname)
-          ..add('email', email))
+          ..add('email', email)
+          ..add('password', password))
         .toString();
   }
 }
@@ -72,6 +80,10 @@ class SaveUserRequestBuilder
   String? get email => _$this._email;
   set email(String? email) => _$this._email = email;
 
+  String? _password;
+  String? get password => _$this._password;
+  set password(String? password) => _$this._password = password;
+
   SaveUserRequestBuilder() {
     SaveUserRequest._defaults(this);
   }
@@ -82,6 +94,7 @@ class SaveUserRequestBuilder
       _name = $v.name;
       _surname = $v.surname;
       _email = $v.email;
+      _password = $v.password;
       _$v = null;
     }
     return this;
@@ -109,6 +122,8 @@ class SaveUserRequestBuilder
               surname, r'SaveUserRequest', 'surname'),
           email: BuiltValueNullFieldError.checkNotNull(
               email, r'SaveUserRequest', 'email'),
+          password: BuiltValueNullFieldError.checkNotNull(
+              password, r'SaveUserRequest', 'password'),
         );
     replace(_$result);
     return _$result;

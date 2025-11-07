@@ -510,6 +510,9 @@ components:
         password:
           type: string
           format: password
+        deviceToken:
+          type: string
+          description: Firebase Cloud Messaging device token for push notifications
     LoginUserResponse:
       type: object
       properties:

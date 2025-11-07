@@ -2,6 +2,7 @@ package com.mat.jamr.schedulingworker.consumer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mat.jamr.schedulingworker.dto.ScheduledEventDto;
+import com.mat.jamr.schedulingworker.service.PushNotificationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -21,6 +22,7 @@ public class DelayedNotificationConsumer {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final ObjectMapper objectMapper;
+    private final PushNotificationService pushNotificationService;
 
     @KafkaListener(topics = "delayed-notification-sender", groupId = "scheduling-worker-group")
     public void consumeDelayedNotification(String message) {
@@ -47,10 +49,14 @@ public class DelayedNotificationConsumer {
                         event.getId(), -delayMillis);
             }
 
+            // Send push notification to user
+            log.info("Sending push notification for event {}", event.getId());
+            pushNotificationService.sendEventReadyNotification(event);
+
             // Send to event-change-processing topic
             kafkaTemplate.send(EVENT_CHANGE_PROCESSING_TOPIC, event.getId(), message);
 
-            log.info("Sent event {} to {} topic after processing delay",
+            log.info("Sent event {} to {} topic and push notification sent",
                     event.getId(), EVENT_CHANGE_PROCESSING_TOPIC);
 
         } catch (InterruptedException e) {

@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -72,77 +74,85 @@ final apiBaseUrlProvider = Provider<String>((ref) {
 // Dio client for Stardew Valley API
 final dioClientProvider = Provider<Dio>((ref) {
   final baseUrl = ref.watch(apiBaseUrlProvider);
-  final dio = Dio(BaseOptions(
-    baseUrl: baseUrl,
-    connectTimeout: const Duration(seconds: 10),
-    receiveTimeout: const Duration(seconds: 10),
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
-  ));
+  final dio = Dio(
+    BaseOptions(
+      baseUrl: baseUrl,
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    ),
+  );
 
   // Add authentication interceptor
-  dio.interceptors.add(InterceptorsWrapper(
-    onRequest: (options, handler) async {
-      // Skip auth for login and refresh endpoints
-      if (options.path.contains('/auth/login') ||
-          options.path.contains('/auth/refresh') ||
-          options.path.contains('/auth/verify')) {
-        handler.next(options);
-        return;
-      }
-
-      // Get current auth state and add Authorization header if token exists
-      try {
-        final authState = ref.read(authProvider);
-        if (authState.accessToken != null) {
-          options.headers['Authorization'] = 'Bearer ${authState.accessToken}';
+  dio.interceptors.add(
+    InterceptorsWrapper(
+      onRequest: (options, handler) async {
+        // Skip auth for login and refresh endpoints
+        if (options.path.contains('/auth/login') ||
+            options.path.contains('/auth/refresh') ||
+            options.path.contains('/auth/verify')) {
+          handler.next(options);
+          return;
         }
-      } catch (e) {
-        // Auth provider might not be initialized yet, continue without token
-        debugPrint('Auth not available: $e');
-      }
-      handler.next(options);
-    },
-    onError: (error, handler) async {
-      // If 401 error, try to refresh token
-      if (error.response?.statusCode == 401) {
-        try {
-          await ref.read(authProvider.notifier).refreshAccessToken();
 
-          // Retry the request with new token
-          final options = error.requestOptions;
+        // Get current auth state and add Authorization header if token exists
+        try {
           final authState = ref.read(authProvider);
           if (authState.accessToken != null) {
-            options.headers['Authorization'] = 'Bearer ${authState.accessToken}';
+            options.headers['Authorization'] =
+                'Bearer ${authState.accessToken}';
           }
-
-          final response = await dio.fetch(options);
-          handler.resolve(response);
-          return;
         } catch (e) {
-          // If refresh fails, pass the error
-          debugPrint('Token refresh failed: $e');
-          handler.next(error);
-          return;
+          // Auth provider might not be initialized yet, continue without token
+          debugPrint('Auth not available: $e');
         }
-      }
-      handler.next(error);
-    },
-  ));
+        handler.next(options);
+      },
+      onError: (error, handler) async {
+        // If 401 error, try to refresh token
+        if (error.response?.statusCode == 401) {
+          try {
+            await ref.read(authProvider.notifier).refreshAccessToken();
+
+            // Retry the request with new token
+            final options = error.requestOptions;
+            final authState = ref.read(authProvider);
+            if (authState.accessToken != null) {
+              options.headers['Authorization'] =
+                  'Bearer ${authState.accessToken}';
+            }
+
+            final response = await dio.fetch(options);
+            handler.resolve(response);
+            return;
+          } catch (e) {
+            // If refresh fails, pass the error
+            debugPrint('Token refresh failed: $e');
+            handler.next(error);
+            return;
+          }
+        }
+        handler.next(error);
+      },
+    ),
+  );
 
   // Add logging interceptor in debug mode
   if (kDebugMode) {
-    dio.interceptors.add(LogInterceptor(
-      request: true,
-      requestHeader: true,
-      requestBody: true,
-      responseHeader: false,
-      responseBody: true,
-      error: true,
-      logPrint: (obj) => debugPrint(obj.toString()),
-    ));
+    dio.interceptors.add(
+      LogInterceptor(
+        request: true,
+        requestHeader: true,
+        requestBody: true,
+        responseHeader: false,
+        responseBody: true,
+        error: true,
+        logPrint: (obj) => debugPrint(obj.toString()),
+      ),
+    );
   }
 
   return dio;
@@ -157,27 +167,31 @@ final stardewApiProvider = Provider<StardewValleyApi>((ref) {
 // Separate Dio client for SecurityAPI to avoid circular dependency
 final securityDioProvider = Provider<Dio>((ref) {
   final baseUrl = ref.watch(apiBaseUrlProvider);
-  final dio = Dio(BaseOptions(
-    baseUrl: baseUrl,
-    connectTimeout: const Duration(seconds: 10),
-    receiveTimeout: const Duration(seconds: 10),
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
-  ));
+  final dio = Dio(
+    BaseOptions(
+      baseUrl: baseUrl,
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    ),
+  );
 
   // Add logging interceptor in debug mode
   if (kDebugMode) {
-    dio.interceptors.add(LogInterceptor(
-      request: true,
-      requestHeader: true,
-      requestBody: true,
-      responseHeader: false,
-      responseBody: true,
-      error: true,
-      logPrint: (obj) => debugPrint(obj.toString()),
-    ));
+    dio.interceptors.add(
+      LogInterceptor(
+        request: true,
+        requestHeader: true,
+        requestBody: true,
+        responseHeader: false,
+        responseBody: true,
+        error: true,
+        logPrint: (obj) => debugPrint(obj.toString()),
+      ),
+    );
   }
 
   return dio;
@@ -327,18 +341,45 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
 
   // Login with email and password
-  Future<void> login({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> login({required String email, required String password}) async {
     try {
-      final request = LoginUserRequest((b) => b
-        ..email = email
-        ..password = password);
+      // Get Firebase device token
+      String? token;
+      try {
+        await Firebase.initializeApp();
+        await Future.delayed(Duration(seconds: 1));
+        token = await FirebaseMessaging.instance.getToken();
+        debugPrint('=== FCM TOKEN RETRIEVED ===');
+        debugPrint('Token: $token');
+        debugPrint('Token is null: ${token == null}');
+        debugPrint('Token length: ${token?.length ?? 0}');
+        debugPrint('===========================');
+      } catch (e) {
+        debugPrint('Failed to get FCM token: $e');
+      }
 
-      final response = await _securityApi.loginUser(
-        loginUserRequest: request,
-      );
+      final request = LoginUserRequest((b) {
+        b.email = email;
+        b.password = password;
+        if (token != null && token.isNotEmpty) {
+          b.deviceToken = token;
+          debugPrint(
+            'Setting deviceToken in request: ${token.substring(0, 20)}...',
+          );
+        } else {
+          debugPrint('WARNING: No device token to set');
+        }
+      });
+
+      debugPrint('Sending login request for email: $email');
+      debugPrint('Request has deviceToken: ${request.deviceToken != null}');
+      if (request.deviceToken != null) {
+        debugPrint(
+          'Request deviceToken value: ${request.deviceToken!.substring(0, 20)}...',
+        );
+      }
+
+      final response = await _securityApi.loginUser(loginUserRequest: request);
 
       if (response.data != null) {
         final accessToken = response.data!.accessToken;
@@ -373,8 +414,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
         throw Exception('No refresh token available');
       }
 
-      final request = RefreshTokenRequest((b) => b
-        ..refreshToken = currentRefreshToken);
+      final request = RefreshTokenRequest(
+        (b) => b..refreshToken = currentRefreshToken,
+      );
 
       final response = await _securityApi.refreshToken(
         refreshTokenRequest: request,
@@ -411,8 +453,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       final accessToken = state.accessToken;
       if (accessToken == null) return false;
 
-      final request = VerifyUserRequest((b) => b
-        ..accessToken = accessToken);
+      final request = VerifyUserRequest((b) => b..accessToken = accessToken);
 
       final response = await _securityApi.verifyUser(
         verifyUserRequest: request,

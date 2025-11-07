@@ -1,5 +1,6 @@
 package com.mat.jamr.gameservice.service.islands.generatecollectables;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mat.jamr.gameservice.api.GenerateCollectablesResponse;
 import com.mat.jamr.gameservice.api.db.Island;
 import com.mat.jamr.gameservice.context.GenerateCollectablesContext;
@@ -7,6 +8,7 @@ import com.mat.jamr.gameservice.service.islands.generatecollectables.consumers.*
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.core.KafkaTemplate;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 
 import java.util.function.Consumer;
@@ -17,6 +19,8 @@ import java.util.function.Function;
 public class GenerateCollectablesBeanConfig {
 
     private final DynamoDbTable<Island> islandTable;
+    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final ObjectMapper objectMapper;
 
     @Bean
     public Function<GenerateCollectablesContext, GenerateCollectablesResponse> generateCollectablesStrategyBasedFlow(
@@ -41,6 +45,11 @@ public class GenerateCollectablesBeanConfig {
     @Bean
     public Consumer<GenerateCollectablesContext> generateCollectables() {
         return new GenerateCollectablesConsumer();
+    }
+
+    @Bean
+    public Consumer<GenerateCollectablesContext> createEventsForCollectables() {
+        return new CreateEventsForCollectablesConsumer(kafkaTemplate, objectMapper);
     }
 
     @Bean

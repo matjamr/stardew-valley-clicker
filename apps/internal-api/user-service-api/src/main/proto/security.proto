@@ -13,6 +13,7 @@ service SecurityService {
 message LoginUserRequest {
   string email = 1;
   string password = 2;
+  string deviceToken = 3;
 }
 
 message LoginUserResponse {

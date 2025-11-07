@@ -15,4 +15,6 @@ public class ScheduledEventDto {
     private String assetId;
     private String status;
     private String userId;
+    private String type;
+    private String resourceId;
 }

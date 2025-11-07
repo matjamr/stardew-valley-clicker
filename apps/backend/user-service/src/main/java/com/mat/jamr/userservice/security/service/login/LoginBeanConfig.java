@@ -23,12 +23,14 @@ public class LoginBeanConfig {
     public Function<LoginSecurityContext, LoginUserResponse> loginUserStrategyBasedFlow(
             Consumer<LoginSecurityContext> userByEmailFetchingConsumer,
             Consumer<LoginSecurityContext> passwordValidationConsumer,
+            Consumer<LoginSecurityContext> deviceTokenUpdateConsumer,
             Consumer<LoginSecurityContext> loginUserTokenGenerator,
             Consumer<LoginSecurityContext> loginUserResponseMapper
     ) {
         return new StrategyBasedConsumer<>(List.of(
                 userByEmailFetchingConsumer,
                 passwordValidationConsumer,
+                deviceTokenUpdateConsumer,
                 loginUserTokenGenerator,
                 loginUserResponseMapper
         ),
@@ -56,6 +58,13 @@ public class LoginBeanConfig {
             final JwtService refreshTokenService
     ) {
         return new TokenGenerator<>(accessTokenService, refreshTokenService);
+    }
+
+    @Bean
+    public Consumer<LoginSecurityContext> deviceTokenUpdateConsumer(
+            final DynamoDbTable<User> userTable
+    ) {
+        return new DeviceTokenUpdateConsumer(userTable);
     }
 
     @Bean

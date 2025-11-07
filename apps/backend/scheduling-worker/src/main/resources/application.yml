@@ -3,3 +3,16 @@ spring:
     name: scheduling-worker
   kafka:
     bootstrap-servers: localhost:9092
+
+# Firebase Configuration
+firebase:
+  credentials:
+    path: "classpath:/credentials.json"
+
+# AWS DynamoDB Configuration
+aws:
+  dynamodb:
+    endpoint: ${DYNAMODB_ENDPOINT:http://localhost:8000}
+    region: ${AWS_REGION:us-east-1}
+    accessKey: ${DYNAMODB_ACCESS_KEY:test}
+    secretKey: ${DYNAMODB_SECRET_KEY:test}

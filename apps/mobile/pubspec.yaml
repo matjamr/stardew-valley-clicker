@@ -46,6 +46,7 @@ dependencies:
   stardew_valley_api:
     path: api/stardew_valley_api
   firebase_core: ^4.2.0
+  firebase_messaging: ^16.0.3
 
 dev_dependencies:
   openapi_generator: 6.1.0

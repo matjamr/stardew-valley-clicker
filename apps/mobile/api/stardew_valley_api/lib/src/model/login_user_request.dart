@@ -13,6 +13,7 @@ part 'login_user_request.g.dart';
 /// Properties:
 /// * [email]
 /// * [password]
+/// * [deviceToken] - Firebase Cloud Messaging device token for push notifications
 @BuiltValue()
 abstract class LoginUserRequest
     implements Built<LoginUserRequest, LoginUserRequestBuilder> {
@@ -21,6 +22,10 @@ abstract class LoginUserRequest
 
   @BuiltValueField(wireName: r'password')
   String get password;
+
+  /// Firebase Cloud Messaging device token for push notifications
+  @BuiltValueField(wireName: r'deviceToken')
+  String? get deviceToken;
 
   LoginUserRequest._();
 
@@ -58,6 +63,13 @@ class _$LoginUserRequestSerializer
       object.password,
       specifiedType: const FullType(String),
     );
+    if (object.deviceToken != null) {
+      yield r'deviceToken';
+      yield serializers.serialize(
+        object.deviceToken,
+        specifiedType: const FullType(String),
+      );
+    }
   }
 
   @override
@@ -96,6 +108,13 @@ class _$LoginUserRequestSerializer
             specifiedType: const FullType(String),
           ) as String;
           result.password = valueDes;
+          break;
+        case r'deviceToken':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.deviceToken = valueDes;
           break;
         default:
           unhandled.add(key);

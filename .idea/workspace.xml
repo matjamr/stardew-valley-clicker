@@ -4,20 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="635becb2-690f-4978-8c96-999695fb46c7" name="Changes" comment="working e2e fully for events">
+    <list default="true" id="635becb2-690f-4978-8c96-999695fb46c7" name="Changes" comment="e2e login and register">
+      <change afterPath="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/resources/credentials.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/mobile/ios/Runner/Runner.entitlements" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/user/UserServiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/user/UserServiceController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/user/login/LoginUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/user/login/LoginUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/user-service/src/main/java/com/mat/jamr/userservice/api/SecuredUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/user-service/src/main/java/com/mat/jamr/userservice/api/SecuredUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/user/refresh/RefreshTokenMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/user/refresh/RefreshTokenMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/islands/generatecollectables/GenerateCollectablesBeanConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/islands/generatecollectables/GenerateCollectablesBeanConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/scheduling-worker/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/scheduling-worker/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/java/com/mat/jamr/schedulingworker/consumer/DelayedNotificationConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/java/com/mat/jamr/schedulingworker/consumer/DelayedNotificationConsumer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/java/com/mat/jamr/schedulingworker/dto/ScheduledEventDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/java/com/mat/jamr/schedulingworker/dto/ScheduledEventDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/backend/user-service/src/main/java/com/mat/jamr/userservice/api/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/user-service/src/main/java/com/mat/jamr/userservice/api/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/user-service/src/main/java/com/mat/jamr/userservice/security/config/SecurityBeanConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/user-service/src/main/java/com/mat/jamr/userservice/security/config/SecurityBeanConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/backend/user-service/src/main/java/com/mat/jamr/userservice/security/service/login/LoginBeanConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/user-service/src/main/java/com/mat/jamr/userservice/security/service/login/LoginBeanConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/user-service/src/main/java/com/mat/jamr/userservice/user/create/CreateUserBeanConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/user-service/src/main/java/com/mat/jamr/userservice/user/create/CreateUserBeanConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend/user-service/src/main/java/com/mat/jamr/userservice/user/create/mapper/UserCreateRequestMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/user-service/src/main/java/com/mat/jamr/userservice/user/create/mapper/UserCreateRequestMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/external-api/src/main/resources/schema.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/external-api/src/main/resources/schema.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/internal-api/user-service-api/src/main/proto/security.proto" beforeDir="false" afterPath="$PROJECT_DIR$/apps/internal-api/user-service-api/src/main/proto/security.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/internal-api/user-service-api/src/main/proto/user.proto" beforeDir="false" afterPath="$PROJECT_DIR$/apps/internal-api/user-service-api/src/main/proto/user.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/.openapi-generator/FILES" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/.openapi-generator/FILES" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/doc/LoginUserRequest.md" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/doc/LoginUserRequest.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/doc/SaveUserRequest.md" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/doc/SaveUserRequest.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/login_user_request.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/login_user_request.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/login_user_request.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/login_user_request.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/save_user_request.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/save_user_request.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/save_user_request.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/api/stardew_valley_api/lib/src/model/save_user_request.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/assets/openapi/schema.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/assets/openapi/schema.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Podfile" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/ios/Podfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/ios/Runner.xcworkspace/contents.xcworkspacedata" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Runner/Base.lproj/Main.storyboard" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/ios/Runner/Base.lproj/Main.storyboard" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/ios/Runner/Info.plist" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/mobile/lib/api/openapi_generator_config.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/api/openapi_generator_config.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/mobile/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/mobile/lib/state/app_providers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/mobile/lib/state/app_providers.dart" afterDir="false" />
@@ -60,9 +74,6 @@
     &quot;accountId&quot;: &quot;09b59a6f-0ead-4a20-9cbb-ba698d97b611&quot;
   }
 }</component>
-  <component name="HttpClientEndpointsTabState">
-    <option name="cachedRequestData" value="&lt;CachedHttpClientTabRequests&gt;&#10;  &lt;entry key=&quot;820e738e100ebe44debb4c00ec3f0375f3dcaea0&quot; value=&quot;###&amp;#10;POST http://localhost:8080/api/events&amp;#10;Content-Type: application/json&amp;#10;&amp;#10;{&amp;#10;  &amp;quot;islandId&amp;quot;: &amp;quot;21312&amp;quot;,&amp;#10;  &amp;quot;userId&amp;quot;: &amp;quot;2132&amp;quot;,&amp;#10;  &amp;quot;resourceId&amp;quot;: &amp;quot;1231&amp;quot;,&amp;#10;  &amp;quot;type&amp;quot;: &amp;quot;UNKNOWN_TYPE&amp;quot;&amp;#10;}&quot; /&gt;&#10;&lt;/CachedHttpClientTabRequests&gt;" />
-  </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -129,7 +140,7 @@
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "master",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/Users/bober2137/dev/stardew-valley-clicker",
+    "last_opened_file_path": "/Users/bober2137/dev/stardew-valley-clicker/apps/backend/scheduling-worker/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -156,11 +167,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/resources" />
+      <recent name="$PROJECT_DIR$/apps/backend/scheduling-worker/src/main" />
+      <recent name="$PROJECT_DIR$/apps/backend/user-service/src/main/resources" />
       <recent name="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/islands/create" />
       <recent name="$PROJECT_DIR$/apps/backend/game-service/src/main/java/com/mat/jamr/gameservice/service/assets/read" />
-      <recent name="$PROJECT_DIR$/apps/internal-api" />
-      <recent name="$PROJECT_DIR$/apps/backend" />
-      <recent name="$PROJECT_DIR$/apps/external-api" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/apps/mobile/assets" />
@@ -202,7 +213,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ApiGatewayApplication">
+  <component name="RunManager" selected="Spring Boot.SchedulingWorkerApplication (1)">
     <configuration default="true" type="Application" factoryName="Application">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -275,8 +286,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.GameServiceApplication" />
         <item itemvalue="Spring Boot.SchedulingWorkerApplication (1)" />
+        <item itemvalue="Spring Boot.GameServiceApplication" />
         <item itemvalue="Java Scratch.Scratch" />
         <item itemvalue="HTTP Request.generated-requests | #2" />
       </list>
@@ -319,7 +330,7 @@
       <workItem from="1760812880509" duration="20878000" />
       <workItem from="1761335965643" duration="5331000" />
       <workItem from="1761473546262" duration="4601000" />
-      <workItem from="1761764369622" duration="46170000" />
+      <workItem from="1761764369622" duration="54440000" />
     </task>
     <task id="LOCAL-00001" summary="Initialize project structure with key backend, frontend, and mobile app components. Added Maven configurations, gRPC setup, and initial service implementation.">
       <option name="closed" value="true" />
@@ -465,7 +476,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761950479161</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="e2e login and register">
+      <option name="closed" value="true" />
+      <created>1762206456941</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1762206456941</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -491,7 +510,8 @@
     <MESSAGE value="Implement further changes" />
     <MESSAGE value="Slowly beginning e2e" />
     <MESSAGE value="working e2e fully for events" />
-    <option name="LAST_COMMIT_MESSAGE" value="working e2e fully for events" />
+    <MESSAGE value="e2e login and register" />
+    <option name="LAST_COMMIT_MESSAGE" value="e2e login and register" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -555,6 +575,16 @@
           <url>file://$PROJECT_DIR$/apps/backend/api-gateway/target/generated-sources/annotations/com/mat/jamr/apigateway/service/game/mapper/IslandApiMapperImpl.java</url>
           <line>586</line>
           <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/apps/backend/api-gateway/src/main/java/com/mat/jamr/apigateway/service/user/SecurityController.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/apps/backend/user-service/src/main/java/com/mat/jamr/userservice/security/service/login/DeviceTokenUpdateConsumer.java</url>
+          <line>21</line>
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-field">
           <url>file://$PROJECT_DIR$/apps/backend/scheduling-worker/src/main/java/com/mat/jamr/schedulingworker/config/ScheduledEventStreamConfig.java</url>

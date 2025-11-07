@@ -11,12 +11,15 @@ class _$LoginUserRequest extends LoginUserRequest {
   final String email;
   @override
   final String password;
+  @override
+  final String? deviceToken;
 
   factory _$LoginUserRequest(
           [void Function(LoginUserRequestBuilder)? updates]) =>
       (LoginUserRequestBuilder()..update(updates))._build();
 
-  _$LoginUserRequest._({required this.email, required this.password})
+  _$LoginUserRequest._(
+      {required this.email, required this.password, this.deviceToken})
       : super._();
   @override
   LoginUserRequest rebuild(void Function(LoginUserRequestBuilder) updates) =>
@@ -31,7 +34,8 @@ class _$LoginUserRequest extends LoginUserRequest {
     if (identical(other, this)) return true;
     return other is LoginUserRequest &&
         email == other.email &&
-        password == other.password;
+        password == other.password &&
+        deviceToken == other.deviceToken;
   }
 
   @override
@@ -39,6 +43,7 @@ class _$LoginUserRequest extends LoginUserRequest {
     var _$hash = 0;
     _$hash = $jc(_$hash, email.hashCode);
     _$hash = $jc(_$hash, password.hashCode);
+    _$hash = $jc(_$hash, deviceToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -47,7 +52,8 @@ class _$LoginUserRequest extends LoginUserRequest {
   String toString() {
     return (newBuiltValueToStringHelper(r'LoginUserRequest')
           ..add('email', email)
-          ..add('password', password))
+          ..add('password', password)
+          ..add('deviceToken', deviceToken))
         .toString();
   }
 }
@@ -64,6 +70,10 @@ class LoginUserRequestBuilder
   String? get password => _$this._password;
   set password(String? password) => _$this._password = password;
 
+  String? _deviceToken;
+  String? get deviceToken => _$this._deviceToken;
+  set deviceToken(String? deviceToken) => _$this._deviceToken = deviceToken;
+
   LoginUserRequestBuilder() {
     LoginUserRequest._defaults(this);
   }
@@ -73,6 +83,7 @@ class LoginUserRequestBuilder
     if ($v != null) {
       _email = $v.email;
       _password = $v.password;
+      _deviceToken = $v.deviceToken;
       _$v = null;
     }
     return this;
@@ -98,6 +109,7 @@ class LoginUserRequestBuilder
               email, r'LoginUserRequest', 'email'),
           password: BuiltValueNullFieldError.checkNotNull(
               password, r'LoginUserRequest', 'password'),
+          deviceToken: deviceToken,
         );
     replace(_$result);
     return _$result;

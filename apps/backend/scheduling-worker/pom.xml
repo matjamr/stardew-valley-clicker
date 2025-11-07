@@ -113,8 +113,32 @@
         </dependency>
         <dependency>
             <groupId>com.mat.jamr</groupId>
+            <artifactId>user-service-api</artifactId>
+            <version>0.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mat.jamr</groupId>
             <artifactId>common-utils</artifactId>
             <version>${common-utils.version}</version>
+        </dependency>
+
+        <!-- Firebase Admin SDK for push notifications -->
+        <dependency>
+            <groupId>com.google.firebase</groupId>
+            <artifactId>firebase-admin</artifactId>
+            <version>9.4.2</version>
+        </dependency>
+
+        <!-- AWS DynamoDB for user data -->
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>dynamodb-enhanced</artifactId>
+            <version>2.29.38</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>dynamodb</artifactId>
+            <version>2.29.38</version>
         </dependency>
 
         <!-- Observability -->
